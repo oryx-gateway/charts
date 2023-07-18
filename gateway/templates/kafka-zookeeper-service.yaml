@@ -1,0 +1,18 @@
+{{- if .Values.kafka.zookeeper.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  ports:
+    - port: 2181
+      name: client
+  selector:
+    app: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+    release: {{ .Release.Name }}
+{{- end }}

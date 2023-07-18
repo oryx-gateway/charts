@@ -1,0 +1,222 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 3f61db2c-250b-4344-8a6d-def32325edf8
+      schemaName: geographicaddress
+      schema: |
+        {
+          "$id": "https://example.com/schemas/GeographicAddress",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "GeographicAddress",
+          "description": "Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).\nNote : Address corresponds to SID UrbanPropertyAddress",
+          "type": "object",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "description": "unique identifier (UUID)",
+              "type": "string",
+              "format": "uuid",
+              "readOnly": true,
+              "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+            },
+            "href": {
+              "description": "Hyperlink reference",
+              "type": "string",
+              "readOnly": true,
+              "format": "uri"
+            },
+            "city": {
+              "type": "string",
+              "description": "City that the address is in"
+            },
+            "country": {
+              "type": "string",
+              "description": "Country that the address is in"
+            },
+            "locality": {
+              "type": "string",
+              "description": "An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET], or a suburb, a bounded locality within a city, town or shire principally of urban character [ANZLICSTREET]"
+            },
+            "name": {
+              "type": "string",
+              "description": "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]"
+            },
+            "postcode": {
+              "type": "string",
+              "description": "descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode)"
+            },
+            "stateOrProvince": {
+              "type": "string",
+              "description": "the State or Province that the address is in"
+            },
+            "streetName": {
+              "type": "string",
+              "description": "Name of the street or other street type"
+            },
+            "streetNr": {
+              "type": "string",
+              "description": "Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses"
+            },
+            "streetNrLast": {
+              "type": "string",
+              "description": "Last number in a range of street numbers allocated to a property"
+            },
+            "streetNrLastSuffix": {
+              "type": "string",
+              "description": "Last street number suffix for a ranged address"
+            },
+            "streetNrSuffix": {
+              "type": "string",
+              "description": "the first street number suffix"
+            },
+            "streetSuffix": {
+              "type": "string",
+              "description": "A modifier denoting a relative direction"
+            },
+            "streetType": {
+              "type": "string",
+              "description": "alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf "
+            },
+            "geographicLocation": {
+              "$ref": "#/definitions/GeographicLocationRefOrValue"
+            },
+            "geographicSubAddress": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeographicSubAddress"
+              }
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "GeographicLocationRefOrValue": {
+              "description": "A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of Point (addresses and locations), MultiPoint, LineString (streets, highways and boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the @type attribute to specify which of these is being specified by the geometry attribute.",
+              "type": "object",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "description": "unique identifier (UUID)",
+                  "type": "string",
+                  "format": "uuid",
+                  "readOnly": true,
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "readOnly": true,
+                  "format": "uri"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]"
+                },
+                "bbox": {
+                  "type": "array",
+                  "description": "A bounding box array that contains the geometry. The axes order follows the axes order of the geometry",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "GeographicSubAddress": {
+              "description": "Representation of a GeographicSubAddress \nIt is used for addressing within a property in an urban area (country properties are often defined differently). It may refer to a building, a building cluster, or a floor of a multistory building.",
+              "type": "object",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "description": "unique identifier (UUID)",
+                  "type": "string",
+                  "format": "uuid",
+                  "readOnly": true,
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "readOnly": true,
+                  "format": "uri"
+                },
+                "buildingName": {
+                  "type": "string",
+                  "description": "allows for buildings that have well-known names"
+                },
+                "levelNumber": {
+                  "type": "string",
+                  "description": "used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2"
+                },
+                "levelType": {
+                  "type": "string",
+                  "description": "describes level types within a building"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the subAddress to identify it with a meaningful identification"
+                },
+                "privateStreetName": {
+                  "type": "string",
+                  "description": "private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office."
+                },
+                "privateStreetNumber": {
+                  "type": "string",
+                  "description": "private streets numbers internal to a private street"
+                },
+                "subAddressType": {
+                  "type": "string",
+                  "description": "Type of subAddress : it can be a subunit or a private street"
+                },
+                "subUnitNumber": {
+                  "type": "string",
+                  "description": "the discriminator used for the subunit\noften just a simple number e.g. FLAT 5, may also be a range"
+                },
+                "subUnitType": {
+                  "type": "string",
+                  "description": "the type of subunit\ne.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            }
+          }
+        }

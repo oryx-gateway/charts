@@ -1,0 +1,1380 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 2aa44cd8-b70a-463e-bf55-3fed459954ad
+      schemaName: individual
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/Individual",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "Individual",
+          "type": "object",
+          "description": "Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about.",
+          "required": ["familyName", "givenName", "@type"],
+          "properties": {
+            "id": {
+              "description": "unique identifier (UUID)",
+              "type": "string",
+              "format": "uuid",
+              "readOnly": true,
+              "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+            },
+            "href": {
+              "description": "Hyperlink reference",
+              "type": "string",
+              "readOnly": true,
+              "format": "uri"
+            },
+            "aristocraticTitle": {
+              "type": "string",
+              "description": "e.g. Baron, Graf, Earl,\u2026"
+            },
+            "birthDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Birth date"
+            },
+            "countryOfBirth": {
+              "type": "string",
+              "description": "Country where the individual was born"
+            },
+            "deathDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date of death"
+            },
+            "familyName": {
+              "type": "string",
+              "description": "Contains the non-chosen or inherited name. Also known as last name in the Western context"
+            },
+            "familyNamePrefix": {
+              "type": "string",
+              "description": "Family name prefix"
+            },
+            "formattedName": {
+              "type": "string",
+              "description": "A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,\u2026)"
+            },
+            "fullName": {
+              "type": "string",
+              "description": "Full name flatten (first, middle, and last names)"
+            },
+            "gender": {
+              "type": "string",
+              "description": "Gender"
+            },
+            "generation": {
+              "type": "string",
+              "description": "e.g.. Sr, Jr, III (the third),\u2026"
+            },
+            "givenName": {
+              "type": "string",
+              "description": "First name of the individual"
+            },
+            "legalName": {
+              "type": "string",
+              "description": "Legal name or birth name (name one has for official purposes)"
+            },
+            "location": {
+              "type": "string",
+              "description": "Temporary current location od the individual (may be used if the individual has approved its sharing)"
+            },
+            "maritalStatus": {
+              "type": "string",
+              "description": "Marital status (married, divorced, widow ...)"
+            },
+            "middleName": {
+              "type": "string",
+              "description": "Middles name or initial"
+            },
+            "nationality": {
+              "type": "string",
+              "description": "Nationality"
+            },
+            "placeOfBirth": {
+              "type": "string",
+              "description": "Reference to the place where the individual was born"
+            },
+            "preferredGivenName": {
+              "type": "string",
+              "description": "Contains the chosen name by which the individual prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname"
+            },
+            "title": {
+              "type": "string",
+              "description": "Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ..."
+            },
+            "disability": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Disability"
+              }
+            },
+            "individualIdentification": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IndividualIdentification"
+              }
+            },
+            "languageAbility": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LanguageAbility"
+              }
+            },
+            "otherName": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OtherNameIndividual"
+              }
+            },
+            "skill": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Skill"
+              }
+            },
+            "status": {
+              "$ref": "#/definitions/IndividualStateType",
+              "description": "Status of the individual"
+            },
+            "contactMedium": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactMedium"
+              }
+            },
+            "creditRating": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PartyCreditProfile"
+              }
+            },
+            "externalReference": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExternalReference"
+              }
+            },
+            "partyCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "taxExemptionCertificate": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaxExemptionCertificate"
+              }
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "Versionable": {
+              "description": "Base schema for versionable entities",
+              "type": "object",
+              "properties": {
+                "version": {
+                  "description": "The version of the entity",
+                  "type": "string",
+                  "readOnly": true
+                }
+              }
+            },
+            "EntityRef": {
+              "description": "Entity reference schema to be use for all entityRef class.",
+              "type": "object",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "Attachment": {
+              "type": "object",
+              "description": "Complements the description of an element (for instance a product) through video, pictures...",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "description": "unique identifier (UUID)",
+                  "type": "string",
+                  "format": "uuid",
+                  "readOnly": true,
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "readOnly": true,
+                  "format": "uri"
+                },
+                "attachmentType": {
+                  "type": "string",
+                  "description": "Attachment type such as video, picture"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "The actual contents of the attachment object, if embedded, encoded as base64"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A narrative text describing the content of the attachment"
+                },
+                "mimeType": {
+                  "type": "string",
+                  "description": "Attachment mime type such as extension file for video, picture and document"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the attachment"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
+                },
+                "size": {
+                  "$ref": "#/definitions/Quantity",
+                  "description": "The size of the attachment."
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period of time for which the attachment is valid"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "AttachmentRef": {
+              "type": "object",
+              "description": "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A narrative text describing the content of the attachment"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Link to the attachment media/content"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "AttachmentRefOrValue": {
+              "type": "object",
+              "description": "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "description": "unique identifier (UUID)",
+                  "type": "string",
+                  "format": "uuid",
+                  "readOnly": true,
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "readOnly": true,
+                  "format": "uri"
+                },
+                "attachmentType": {
+                  "type": "string",
+                  "description": "Attachment type such as video, picture"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "The actual contents of the attachment object, if embedded, encoded as base64"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A narrative text describing the content of the attachment"
+                },
+                "mimeType": {
+                  "type": "string",
+                  "description": "Attachment mime type such as extension file for video, picture and document"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the attachment"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Uniform Resource Locator, is a web page address (a subset of URI)"
+                },
+                "size": {
+                  "$ref": "#/definitions/Quantity",
+                  "description": "The size of the attachment."
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period of time for which the attachment is valid"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Characteristic": {
+              "type": "object",
+              "description": "Describes a given characteristic of an object or entity through a name/value pair.",
+              "required": ["name", "value", "@type"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the characteristic"
+                },
+                "valueType": {
+                  "type": "string",
+                  "description": "Data type of the value of the characteristic"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The value of the characteristic"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Quantity": {
+              "description": "An amount in a given unit",
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "format": "float",
+                  "description": "Numeric value in a given unit",
+                  "default": 1,
+                  "type": "number"
+                },
+                "units": {
+                  "description": "Unit",
+                  "type": "string"
+                }
+              }
+            },
+            "Money": {
+              "type": "object",
+              "description": "A base / value business entity used to represent money",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "description": "Currency (ISO4217 norm uses 3 letters to define the currency)"
+                },
+                "value": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "A signed floating point number, the meaning of the sign is according to the context of\nthe API that uses this Data type"
+                }
+              }
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format",
+                  "example": "1985-04-12T23:20:50.52Z"
+                },
+                "startDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format",
+                  "example": "1985-04-12T23:20:50.52Z"
+                }
+              }
+            },
+            "RelatedParty": {
+              "type": "object",
+              "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Role played by the related party"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyOrPartyRole": {
+              "type": "object",
+              "description": "A Party or PartyRole reference.",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyRef": {
+              "description": "A Party reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyRoleRef": {
+              "description": "A PartyRole reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PlaceRef": {
+              "description": "A Place reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "ExternalReference": {
+              "type": "object",
+              "description": "External reference or reference in other system",
+              "required": ["@type"],
+              "properties": {
+                "externalReferenceType": {
+                  "type": "string",
+                  "description": "Type of the external reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "External reference name"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "ContactMedium": {
+              "type": "object",
+              "description": "Indicates the contact medium that could be used to contact the party.",
+              "required": ["@type"],
+              "properties": {
+                "mediumType": {
+                  "type": "string",
+                  "description": "Type of the contact medium, such as: email address, telephone number, postal address"
+                },
+                "preferred": {
+                  "type": "boolean",
+                  "description": "If true, indicates that is the preferred contact medium"
+                },
+                "characteristic": {
+                  "$ref": "#/definitions/MediumCharacteristic",
+                  "description": "Any additional characteristic(s) of this contact medium"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The time period that the contact medium is valid for"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Disability": {
+              "type": "object",
+              "description": "Lack or inadequate strength or ability.",
+              "required": ["@type"],
+              "properties": {
+                "disabilityCode": {
+                  "type": "string",
+                  "description": "Code of the disability"
+                },
+                "disabilityName": {
+                  "type": "string",
+                  "description": "Name of the disability"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "IndividualIdentification": {
+              "type": "object",
+              "description": "Represents our registration of information used as proof of identity by an individual (passport, national identity card, drivers license, social security number, birth certificate)",
+              "required": ["@type"],
+              "properties": {
+                "identificationId": {
+                  "type": "string",
+                  "description": "Identifier"
+                },
+                "identificationType": {
+                  "type": "string",
+                  "description": "Identification type (passport, national identity card, drivers license, social security number, birth certificate)"
+                },
+                "issuingAuthority": {
+                  "type": "string",
+                  "description": "Authority which has issued the identifier, such as: social security, town hall"
+                },
+                "issuingDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date at which the identifier was issued"
+                },
+                "attachment": {
+                  "$ref": "#/definitions/AttachmentRefOrValue"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period for which the identification information is valid."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "LanguageAbility": {
+              "type": "object",
+              "description": "Ability of an individual to understand or converse in a language.",
+              "required": ["@type"],
+              "properties": {
+                "isFavouriteLanguage": {
+                  "type": "boolean",
+                  "description": "A \u201ctrue\u201d value specifies whether the language is considered by the individual as his favourite one"
+                },
+                "languageCode": {
+                  "type": "string",
+                  "description": "Language code (RFC 5646)"
+                },
+                "languageName": {
+                  "type": "string",
+                  "description": "Language name"
+                },
+                "listeningProficiency": {
+                  "type": "string",
+                  "description": "Listening proficiency evaluated for this language"
+                },
+                "readingProficiency": {
+                  "type": "string",
+                  "description": "Reading proficiency evaluated for this language"
+                },
+                "speakingProficiency": {
+                  "type": "string",
+                  "description": "Speaking proficiency evaluated for this language"
+                },
+                "writingProficiency": {
+                  "type": "string",
+                  "description": "Writing proficiency evaluated for this language"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "MediumCharacteristic": {
+              "type": "object",
+              "description": "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)",
+              "required": ["@type"],
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "description": "The city"
+                },
+                "contactType": {
+                  "type": "string",
+                  "description": "The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation\u2026"
+                },
+                "country": {
+                  "type": "string",
+                  "description": "The country"
+                },
+                "emailAddress": {
+                  "type": "string",
+                  "description": "Full email address in standard format"
+                },
+                "faxNumber": {
+                  "type": "string",
+                  "description": "The fax number of the contact"
+                },
+                "phoneNumber": {
+                  "type": "string",
+                  "description": "The primary phone number of the contact"
+                },
+                "postCode": {
+                  "type": "string",
+                  "description": "Postcode"
+                },
+                "socialNetworkId": {
+                  "type": "string",
+                  "description": "Identifier as a member of a social network"
+                },
+                "stateOrProvince": {
+                  "type": "string",
+                  "description": "State or province"
+                },
+                "street1": {
+                  "type": "string",
+                  "description": "Describes the street"
+                },
+                "street2": {
+                  "type": "string",
+                  "description": "Complementary street description"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OrganizationChildRelationship": {
+              "type": "object",
+              "description": "Child references of an organization in a structure of organizations.",
+              "required": ["@type"],
+              "properties": {
+                "relationshipType": {
+                  "type": "string",
+                  "description": "Type of the relationship. Could be juridical, hierarchical, geographical, functional for example."
+                },
+                "organization": {
+                  "$ref": "#/definitions/OrganizationRef"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OrganizationIdentification": {
+              "type": "object",
+              "description": "Represents our registration of information used as proof of identity by an organization",
+              "required": ["@type"],
+              "properties": {
+                "identificationId": {
+                  "type": "string",
+                  "description": "Identifier"
+                },
+                "identificationType": {
+                  "type": "string",
+                  "description": "Type of identification information used to identify the company in a country or internationally"
+                },
+                "issuingAuthority": {
+                  "type": "string",
+                  "description": "Authority which has issued the identifier (chamber of commerce...)"
+                },
+                "issuingDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date at which the identifier was issued"
+                },
+                "attachment": {
+                  "$ref": "#/definitions/AttachmentRefOrValue"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period for which the identification information is valid."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OrganizationParentRelationship": {
+              "type": "object",
+              "description": "Parent references of an organization in a structure of organizations.",
+              "required": ["@type"],
+              "properties": {
+                "relationshipType": {
+                  "type": "string",
+                  "description": "Type of the relationship. Could be juridical, hierarchical, geographical, functional for example."
+                },
+                "organization": {
+                  "$ref": "#/definitions/OrganizationRef"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OrganizationRef": {
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OtherNameIndividual": {
+              "type": "object",
+              "description": "Keeps track of other names, for example the old name of a woman before marriage or an artist name.",
+              "required": ["@type"],
+              "properties": {
+                "aristocraticTitle": {
+                  "type": "string",
+                  "description": "e.g. Baron, Graf, Earl,\u2026"
+                },
+                "familyName": {
+                  "type": "string",
+                  "description": "Contains the non-chosen or inherited name. Also known as last name in the Western context"
+                },
+                "familyNamePrefix": {
+                  "type": "string",
+                  "description": "Family name prefix"
+                },
+                "formattedName": {
+                  "type": "string",
+                  "description": ". A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,\u2026)"
+                },
+                "fullName": {
+                  "type": "string",
+                  "description": "Full name flatten (first, middle, and last names)"
+                },
+                "generation": {
+                  "type": "string",
+                  "description": "e.g. Sr, Jr\u2026"
+                },
+                "givenName": {
+                  "type": "string",
+                  "description": "First name"
+                },
+                "legalName": {
+                  "type": "string",
+                  "description": "Legal name or birth name (name one has for official purposes)"
+                },
+                "middleName": {
+                  "type": "string",
+                  "description": "Middle name or initial"
+                },
+                "preferredGivenName": {
+                  "type": "string",
+                  "description": "Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Use for titles (aristrocatic, social, ...): Pr, Dr, Sir,...."
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "OtherNameOrganization": {
+              "type": "object",
+              "description": "Keeps track of other names, for example the old name of an organization.",
+              "required": ["@type"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Organization name (department name for example)"
+                },
+                "nameType": {
+                  "type": "string",
+                  "description": "Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh"
+                },
+                "tradingName": {
+                  "type": "string",
+                  "description": "The name that the organization trades under"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Party": {
+              "type": "object",
+              "description": "Generic Party structure used to define commonalities between sub concepts of Individual and Organization.",
+              "properties": {
+                "contactMedium": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ContactMedium"
+                  }
+                },
+                "creditRating": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/PartyCreditProfile"
+                  }
+                },
+                "externalReference": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ExternalReference"
+                  }
+                },
+                "partyCharacteristic": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Characteristic"
+                  }
+                },
+                "relatedParty": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RelatedParty"
+                  }
+                },
+                "taxExemptionCertificate": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TaxExemptionCertificate"
+                  }
+                }
+              }
+            },
+            "PartyCreditProfile": {
+              "type": "object",
+              "description": "An individual might be evaluated for its worthiness and this evaluation might be based on a credit rating given by a credit agency.",
+              "required": ["@type"],
+              "properties": {
+                "creditAgencyName": {
+                  "type": "string",
+                  "description": "Name of the credit agency giving the score"
+                },
+                "creditAgencyType": {
+                  "type": "string",
+                  "description": "Type of the credit agency giving the score"
+                },
+                "ratingReference": {
+                  "type": "string",
+                  "description": "Reference corresponding to the credit rating"
+                },
+                "ratingScore": {
+                  "type": "integer",
+                  "description": "A measure of a party\u2019s creditworthiness calculated on the basis of a combination of factors such as their income and credit history"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Skill": {
+              "type": "object",
+              "description": "Skills evaluated for an individual with a level and possibly with a limited validity when an obsolescence is defined (Ex: the first-aid certificate first level is limited to one year and an update training is required each year to keep the level).",
+              "required": ["@type"],
+              "properties": {
+                "comment": {
+                  "type": "string",
+                  "description": "A free text comment linked to the evaluation done"
+                },
+                "evaluatedLevel": {
+                  "type": "string",
+                  "description": "Level of expertise in a skill evaluated for an individual"
+                },
+                "skillCode": {
+                  "type": "string",
+                  "description": "Code of the skill"
+                },
+                "skillName": {
+                  "type": "string",
+                  "description": "Name of the skill such as Java language,\u2026"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "TaxDefinition": {
+              "type": "object",
+              "description": "Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. There are many different types of tax (Federal Tax levied by the US Government, State Tax levied by the State of California,\u2026).",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of the tax."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Tax name."
+                },
+                "taxType": {
+                  "type": "string",
+                  "description": "Type of  the tax."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "TaxExemptionCertificate": {
+              "type": "object",
+              "description": "A tax exemption certificate represents a tax exemption granted to a party (individual or organization) by a tax jurisdiction which may be a city, state, country,... An exemption has a certificate identifier (received from the jurisdiction that levied the tax) and a validity period. An exemption is per tax types and determines for each type of tax what portion of the tax is exempted (partial by percentage or complete) via the tax definition.",
+              "required": ["@type"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of the certificate of the tax exemption"
+                },
+                "attachment": {
+                  "$ref": "#/definitions/AttachmentRefOrValue"
+                },
+                "taxDefinition": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TaxDefinition"
+                  }
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "IndividualStateType": {
+              "type": "string",
+              "description": "Valid values for the lifecycle state of the individual",
+              "enum": ["initialized", "validated", "deceased"]
+            },
+            "OrganizationStateType": {
+              "type": "string",
+              "description": "Valid values for the lifecycle state of the organization",
+              "enum": ["initialized", "validated", "closed"]
+            }
+          }
+        }

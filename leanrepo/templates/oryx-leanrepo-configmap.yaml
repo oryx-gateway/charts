@@ -1,0 +1,20 @@
+{{- if .Values.oryx.leanrepo.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+data:
+  "{{ .Values.oryx.leanrepo.settings.schemaName }}.json": |
+{{ .Values.oryx.leanrepo.settings.schema | indent 4 }}
+
+{{- if .Values.oryx.leanrepo.settings.state }}
+  "{{ .Values.oryx.leanrepo.settings.schemaName }}.fsm.json": |
+{{ .Values.oryx.leanrepo.settings.state | indent 4 }}
+{{- end }}
+
+{{- end }}

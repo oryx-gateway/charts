@@ -1,0 +1,229 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: d0c24a74-0b12-4e41-b4c5-259c3b80d75f
+      schemaName: reourcecategory
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/ResourceCategory",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "ResourceCategory",
+          "type": "object",
+          "description": "",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the category"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hyperlink reference to the category"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the category"
+            },
+            "isRoot": {
+              "type": "boolean",
+              "description": "If true, this Boolean indicates that the category is a root of categories"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the last update"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "Used to indicate the current lifecycle status"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the category"
+            },
+            "parentId": {
+              "type": "string",
+              "description": "Unique identifier of the parent category"
+            },
+            "version": {
+              "type": "string",
+              "description": "Category version"
+            },
+            "category": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResourceCategoryRef"
+              },
+              "description": "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings."
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              },
+              "description": "List of parties involved in this category"
+            },
+            "resourceCandidate": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResourceCandidateRef"
+              },
+              "description": "List of resource candidates accessible via this category"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which the category is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "ResourceCategoryRef": {
+              "type": "object",
+              "description": "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of a related entity."
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Reference of the related entity."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Category version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "RelatedParty": {
+              "type": "object",
+              "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+              "required": ["@referredType", "id"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of a related entity."
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Reference of the related entity."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Role played by the related party"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              }
+            },
+            "ResourceCandidateRef": {
+              "type": "object",
+              "description": "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of a related entity."
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Reference of the related entity."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "the version of resource candidate"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end"
+                }
+              }
+            }
+          }
+        }

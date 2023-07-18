@@ -1,0 +1,55 @@
+global:
+  imagePullPolicy: "IfNotPresent"
+  imagePullSecrets: []
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+ingress:
+  enabled: false
+
+redis:
+  enabled: true
+  name: "redis"
+  image: "redis:7"
+  persistence:
+    enabled: false
+    size: 10Gi
+    storageClass: null
+  replicas: 1
+  updateStrategy: "RollingUpdate"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 200m
+      memory: 200Mi
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+oryx:
+  leanrepo:
+    enabled: true
+    name: "leanrepo"
+    image: cloud.canister.io:5000/oryxgateway/leanrepo:1.1.0
+    imagePullSecrets:
+      - "canister"
+    type: leanrepo
+    replicas: 1
+    updateStrategy: "RollingUpdate"
+    settings: {}
+    resources:
+      requests:
+        cpu: 200m
+        memory: 500Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}

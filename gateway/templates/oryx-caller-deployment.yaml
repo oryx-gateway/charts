@@ -1,0 +1,122 @@
+{{- if .Values.oryx.caller.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.oryx.caller.replicas }}
+  strategy:
+    type: {{ .Values.oryx.caller.updateStrategy | default "RollingUpdate" }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.caller.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.caller.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if .Values.oryx.caller.affinity }}
+{{ toYaml .Values.oryx.caller.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.caller.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.caller.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.caller.name }}
+          image: {{ .Values.oryx.caller.image }}
+          imagePullPolicy: {{ or .Values.oryx.caller.imagePullPolicy .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+{{ toYaml .Values.oryx.caller.resources | indent 12 }}
+          env:
+            - name: SCHEMAREGISTRY_URL
+              value: {{ .Values.oryx.caller.settings.schemaregistryUrl }}
+              {{- range $key, $value := .Values.oryx.caller.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          startupProbe:
+            failureThreshold: 15
+            periodSeconds: 10
+            httpGet:
+              path: /health
+              port: 8080
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8080
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Release.Name }}-gateway
+
+      {{- if .Values.oryx.caller.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.caller.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.caller.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.caller.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+
+{{- end }}

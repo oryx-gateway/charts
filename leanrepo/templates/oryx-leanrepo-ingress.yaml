@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /{{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}/
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+                port:
+                  number: 8080
+{{- end }}

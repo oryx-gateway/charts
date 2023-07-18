@@ -1,0 +1,50 @@
+apiVersion: oda.tmforum.org/v1beta1
+kind: component
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+spec:
+  type: {{ .Values.oryx.billing.type }}
+  version: "0.0.1"
+  description: "TMF688 Event Management API ODA-Component"
+  maintainers:
+    - name: Stanislav Oaserele
+      email: soaserele@gmail.com
+  owners:
+    - name: Stanislav Oaserele
+      email: soaserele@gmail.com
+  coreFunction:
+    dependentAPIs: [ ]
+    exposedAPIs:
+      - name: billing
+        apitype: openapi
+        specification: /{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/api-docs
+        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/swagger-ui/index.html
+        implementation: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+        path: /{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/
+        port: 8080
+  eventNotification:
+    publishedEvents: [ ]
+    subscribedEvents: 
+    - name: product
+      href: http://{{ .Release.Name }}-{{ .Values.oryx.billing.type }}:8080/{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/billing
+  management: 
+    exposedAPIs: []
+    dependentAPIs: []
+  security:
+    exposedAPIs: 
+      - name: partyrole
+        apitype: openapi
+        specification: https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json
+        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/swagger-ui/index.html
+        implementation: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+        path: /{{ .Release.Name }}-{{ .Values.oryx.billing.type }}/tmf-api/partyRoleManagement/v4
+        port: 8080
+    dependentAPIs: []
+    controllerRole: Admin
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT

@@ -1,0 +1,18 @@
+{{- if .Values.oryx.gateway.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+data:
+  "kafka.properties": |
+{{ .Values.oryx.gateway.settings.kafkaClientProperties | indent 4 }}
+  "schemaregistry.properties": |
+{{ .Values.oryx.gateway.settings.schemaregistryClientProperties | indent 4 }}
+  "ksqldb.properties": |
+{{ .Values.oryx.gateway.settings.ksqldbClientProperties | indent 4 }}
+{{- end }}

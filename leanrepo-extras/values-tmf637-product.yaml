@@ -1,0 +1,822 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 79c67044-a9e6-471f-b40c-8de03f5c99c4
+      schemaName: product
+      schema: |
+        {
+          "$id": "https://example.com/schemas/Product",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "Product",
+          "description": "A product offering procured by a customer or other interested party playing a party role. A product is realized as one or more service(s) and / or resource(s).",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "description": "unique identifier (UUID)",
+              "type": "string",
+              "format": "uuid",
+              "readOnly": true,
+              "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+            },
+            "href": {
+              "description": "Hyperlink reference",
+              "type": "string",
+              "readOnly": true,
+              "format": "uri"
+            },
+            "name": {
+              "description": "",
+              "type": "string"
+            },
+            "status": {
+              "description": "",
+              "type": "string"
+            },
+            "description": {
+              "description": "Is the description of the product. It could be copied from the description of the Product Offering.",
+              "type": "string"
+            },
+            "isBundle": {
+              "description": "If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.",
+              "type": "boolean"
+            },
+            "isCustomerVisible": {
+              "description": "If true, the product is visible by the customer.",
+              "type": "boolean"
+            },
+            "productOffering": {
+              "$ref": "#/definitions/ProductOfferingRef"
+            },
+            "productSpecification": {
+              "$ref": "#/definitions/ProductSpecificationRef"
+            },
+            "productSerialNumber": {
+              "description": "Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.",
+              "type": "string"
+            },
+            "orderDate": {
+              "format": "date-time",
+              "description": "Is the date when the product was ordered",
+              "type": "string"
+            },
+            "startDate": {
+              "format": "date-time",
+              "description": "Is the date from which the product starts",
+              "type": "string"
+            },
+            "terminationDate": {
+              "format": "date-time",
+              "description": "Is the date when the product was terminated",
+              "type": "string"
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceRef"
+              }
+            },
+            "productCharacteristic": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Characteristic"
+              }
+            },
+            "productPrice": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductPrice"
+              }
+            },
+            "productRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductRelationship"
+              }
+            },
+            "agreement": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AgreementItemRef"
+              }
+            },
+            "productOrderItem": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedOrderItem"
+              }
+            },
+            "productTerm": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductTerm"
+              }
+            },
+            "realizingResource": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResourceRef"
+              }
+            },
+            "realizingService": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceRef"
+              }
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              }
+            },
+            "billingAccount": {
+              "$ref": "#/definitions/BillingAccountRef"
+            },
+            "version": {
+              "description": "The version of the entity",
+              "type": "string",
+              "readOnly": true
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "Versionable": {
+              "description": "Base schema for versionable entities",
+              "type": "object",
+              "properties": {
+                "version": {
+                  "description": "The version of the entity",
+                  "type": "string",
+                  "readOnly": true
+                }
+              }
+            },
+            "EntityRef": {
+              "description": "Entity reference schema to be use for all entityRef class.",
+              "type": "object",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "Characteristic": {
+              "type": "object",
+              "description": "Describes a given characteristic of an object or entity through a name/value pair.",
+              "required": ["name", "value", "@type"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the characteristic"
+                },
+                "valueType": {
+                  "type": "string",
+                  "description": "Data type of the value of the characteristic"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The value of the characteristic"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "Quantity": {
+              "description": "An amount in a given unit",
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "format": "float",
+                  "description": "Numeric value in a given unit",
+                  "default": 1,
+                  "type": "number"
+                },
+                "units": {
+                  "description": "Unit",
+                  "type": "string"
+                }
+              }
+            },
+            "Money": {
+              "type": "object",
+              "description": "A base / value business entity used to represent money",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "description": "Currency (ISO4217 norm uses 3 letters to define the currency)"
+                },
+                "value": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "A signed floating point number, the meaning of the sign is according to the context of\nthe API that uses this Data type"
+                }
+              }
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETF-RFC-3339 format",
+                  "example": "1985-04-12T23:20:50.52Z"
+                },
+                "startDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETF-RFC-3339 format",
+                  "example": "1985-04-12T23:20:50.52Z"
+                }
+              }
+            },
+            "RelatedParty": {
+              "type": "object",
+              "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Role played by the related party"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyOrPartyRole": {
+              "type": "object",
+              "description": "A Party or PartyRole reference.",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyRef": {
+              "description": "A Party reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PartyRoleRef": {
+              "description": "A PartyRole reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "PlaceRef": {
+              "description": "A Place reference",
+              "type": "object",
+              "required": ["@type", "id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "ProductOfferingRef": {
+              "description": "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "ProductSpecificationRef": {
+              "description": "Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "ProductRef": {
+              "description": "Product reference. A product represents entities that have been purchased.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "BillingAccountRef": {
+              "description": "Product reference. A product represents entities that have been purchased.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "ServiceRef": {
+              "description": "Service reference for when service is used by other entities. A service represents intangible entities.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "ResourceRef": {
+              "description": "Resource reference for when resource is used by other entities. A resource represents tangible entities.",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                }
+              }
+            },
+            "AgreementItemRef": {
+              "description": "Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.",
+              "type": "object",
+              "required": ["id", "href"],
+              "properties": {
+                "id": {
+                  "description": "Identifier of the referred entity.",
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                },
+                "href": {
+                  "description": "Hyperlink reference",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "name": {
+                  "description": "Name of the referred entity.",
+                  "type": "string"
+                },
+                "@referredType": {
+                  "description": "The actual type of the target instance when needed for disambiguation.",
+                  "type": "string"
+                },
+                "agreementItemId": {
+                  "description": "Identifier of the agreement",
+                  "type": "string"
+                }
+              }
+            },
+            "ProductPrice": {
+              "description": "An amount, usually of money, that represents the actual price paid by a Customer for a purchase, a rent or a lease of a Product. The price is valid for a defined period of time.",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "A short descriptive name such as \"Subscription price\".",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "A narrative that explains in detail the semantics of this product price.",
+                  "type": "string"
+                },
+                "priceType": {
+                  "description": "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.",
+                  "type": "string"
+                },
+                "recurringChargePeriod": {
+                  "description": "Could be month, week...",
+                  "type": "string"
+                },
+                "unitOfMeasure": {
+                  "description": "Could be minutes, GB...",
+                  "type": "string"
+                },
+                "billingAccount": {
+                  "$ref": "#/definitions/BillingAccountRef"
+                },
+                "price": {
+                  "$ref": "#/definitions/Price"
+                }
+              }
+            },
+            "Price": {
+              "description": "Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.",
+              "type": "object",
+              "properties": {
+                "percentage": {
+                  "format": "float",
+                  "description": "Percentage to apply for ProdOfferPriceAlteration",
+                  "type": "number"
+                },
+                "taxRate": {
+                  "format": "float",
+                  "description": "Tax rate",
+                  "type": "number"
+                },
+                "dutyFreeAmount": {
+                  "$ref": "#/definitions/Money",
+                  "description": "All taxes excluded amount (expressed in the given currency)"
+                },
+                "taxIncludedAmount": {
+                  "$ref": "#/definitions/Money",
+                  "description": "All taxes included amount (expressed in the given currency)"
+                }
+              }
+            },
+            "ProductRelationship": {
+              "description": "Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful",
+              "required": ["product", "relationshipType", "@type"],
+              "type": "object",
+              "properties": {
+                "relationshipType": {
+                  "description": "Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful",
+                  "type": "string",
+                  "enum": [
+                    "migratesTo",
+                    "bundles",
+                    "bundledBy",
+                    "reliesOn",
+                    "enables",
+                    "requires",
+                    "dependsOn",
+                    "brings"
+                  ]
+                },
+                "product": {
+                  "$ref": "#/definitions/ProductRef"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "RelatedOrderItem": {
+              "description": "It's a Order item that has been executed previously.",
+              "type": "object",
+              "required": ["@type"],
+              "properties": {
+                "orderItemAction": {
+                  "description": "Action of the order item for this entity",
+                  "type": "string"
+                },
+                "orderItemId": {
+                  "description": "Identifier of the order item where the entity was managed",
+                  "type": "string"
+                },
+                "orderHref": {
+                  "description": "Reference of the related entity.",
+                  "type": "string"
+                },
+                "orderId": {
+                  "description": "Unique identifier of a related entity.",
+                  "type": "string"
+                },
+                "role": {
+                  "description": "role of the order item for this entity",
+                  "type": "string"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            },
+            "ProductTerm": {
+              "description": "Description of a productTerm linked to this product. This represent a commitment with a duration",
+              "type": "object",
+              "required": ["@type"],
+              "properties": {
+                "description": {
+                  "description": "Description of the productTerm",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Name of the productTerm",
+                  "type": "string"
+                },
+                "duration": {
+                  "$ref": "#/definitions/Quantity",
+                  "description": "Duration of the productTerm"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "productTerm validity period"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                }
+              }
+            }
+          }
+        }

@@ -1,0 +1,171 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: f7743da2-b3bb-45b4-9b57-b88c5f76f7c6
+      schemaName: resourcecandidate
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/ResourceCandidate",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "ResourceCandidate",
+          "type": "object",
+          "description": "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of this REST resource"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hyperlink reference to this REST resource"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of this REST resource"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the last update of this REST resource"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "Used to indicate the current lifecycle status of the resource candidate."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name given to this REST resource"
+            },
+            "version": {
+              "type": "string",
+              "description": "the version of resource candidate"
+            },
+            "category": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResourceCategoryRef"
+              },
+              "description": "The categories in which this candidate is exposed"
+            },
+            "resourceSpecification": {
+              "$ref": "#/definitions/ResourceSpecificationRef",
+              "description": "The detailed specification for this candidate"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which this REST resource is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "ResourceCategoryRef": {
+              "type": "object",
+              "description": "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of a related entity."
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Reference of the related entity."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Category version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "ResourceSpecificationRef": {
+              "type": "object",
+              "description": "Resources are physical or non-physical components (or some combination of these) within an enterprise's infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components.\nA ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of a related entity."
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Reference of the related entity."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Resource Specification version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end"
+                }
+              }
+            }
+          }
+        }

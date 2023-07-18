@@ -1,0 +1,233 @@
+global:
+  imagePullPolicy: "IfNotPresent"
+  imagePullSecrets: []
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+ingress:
+  enabled: false
+
+oda:
+  enabled: true
+
+oryx:
+  gateway:
+    enabled: true
+    name: "gateway"
+    image: cloud.canister.io:5000/oryxgateway/gateway:2.3.0
+    imagePullSecrets:
+      - "canister"
+    type: eventmanagement
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      schemaregistryUrl: "http://gateway-schemaregistry:8081"
+      ksqldbUrl: "http://gateway-ksqldb:8088"
+      mongodbUrl: mongodb://root:pa55w0rd@gateway-mongodb-sharded:27017
+      mongodbDatabase: gateway
+      kafkaClientProperties: |
+        bootstrap.servers=http://gateway-broker:9092
+      schemaregistryClientProperties: |
+        #
+      ksqldbClientProperties: |
+        #
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  operator:
+    enabled: true
+    name: "gateway-operator"
+    image: cloud.canister.io:5000/oryxgateway/gateway-operator:1.0.0
+    imagePullSecrets:
+      - "canister"
+    updateStrategy: "RollingUpdate"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 200m
+        memory: 500Mi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  caller:
+    enabled: true
+    name: "caller"
+    image: cloud.canister.io:5000/oryxgateway/caller:2.0.0
+    imagePullSecrets:
+      - "canister"
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      schemaregistryUrl: "http://gateway-schemaregistry:8081"
+      kafkaClientProperties: |
+        bootstrap.servers=http://gateway-broker:9092
+      schemaregistryClientProperties: |
+        #
+      ksqldbClientProperties: |
+        #
+    resources:
+      requests:
+        cpu: 500m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  storebuilder:
+    enabled: true
+    name: "storebuilder"
+    image: cloud.canister.io:5000/oryxgateway/storebuilder:1.1.0
+    imagePullPolicy: "Always"
+    imagePullSecrets:
+      - "canister"
+    replicas: 1
+    updateStrategy: "RollingUpdate"
+    env:
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "3"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "3"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "3"
+    settings:
+      schemaregistryUrl: "http://gateway-schemaregistry:8081"
+      sinkProperties: |
+        mongodb.url=mongodb://root:pa55w0rd@gateway-mongodb-sharded:27017
+        mongodb.database=gateway
+    resources:
+      requests:
+        cpu: 500m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+kafka:
+  zookeeper:
+    enabled: true
+    name: "zookeeper"
+    image: confluentinc/cp-zookeeper:6.2.7
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      heapOptions: "-Xms512M -Xmx512M"
+      tickTime: 2000
+      syncLimit: 5
+      initLimit: 10
+      maxClientCnxns: 60
+      autoPurgeSnapRetainCount: 3
+      autoPurgePurgeInterval: 24
+    env: {}
+    persistence:
+      enabled: true
+      dataDirSize: 10Gi
+      dataDirStorageClass: null
+      dataLogDirSize: 10Gi
+      dataLogDirStorageClass: null
+    resources:
+      requests:
+        cpu: 500m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  broker:
+    enabled: true
+    name: "broker"
+    image: confluentinc/cp-kafka:6.2.7
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      heapOptions: "-Xms512M -Xmx512M"
+    env:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+    persistence:
+      enabled: true
+      disksPerBroker: 3
+      size: 10Gi
+      storageClass: null
+    resources:
+      requests:
+        cpu: 500m
+        memory: 4Gi
+      limits:
+        cpu: 1000m
+        memory: 8Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  schemaregistry:
+    enabled: true
+    name: "schemaregistry"
+    image: confluentinc/cp-schema-registry:6.2.7
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      heapOptions: "-Xms512M -Xmx512M"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 1000Mi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  ksqldb:
+    enabled: true
+    name: "ksqldb"
+    image: confluentinc/cp-ksqldb-server:6.2.7
+    replicas: 3
+    updateStrategy: "RollingUpdate"
+    settings:
+      heapOptions: "-Xms512M -Xmx512M"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+
+mongodb-sharded:
+  auth:
+    rootUser: root
+    rootPassword: pa55w0rd
+  shards: 3
+  configsvr:
+    replicaCount: 3
+  mongos:
+    replicaCount: 1
+  shardsvr:
+    dataNode:
+      replicaCount: 2

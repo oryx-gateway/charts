@@ -1,0 +1,12 @@
+apiVersion: v2
+name: oryx-gateway
+version: 1.0.1
+kubeVersion: ">= 1.19.0"
+type: application
+appVersion: "2.3.0"
+description: A Helm chart for Oryx Gatewy
+
+dependencies:
+  - name: mongodb-sharded
+    version: "6.3.2"
+    repository: "https://charts.bitnami.com/bitnami"
