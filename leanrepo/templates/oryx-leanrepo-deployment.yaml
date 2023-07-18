@@ -1,0 +1,128 @@
+{{- if .Values.oryx.leanrepo.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.oryx.leanrepo.replicas }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.leanrepo.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.leanrepo.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if .Values.oryx.leanrepo.affinity }}
+{{ toYaml .Values.oryx.leanrepo.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.leanrepo.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.leanrepo.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+          image: {{ .Values.oryx.leanrepo.image }}
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+{{ toYaml .Values.oryx.leanrepo.resources | indent 12 }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+            - name: PATH_SUFFIX
+              value: "{{ .Values.oryx.leanrepo.settings.schemaName }}"
+            - name: GROUP_ID
+              value: "{{ .Values.oryx.leanrepo.settings.groupId }}"
+            - name: JSON_SCHEMA_PATH
+              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.schemaName }}.json
+{{- if .Values.oryx.leanrepo.settings.state }}
+            - name: STATE_MACHINE_PATH
+              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.schemaName }}.fsm.json
+{{- end }}
+            - name: GATEWAY_SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-gateway-secrets
+                  key: SERVICE_API_KEY
+            - name: REDIS_HOST
+              value: {{ .Release.Name }}-{{ .Values.redis.name }}
+            - name: REDIS_PORT
+              value: "6379"
+            {{- range $key, $value := .Values.oryx.leanrepo.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+
+      {{- if .Values.oryx.leanrepo.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.leanrepo.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.leanrepo.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.leanrepo.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+
+{{- end }}

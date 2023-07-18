@@ -1,0 +1,46 @@
+ingress:
+  enabled: true
+
+oryx:
+  gateway:
+    enabled: true
+    replicas: 1
+  operator:
+    enabled: true
+  caller:
+    enabled: true
+    replicas: 1
+  storebuilder:
+    enabled: true
+    replicas: 1
+    env:
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+kafka:
+  zookeeper:
+    replicas: 1
+  broker:
+    enabled: true
+    replicas: 1
+    env:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+    persistence:
+      disksPerBroker: 1
+  schemaregistry:
+    enabled: true
+    replicas: 1
+  ksqldb:
+    enabled: true
+    replicas: 1
+mongodb-sharded:
+  shards: 1
+  configsvr:
+    replicaCount: 1
+  mongos:
+    replicaCount: 1
+  shardsvr:
+    dataNode:
+      replicaCount: 1

@@ -1,0 +1,137 @@
+{{- if .Values.oryx.gateway.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.oryx.gateway.replicas }}
+  strategy:
+    type: {{ .Values.oryx.gateway.updateStrategy | default "RollingUpdate" }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.gateway.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.gateway.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if .Values.oryx.gateway.affinity }}
+{{ toYaml .Values.oryx.gateway.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.gateway.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.gateway.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+          image: {{ .Values.oryx.gateway.image }}
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+{{ toYaml .Values.oryx.gateway.resources | indent 12 }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+            - name: KSQLDB_URL
+              value: {{ .Values.oryx.gateway.settings.ksqldbUrl }}
+            - name: SCHEMAREGISTRY_URL
+              value: {{ .Values.oryx.gateway.settings.schemaregistryUrl }}
+            - name: MONGODB_URL
+              value: {{ .Values.oryx.gateway.settings.mongodbUrl }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.oryx.gateway.settings.mongodbDatabase }}
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-secrets
+                  key: SERVICE_API_KEY
+            {{- range $key, $value := .Values.oryx.gateway.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          startupProbe:
+            failureThreshold: 15
+            periodSeconds: 10
+            httpGet:
+              path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/actuator/health
+              port: 8080
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/actuator/health
+              port: 8080
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+
+      {{- if .Values.oryx.gateway.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.gateway.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.gateway.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.gateway.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+
+{{- end }}

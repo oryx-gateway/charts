@@ -1,0 +1,176 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 6077899c-36b2-4c8f-ac0d-bba1a2bb6b2e
+      schemaName: servicecandidate
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/ServiceCandidate",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "ServiceCandidate",
+          "type": "object",
+          "description": "",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of this REST resource"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the last update of this REST resource"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "Used to indicate the current lifecycle status of the service candidate."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name given to this REST resource"
+            },
+            "version": {
+              "type": "string",
+              "description": "the version of service candidate"
+            },
+            "category": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceCategoryRef"
+              },
+              "description": "List of categories for this candidate"
+            },
+            "serviceSpecification": {
+              "$ref": "#/definitions/ServiceSpecificationRef",
+              "description": "The service specification implied by this candidate"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which this REST resource is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class Extensible name"
+            }
+          },
+          "definitions": {
+            "ServiceCategoryRef": {
+              "type": "object",
+              "description": "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Category version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "ServiceSpecificationRef": {
+              "type": "object",
+              "description": "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Service specification version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format"
+                }
+              }
+            }
+          }
+        }

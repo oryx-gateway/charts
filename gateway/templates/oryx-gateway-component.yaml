@@ -1,0 +1,50 @@
+{{- if .Values.oda.enabled }}
+apiVersion: oda.tmforum.org/v1beta1
+kind: component
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  type: {{ .Values.oryx.gateway.type }}
+  version: "0.0.1"
+  description: "TMF688 Event Management API ODA-Component"
+  maintainers:
+    - name: Stanislav Oaserele
+      email: soaserele@gmail.com
+  owners:
+    - name: Stanislav Oaserele
+      email: soaserele@gmail.com
+  coreFunction:
+    exposedAPIs:
+      - name: eventmanagement
+        apitype: openapi
+        implementation: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+        path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/eventManagement/v4
+        port: 8080
+        specification: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/api-docs
+        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/swagger-ui/index.html
+    dependentAPIs: [ ]
+  eventNotification:
+    publishedEvents: [ ] 
+    subscribedEvents: [ ]
+  management: 
+    exposedAPIs: []
+    dependentAPIs: []
+  security:
+    exposedAPIs: 
+      - name: partyrole
+        apitype: openapi
+        specification: https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json
+        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/swagger-ui/index.html
+        implementation: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+        path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/partyRoleManagement/v4
+        port: 8080
+    dependentAPIs: []
+    controllerRole: Admin
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+{{- end }}

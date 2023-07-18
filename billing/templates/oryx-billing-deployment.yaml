@@ -1,0 +1,100 @@
+{{- if .Values.oryx.billing.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.oryx.billing.replicas }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.billing.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.billing.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if .Values.oryx.billing.affinity }}
+{{ toYaml .Values.oryx.billing.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.billing.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.billing.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+          image: {{ .Values.oryx.billing.image }}
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+{{ toYaml .Values.oryx.billing.resources | indent 12 }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+            {{- range $key, $value := .Values.oryx.billing.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+      {{- if .Values.oryx.billing.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.billing.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.billing.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.billing.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+{{- end }}

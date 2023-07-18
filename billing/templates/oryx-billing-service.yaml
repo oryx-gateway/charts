@@ -1,0 +1,21 @@
+{{- if .Values.oryx.billing.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.billing.type }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Release.Name }}-{{ .Values.oryx.billing.name }}
+    release: {{ .Release.Name }}
+{{- end }}

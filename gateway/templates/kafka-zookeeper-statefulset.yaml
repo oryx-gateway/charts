@@ -1,0 +1,170 @@
+{{- if .Values.kafka.zookeeper.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  serviceName: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}-headless
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.kafka.zookeeper.replicas }}
+  updateStrategy:
+    type: {{ .Values.kafka.zookeeper.updateStrategy | default "RollingUpdate" }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+      {{- if or .Values.global.podAnnotations .Values.kafka.zookeeper.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.kafka.zookeeper.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if or .Values.global.affinity .Values.kafka.zookeeper.affinity }}
+      {{- if .Values.kafka.zookeeper.affinity }}
+{{ toYaml .Values.kafka.zookeeper.affinity | indent 8 }}
+      {{- else }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- end }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.kafka.zookeeper.name }}
+          image: {{ .Values.kafka.zookeeper.image }}
+          imagePullPolicy: {{ or .Values.kafka.zookeeper.imagePullPolicy .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: 2181
+              name: client
+            - containerPort: 2888
+              name: server
+            - containerPort: 3888
+              name: leader-election
+          resources:
+{{ toYaml .Values.kafka.zookeeper.resources | indent 12 }}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "2181"
+            - name: KAFKA_HEAP_OPTS
+              value: {{ .Values.kafka.zookeeper.settings.heapOptions }}
+            - name: ZOOKEEPER_TICK_TIME
+              value: {{ .Values.kafka.zookeeper.settings.tickTime | quote}}
+            - name: ZOOKEEPER_SYNC_LIMIT
+              value: {{ .Values.kafka.zookeeper.settings.syncLimit | quote}}
+            - name: ZOOKEEPER_INIT_LIMIT
+              value: {{ .Values.kafka.zookeeper.settings.initLimit | quote}}
+            - name: ZOOKEEPER_MAX_CLIENT_CNXNS
+              value: {{ .Values.kafka.zookeeper.settings.maxClientCnxns | quote}}
+            - name: ZOOKEEPER_AUTOPURGE_SNAP_RETAIN_COUNT
+              value: {{ .Values.kafka.zookeeper.settings.autoPurgeSnapRetainCount | quote}}
+            - name: ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL
+              value: {{ .Values.kafka.zookeeper.settings.autoPurgePurgeInterval | quote}}
+            - name: ZOOKEEPER_SERVERS
+              value: {{ $root := . }}{{- range $k, $e := until (.Values.kafka.zookeeper.replicas|int) -}}{{- if $k}}{{- printf ";"}}{{end}}{{- printf "%s-%s-%d.%s-%s-headless:2888:3888" $root.Release.Name $root.Values.kafka.zookeeper.name $k $root.Release.Name $root.Values.kafka.zookeeper.name -}}{{- end }}
+            - name: ZOOKEEPER_SERVER_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            {{- range $key, $value := .Values.kafka.zookeeper.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          command:
+            - "bash"
+            - "-c"
+            - |
+              ZK_FIX_HOST_REGEX="s/${HOSTNAME}\.[^:]*:/0.0.0.0:/g"
+              ZOOKEEPER_SERVER_ID=$((${HOSTNAME##*-}+1)) \
+              ZOOKEEPER_SERVERS=`echo $ZOOKEEPER_SERVERS | sed -e "$ZK_FIX_HOST_REGEX"` \
+              /etc/confluent/docker/run
+          volumeMounts:
+            - name: datadir
+              mountPath: /var/lib/zookeeper/data
+            - name: datalogdir
+              mountPath: /var/lib/zookeeper/log
+      volumes:
+      {{ if not .Values.kafka.zookeeper.persistence.enabled }}
+        - name: datadir
+          emptyDir: { }
+        - name: datalogdir
+          emptyDir: { }
+      {{- end }}
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      {{- if .Values.kafka.zookeeper.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.kafka.zookeeper.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.kafka.zookeeper.tolerations }}
+      tolerations:
+{{ toYaml .Values.kafka.zookeeper.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+  {{- if .Values.kafka.zookeeper.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.kafka.zookeeper.persistence.dataDirSize }}
+        storageClassName: {{ .Values.kafka.zookeeper.persistence.dataDirStorageClass }}
+    - metadata:
+        name: datalogdir
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.kafka.zookeeper.persistence.dataLogDirSize }}
+        storageClassName: {{ .Values.kafka.zookeeper.persistence.dataLogDirStorageClass }}
+  {{- end }}
+{{- end }}

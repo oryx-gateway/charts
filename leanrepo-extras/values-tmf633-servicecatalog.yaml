@@ -1,0 +1,179 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 77f231e3-21e8-4d17-bdbb-822c2df23e9c
+      schemaName: servicecatalog
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/ServiceCatalog",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "ServiceCatalog",
+          "type": "object",
+          "description": "The root entity for service catalog management.\nA service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). \nA service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.\nA ServiceCandidate and its associated ServiceSpecification may be \"published\" - made visible -in any number of ServiceCatalogs, or in none.",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique identifier"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "description": "Hyperlink reference"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of this catalog"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the last update"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "Used to indicate the current lifecycle status"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the service catalog"
+            },
+            "version": {
+              "type": "string",
+              "description": "ServiceCatalog version"
+            },
+            "category": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ServiceCategoryRef"
+              },
+              "description": "List of service categories associated with this catalog"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              },
+              "description": "List of parties or party roles related to this category"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which the service catalog is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class Extensible name"
+            }
+          },
+          "definitions": {
+            "ServiceCategoryRef": {
+              "type": "object",
+              "description": "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Category version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "RelatedParty": {
+              "type": "object",
+              "description": "Related Entity reference. A related party defines party or party role linked to a specific entity.",
+              "required": ["@referredType", "id"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Role played by the related party"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              }
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format"
+                }
+              }
+            }
+          }
+        }

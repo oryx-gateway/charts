@@ -1,0 +1,87 @@
+{{- if .Values.oryx.operator.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-role
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+rules:
+  - apiGroups: [zalando.org]
+    resources: [clusterkopfpeerings]
+    verbs: [list, watch, patch, get]
+  - apiGroups: [oda.tmforum.org]
+    resources: [components, components/status]
+    verbs: [list, watch, patch, get]
+  - apiGroups: [oda.tmforum.org]
+    resources: ["apis", "publishednotifications", "subscribednotifications", "publishednotifications/status", "subscribednotifications/status"]
+    verbs: [list, watch, patch, get, create, update, delete]
+  - apiGroups: ["discovery.k8s.io"]
+    resources: ["endpointslices"]
+    verbs: [get, list, patch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-clusterrole
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+rules:
+  - apiGroups: [apiextensions.k8s.io]
+    resources: [customresourcedefinitions]
+    verbs: [list, watch, get]
+  - apiGroups: [oda.tmforum.org]
+    resources: ["apis", "publishednotifications", "subscribednotifications"]
+    verbs: [list, watch, patch, get, create, update, delete]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-account
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-rolebinding
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-role
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-account
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-clusterrolebinding
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-account
+    namespace: components
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-clusterrole
+{{- end }}
+

@@ -1,0 +1,182 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: cc79a807-9355-40a3-8204-542b57560cb9
+      schemaName: catalog
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/Catalog",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "Catalog",
+          "type": "object",
+          "description": "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the Catalog"
+            },
+            "href": {
+              "type": "string",
+              "description": "Unique reference of the catalog"
+            },
+            "catalogType": {
+              "type": "string",
+              "description": "Indicates if the catalog is a product, service or resource catalog"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of this catalog"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the last update"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "Used to indicate the current lifecycle status"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the catalog"
+            },
+            "version": {
+              "type": "string",
+              "description": "Catalog version"
+            },
+            "category": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryRef"
+              },
+              "description": "List of root categories contained in this catalog"
+            },
+            "relatedParty": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RelatedParty"
+              },
+              "description": "List of parties involved in this catalog"
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which the catalog is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class Extensible name"
+            }
+          },
+          "definitions": {
+            "CategoryRef": {
+              "type": "object",
+              "description": "The category for grouping recommendations",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Category version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "RelatedParty": {
+              "type": "object",
+              "description": "Related Party reference. A related party defines party or party role linked to a specific entity.",
+              "required": ["@referredType", "id"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Role played by the related party"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              }
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format"
+                }
+              }
+            }
+          }
+        }

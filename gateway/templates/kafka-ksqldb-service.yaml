@@ -1,0 +1,18 @@
+{{- if .Values.kafka.ksqldb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.kafka.ksqldb.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.kafka.ksqldb.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  ports:
+    - port: 8088
+      name: ksqldb
+  selector:
+    app: {{ .Release.Name }}-{{ .Values.kafka.ksqldb.name }}
+    release: {{ .Release.Name }}
+{{- end }}

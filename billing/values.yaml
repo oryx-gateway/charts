@@ -1,0 +1,32 @@
+global:
+  imagePullPolicy: "IfNotPresent"
+  imagePullSecrets: []
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+ingress:
+  enabled: false
+
+oryx:
+  billing:
+    enabled: true
+    name: "billing"
+    image: cloud.canister.io:5000/oryxgateway/billing:1.0.0
+    imagePullSecrets:
+      - "canister"
+    type: billing
+    replicas: 1
+    updateStrategy: "RollingUpdate"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 200m
+        memory: 500Mi
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}

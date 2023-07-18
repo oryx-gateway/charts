@@ -1,0 +1,184 @@
+{{- if .Values.oryx.storebuilder.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.oryx.storebuilder.replicas }}
+  strategy:
+    type: {{ .Values.oryx.storebuilder.updateStrategy | default "RollingUpdate" }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.storebuilder.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.storebuilder.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      affinity:
+      {{- if .Values.oryx.storebuilder.affinity }}
+{{ toYaml .Values.oryx.storebuilder.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.storebuilder.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.storebuilder.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}-json
+          image: {{ .Values.oryx.storebuilder.image }}-json
+          imagePullPolicy: {{ or .Values.oryx.storebuilder.imagePullPolicy .Values.global.imagePullPolicy }}
+          resources:
+{{ toYaml .Values.oryx.storebuilder.resources | indent 12 }}
+          env:
+            - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
+              value: {{ .Values.oryx.storebuilder.settings.schemaregistryUrl }}
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: {{ .Release.Name }}-{{ .Values.kafka.broker.name }}-headless:9092
+            {{- range $key, $value := .Values.oryx.storebuilder.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          startupProbe:
+            failureThreshold: 15
+            periodSeconds: 10
+            httpGet:
+              path: /connectors/storebuilder-json
+              port: 8081
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /connectors/storebuilder-json
+              port: 8081
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+        - name: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}-avro
+          image: {{ .Values.oryx.storebuilder.image }}-avro
+          imagePullPolicy: {{ or .Values.oryx.storebuilder.imagePullPolicy .Values.global.imagePullPolicy }}
+          resources:
+{{ toYaml .Values.oryx.storebuilder.resources | indent 12 }}
+          env:
+            - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
+              value: {{ .Values.oryx.storebuilder.settings.schemaregistryUrl }}
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: {{ .Release.Name }}-{{ .Values.kafka.broker.name }}-headless:9092
+            {{- range $key, $value := .Values.oryx.storebuilder.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          startupProbe:
+            failureThreshold: 15
+            periodSeconds: 10
+            httpGet:
+              path: /connectors/storebuilder-avro
+              port: 8082
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /connectors/storebuilder-avro
+              port: 8082
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+        - name: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}-protobuf
+          image: {{ .Values.oryx.storebuilder.image }}-protobuf
+          imagePullPolicy: {{ or .Values.oryx.storebuilder.imagePullPolicy .Values.global.imagePullPolicy }}
+          resources:
+{{ toYaml .Values.oryx.storebuilder.resources | indent 12 }}
+          env:
+            - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
+              value: {{ .Values.oryx.storebuilder.settings.schemaregistryUrl }}
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: {{ .Release.Name }}-{{ .Values.kafka.broker.name }}-headless:9092
+            {{- range $key, $value := .Values.oryx.storebuilder.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          startupProbe:
+            failureThreshold: 15
+            periodSeconds: 10
+            httpGet:
+              path: /connectors/storebuilder-protobuf
+              port: 8083
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /connectors/storebuilder-protobuf
+              port: 8083
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.oryx.storebuilder.name }}
+      {{- if .Values.oryx.storebuilder.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.storebuilder.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.storebuilder.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.storebuilder.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+
+{{- end }}

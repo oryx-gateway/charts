@@ -1,0 +1,107 @@
+{{- if .Values.oryx.operator.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+      release: {{ .Release.Name }}
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+      {{- if or .Values.global.podAnnotations .Values.oryx.operator.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.operator.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      serviceAccount: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-operator-account
+      affinity:
+      {{- if .Values.oryx.operator.affinity }}
+{{ toYaml .Values.oryx.operator.affinity | indent 8 }}
+      {{- else if .Values.global.affinity }}
+{{ toYaml .Values.global.affinity | indent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                        - {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+
+      {{- if .Values.oryx.operator.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.operator.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.operator.name }}
+          image: {{ .Values.oryx.operator.image }}
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+{{ toYaml .Values.oryx.operator.resources | indent 12 }}
+          env:
+            - name: GATEWAY_BASE_PATH
+              value: http://{{ .Release.Name }}-{{ .Values.oryx.gateway.name }}:8080/{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/eventManagement/v4
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}-secrets
+                  key: SERVICE_API_KEY
+            {{- range $key, $value := .Values.oryx.operator.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+
+      {{- if .Values.oryx.operator.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.oryx.operator.nodeSelector | indent 8 }}
+      {{- else if .Values.global.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.nodeSelector | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.oryx.operator.tolerations }}
+      tolerations:
+{{ toYaml .Values.oryx.operator.tolerations | indent 8 }}
+      {{- else if .Values.global.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.tolerations | indent 8 }}
+      {{- end }}
+
+{{- end }}

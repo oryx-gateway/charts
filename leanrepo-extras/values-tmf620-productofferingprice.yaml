@@ -1,0 +1,658 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 97e60848-2c7a-4de5-adeb-78f351872678
+      schemaName: productofferingprice
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/ProductOfferingPrice",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "ProductOfferingPrice",
+          "type": "object",
+          "description": "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (a Product Offering Price that reflects an alteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment.",
+          "required": ["@type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "unique id of this resource"
+            },
+            "href": {
+              "type": "string",
+              "description": "Reference of the ProductOfferingPrice"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the productOfferingPrice"
+            },
+            "isBundle": {
+              "type": "boolean",
+              "description": "A flag indicating if this ProductOfferingPrice is composite (bundle) or not"
+            },
+            "lastUpdate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the last update time of this ProductOfferingPrice"
+            },
+            "lifecycleStatus": {
+              "type": "string",
+              "description": "the lifecycle status of this ProductOfferingPrice"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the productOfferingPrice"
+            },
+            "percentage": {
+              "type": "number",
+              "format": "float",
+              "description": "Percentage to apply if this Product Offering Price is an Alteration (such as a Discount)"
+            },
+            "priceType": {
+              "type": "string",
+              "description": "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth."
+            },
+            "recurringChargePeriodLength": {
+              "type": "integer",
+              "description": "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable"
+            },
+            "recurringChargePeriodType": {
+              "type": "string",
+              "description": "The period to repeat the application of the price\nCould be month, week..."
+            },
+            "version": {
+              "type": "string",
+              "description": "ProductOfferingPrice version"
+            },
+            "bundledPopRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BundledProductOfferingPriceRelationship"
+              },
+              "description": "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship."
+            },
+            "constraint": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ConstraintRef"
+              },
+              "description": "The Constraint resource represents a policy/rule applied to ProductOfferingPrice."
+            },
+            "place": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceRef"
+              },
+              "description": "Place defines the places where the products are sold or delivered."
+            },
+            "popRelationship": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductOfferingPriceRelationship"
+              },
+              "description": "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount"
+            },
+            "price": {
+              "$ref": "#/definitions/Money",
+              "description": "The amount of money that characterizes the price."
+            },
+            "pricingLogicAlgorithm": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PricingLogicAlgorithm"
+              },
+              "description": "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth)."
+            },
+            "prodSpecCharValueUse": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductSpecificationCharacteristicValueUse"
+              },
+              "description": "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics."
+            },
+            "productOfferingTerm": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductOfferingTerm"
+              },
+              "description": "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods."
+            },
+            "tax": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaxItem"
+              },
+              "description": "An amount of money levied on the price of a Product by a legislative body."
+            },
+            "unitOfMeasure": {
+              "$ref": "#/definitions/Quantity",
+              "description": "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount."
+            },
+            "validFor": {
+              "$ref": "#/definitions/TimePeriod",
+              "description": "The period for which the productOfferingPrice is valid"
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "the immediate base class type of this product offering price"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "description": "hyperlink reference to the schema describing this resource"
+            },
+            "@type": {
+              "type": "string",
+              "description": "The class type of this Product offering price"
+            }
+          },
+          "definitions": {
+            "BundledProductOfferingPriceRelationship": {
+              "type": "object",
+              "description": "This represents a bundling pricing relationship, allowing a price to be composed of multiple other prices (e.g. a recurring charge and a onetime charge).",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier of the bundled product offering price"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "hyperlink reference of the bundled product offering price"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the bundled product offering price"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "ConstraintRef": {
+              "type": "object",
+              "description": "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "constraint version"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "PlaceRef": {
+              "type": "object",
+              "description": "Place reference. PlaceRef defines the placeRefs where the products are sold or delivered.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "ProductOfferingPriceRelationship": {
+              "type": "object",
+              "description": "Describes a non-composite relationship between product offering prices. For example one price might be an discount alteration for another price.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "relationshipType": {
+                  "type": "string",
+                  "description": "type of the relationship, for example override, discount, etc."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "The association role for the source product offering price"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              }
+            },
+            "Money": {
+              "type": "object",
+              "description": "A base / value business entity used to represent money",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "description": "Currency (ISO4217 norm uses 3 letters to define the currency)"
+                },
+                "value": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "A positive floating point number"
+                }
+              }
+            },
+            "PricingLogicAlgorithm": {
+              "type": "object",
+              "description": "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled bahavior in SID). Some of the parameters of the interface definiition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth)",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the PricingLogicAlgorithm"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name given to the PricingLogicAlgorithm"
+                },
+                "plaSpecId": {
+                  "type": "string",
+                  "description": "id of corresponding PricingLogicAlgorithm specification"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period for which the PricingLogicAlgorithm is valid"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "ProductSpecificationCharacteristicValueUse": {
+              "type": "object",
+              "description": "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique ID for the characteristic"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A narrative that explains in detail what the productSpecificationCharacteristic is"
+                },
+                "maxCardinality": {
+                  "type": "integer",
+                  "description": "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality."
+                },
+                "minCardinality": {
+                  "type": "integer",
+                  "description": "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the associated productSpecificationCharacteristic"
+                },
+                "valueType": {
+                  "type": "string",
+                  "description": "A kind of value that the characteristic can take on, such as numeric, text and so forth"
+                },
+                "productSpecCharacteristicValue": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CharacteristicValueSpecification"
+                  },
+                  "description": "A number or text that can be assigned to a ProductSpecificationCharacteristic."
+                },
+                "productSpecification": {
+                  "$ref": "#/definitions/ProductSpecificationRef",
+                  "description": "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role."
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period for which the productSpecificationCharacteristic is valid"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "ProductOfferingTerm": {
+              "type": "object",
+              "description": "A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Description of the productOfferingTerm"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the productOfferingTerm"
+                },
+                "duration": {
+                  "$ref": "#/definitions/Duration",
+                  "description": "Duration of the productOfferingTerm"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period for which the productOfferingTerm is valid"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "TaxItem": {
+              "type": "object",
+              "description": "A tax item is created for each tax rate and tax type used in the bill.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "taxCategory": {
+                  "type": "string",
+                  "description": "Tax category"
+                },
+                "taxRate": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Applied rate of the tax"
+                },
+                "taxAmount": {
+                  "$ref": "#/definitions/Money",
+                  "description": "Amount of tax expressed in the given currency"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "TimePeriod": {
+              "type": "object",
+              "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both",
+              "properties": {
+                "endDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "End of the time period, using IETC-RFC-3339 format"
+                },
+                "startDateTime": {
+                  "example": "1985-04-12T23:20:50.52Z",
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Start of the time period, using IETC-RFC-3339 format"
+                }
+              }
+            },
+            "Quantity": {
+              "type": "object",
+              "description": "An amount in a given unit",
+              "properties": {
+                "amount": {
+                  "default": 1,
+                  "type": "number",
+                  "format": "float",
+                  "description": "Numeric value in a given unit"
+                },
+                "units": {
+                  "type": "string",
+                  "description": "Unit"
+                }
+              }
+            },
+            "CharacteristicValueSpecification": {
+              "type": "object",
+              "description": "specification of a value (number or text or an object) that can be assigned to a Characteristic.",
+              "properties": {
+                "isDefault": {
+                  "type": "boolean",
+                  "description": "If true, the Boolean Indicates if the value is the default value for a characteristic"
+                },
+                "rangeInterval": {
+                  "type": "string",
+                  "description": "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\"."
+                },
+                "regex": {
+                  "type": "string",
+                  "description": "A regular expression constraint for given value"
+                },
+                "unitOfMeasure": {
+                  "type": "string",
+                  "description": "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot."
+                },
+                "valueFrom": {
+                  "type": "integer",
+                  "description": "The low range value that a characteristic can take on"
+                },
+                "valueTo": {
+                  "type": "integer",
+                  "description": "The upper range value that a characteristic can take on"
+                },
+                "valueType": {
+                  "type": "string",
+                  "description": "A kind of value that the characteristic value can take on, such as numeric, text and so forth"
+                },
+                "validFor": {
+                  "$ref": "#/definitions/TimePeriod",
+                  "description": "The period of time for which a value is applicable."
+                },
+                "value": {
+                  "type": "string",
+                  "description": "A discrete value that the characteristic can take on, or the actual value of the characteristic"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                }
+              }
+            },
+            "ProductSpecificationRef": {
+              "type": "object",
+              "description": "Product specification reference: A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "unique identifier"
+                },
+                "href": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Hyperlink reference"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the related entity."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Version of the product specification"
+                },
+                "targetProductSchema": {
+                  "$ref": "#/definitions/TargetProductSchema",
+                  "description": "A target product schema reference. The reference object to the schema and type of target product which is described by product specification."
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class Extensible name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              },
+              "required": ["id"]
+            },
+            "Duration": {
+              "type": "object",
+              "description": "A time interval in a given unit of time",
+              "properties": {
+                "amount": {
+                  "type": "integer",
+                  "description": "Time interval (number of seconds, minutes, hours, etc.)"
+                },
+                "units": {
+                  "type": "string",
+                  "description": "Unit of time (seconds, minutes, hours, etc.)"
+                }
+              }
+            },
+            "TargetProductSchema": {
+              "type": "object",
+              "description": "The reference object to the schema and type of target product which is described by product specification",
+              "required": ["@schemaLocation", "@type"],
+              "properties": {
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "This field provides a link to the schema describing the target product"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "Class type of the target product"
+                }
+              }
+            }
+          }
+        }
