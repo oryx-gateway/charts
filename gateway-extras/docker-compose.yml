@@ -1,0 +1,107 @@
+version: "3.5"
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.2.7
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    tmpfs: "/datalog"
+
+  broker:
+    image: confluentinc/cp-kafka:6.2.7
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://broker:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_JMX_PORT: 9101
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.2.7
+    depends_on:
+      - broker
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/subjects"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ksqldb-server:
+    image: confluentinc/cp-ksqldb-server:6.2.7
+    depends_on:
+      - broker
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksql"
+      KSQL_BOOTSTRAP_SERVERS: "broker:29092"
+      KSQL_HOST_NAME: ksqldb-server
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      KSQL_KSQL_CONNECT_URL: "http://connect:8083"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 1
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mongodb:
+    image: mongo:5.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  gateway:
+    image: cloud.canister.io:5000/oryxgateway/gateway:2.3.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      schema-registry:
+        condition: service_healthy
+      ksqldb-server:
+        condition: service_healthy
+    environment:
+      COMPONENT_NAME: "gateway-eventmanagement"
+      KSQLDB_URL: "http://ksqldb-server:8088"
+      SCHEMAREGISTRY_URL: "http://schema-registry:8081"
+      MONGODB_URL: "mongodb://mongo:password@mongodb:27017"
+      MONGODB_DATABASE: "db"
+      SERVICE_API_KEY: "APIKEY"
+    volumes:
+      - ./kafka.properties:/opt/oryxgateway/config/kafka.properties
+      - ./schemaregistry.properties:/opt/oryxgateway/config/schemaregistry.properties
+      - ./ksqldb.properties:/opt/oryxgateway/config/ksqldb.properties
+
+  caller:
+    image: cloud.canister.io:5000/oryxgateway/caller:2.0.0
+    depends_on:
+      - gateway
+    environment:
+      SCHEMAREGISTRY_URL: "http://schema-registry:8081"
+    volumes:
+     - ./kafka.properties:/opt/oryxgateway/config/kafka.properties
+     - ./schemaregistry.properties:/opt/oryxgateway/config/schemaregistry.properties
+
+  storebuilder:
+    image: cloud.canister.io:5000/oryxgateway/storebuilder:1.1.0-json
+    environment:
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONNECT_BOOTSTRAP_SERVERS: "http://broker:9092"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+    volumes:
+      - ./connect.properties:/opt/oryxgateway/config/connect.properties
