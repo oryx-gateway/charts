@@ -3,13 +3,13 @@ entries:
   oryx-gateway:
   - apiVersion: v2
     appVersion: 2.3.0
-    created: "2023-07-31T14:56:13.95167221+03:00"
+    created: "2023-07-31T15:10:15.788554646+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
       version: 6.3.2
     description: A Helm chart for Oryx Gatewy
-    digest: bed2ebcf30c684d554f9a8be04dbee12eac47f169880386031dbcef6c88666a2
+    digest: b250112a2851da6e9ca8f515e823bfbcdb30ed5f970b5aa2b8ee95e25b8bdc0e
     kubeVersion: '>= 1.19.0'
     name: oryx-gateway
     type: application
@@ -18,7 +18,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 2.3.0
-    created: "2023-07-31T14:56:13.946104535+03:00"
+    created: "2023-07-31T15:10:15.78310518+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
@@ -33,7 +33,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T14:56:13.939039603+03:00"
+    created: "2023-07-31T15:10:15.77662455+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
@@ -49,9 +49,9 @@ entries:
   oryx-leanrepo:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T14:56:13.953247203+03:00"
+    created: "2023-07-31T15:10:15.789397674+03:00"
     description: A Helm chart for Oryx Gatewy
-    digest: caab5f99551feb35ba531dfb3f53eed04a5933d9f84ae7fb2148bd2c0f59d8d9
+    digest: 643e64abd616edbd301b0815065b1bddcbab1235d6f34dfddd819635d35d278d
     kubeVersion: '>= 1.19.0'
     name: oryx-leanrepo
     type: application
@@ -60,7 +60,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T14:56:13.952155856+03:00"
+    created: "2023-07-31T15:10:15.78897561+03:00"
     description: A Helm chart for Oryx Gatewy
     digest: 4df180f5418984d283fa3867e4e319f74c0485f3a114174747fa4a9a7ae5e6bc
     kubeVersion: '>= 1.19.0'
@@ -69,4 +69,4 @@ entries:
     urls:
     - oryx-leanrepo-1.0.0.tgz
     version: 1.0.0
-generated: "2023-07-31T14:56:13.932619741+03:00"
+generated: "2023-07-31T15:10:15.769297078+03:00"
