@@ -37,7 +37,7 @@ oryx:
     name: "leanrepo"
     image: oryxgateway/leanrepo:1.2.0
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     type: leanrepo
     replicas: 1
     updateStrategy: "RollingUpdate"
