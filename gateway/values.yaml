@@ -16,7 +16,7 @@ oryx:
   gateway:
     enabled: true
     name: "gateway"
-    image: cloud.canister.io:5000/oryxgateway/gateway:2.4.0
+    image: oryxgateway/gateway:2.4.0
     imagePullSecrets:
       - "canister"
     type: eventmanagement
@@ -47,7 +47,7 @@ oryx:
   operator:
     enabled: true
     name: "gateway-operator"
-    image: cloud.canister.io:5000/oryxgateway/gateway-operator:1.0.0
+    image: oryxgateway/gateway-operator:1.0.0
     imagePullSecrets:
       - "canister"
     updateStrategy: "RollingUpdate"
@@ -65,7 +65,7 @@ oryx:
   caller:
     enabled: true
     name: "caller"
-    image: cloud.canister.io:5000/oryxgateway/caller:2.1.0
+    image: oryxgateway/caller:2.1.0
     imagePullSecrets:
       - "canister"
     replicas: 3
@@ -92,7 +92,7 @@ oryx:
   storebuilder:
     enabled: true
     name: "storebuilder"
-    image: cloud.canister.io:5000/oryxgateway/storebuilder:1.1.0
+    image: oryxgateway/storebuilder:1.1.0
     imagePullPolicy: "Always"
     imagePullSecrets:
       - "canister"

@@ -65,7 +65,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
 
   gateway:
-    image: cloud.canister.io:5000/oryxgateway/gateway:2.3.0
+    image: oryxgateway/gateway:2.4.0
     ports:
       - "8080:8080"
     depends_on:
@@ -86,7 +86,7 @@ services:
       - ./ksqldb.properties:/opt/oryxgateway/config/ksqldb.properties
 
   caller:
-    image: cloud.canister.io:5000/oryxgateway/caller:2.0.0
+    image: oryxgateway/caller:2.1.0
     depends_on:
       - gateway
     environment:
@@ -96,7 +96,7 @@ services:
      - ./schemaregistry.properties:/opt/oryxgateway/config/schemaregistry.properties
 
   storebuilder:
-    image: cloud.canister.io:5000/oryxgateway/storebuilder:1.1.0-json
+    image: oryxgateway/storebuilder:1.1.0-json
     environment:
       CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       CONNECT_BOOTSTRAP_SERVERS: "http://broker:9092"
