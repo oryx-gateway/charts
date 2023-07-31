@@ -13,9 +13,9 @@ oryx:
   billing:
     enabled: true
     name: "billing"
-    image: cloud.canister.io:5000/oryxgateway/billing:1.0.0
+    image: oryxgateway/billing:1.0.0
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     type: billing
     replicas: 1
     updateStrategy: "RollingUpdate"

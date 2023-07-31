@@ -18,7 +18,7 @@ oryx:
     name: "gateway"
     image: oryxgateway/gateway:2.4.0
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     type: eventmanagement
     replicas: 3
     updateStrategy: "RollingUpdate"
@@ -49,7 +49,7 @@ oryx:
     name: "gateway-operator"
     image: oryxgateway/gateway-operator:1.0.0
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     updateStrategy: "RollingUpdate"
     resources:
       requests:
@@ -67,7 +67,7 @@ oryx:
     name: "caller"
     image: oryxgateway/caller:2.1.0
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     replicas: 3
     updateStrategy: "RollingUpdate"
     settings:
@@ -95,7 +95,7 @@ oryx:
     image: oryxgateway/storebuilder:1.1.0
     imagePullPolicy: "Always"
     imagePullSecrets:
-      - "canister"
+      - "gateway-registry"
     replicas: 1
     updateStrategy: "RollingUpdate"
     env:
