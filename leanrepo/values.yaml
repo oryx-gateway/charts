@@ -35,7 +35,7 @@ oryx:
   leanrepo:
     enabled: true
     name: "leanrepo"
-    image: cloud.canister.io:5000/oryxgateway/leanrepo:1.1.0
+    image: cloud.canister.io:5000/oryxgateway/leanrepo:1.2.0
     imagePullSecrets:
       - "canister"
     type: leanrepo

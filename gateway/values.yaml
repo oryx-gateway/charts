@@ -16,7 +16,7 @@ oryx:
   gateway:
     enabled: true
     name: "gateway"
-    image: cloud.canister.io:5000/oryxgateway/gateway:2.3.0
+    image: cloud.canister.io:5000/oryxgateway/gateway:2.4.0
     imagePullSecrets:
       - "canister"
     type: eventmanagement
@@ -65,7 +65,7 @@ oryx:
   caller:
     enabled: true
     name: "caller"
-    image: cloud.canister.io:5000/oryxgateway/caller:2.0.0
+    image: cloud.canister.io:5000/oryxgateway/caller:2.1.0
     imagePullSecrets:
       - "canister"
     replicas: 3
