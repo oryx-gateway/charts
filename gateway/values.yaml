@@ -20,7 +20,7 @@ oryx:
     imagePullSecrets:
       - "gateway-registry"
     type: eventmanagement
-    replicas: 3
+    replicas: 1
     updateStrategy: "RollingUpdate"
     settings:
       schemaregistryUrl: "http://gateway-schemaregistry:8081"
