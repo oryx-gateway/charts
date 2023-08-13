@@ -2,14 +2,29 @@ apiVersion: v1
 entries:
   oryx-gateway:
   - apiVersion: v2
+    appVersion: 2.6.0
+    created: "2023-08-13T23:48:11.055420623+03:00"
+    dependencies:
+    - name: mongodb-sharded
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.3.2
+    description: A Helm chart for Oryx Gateway
+    digest: 95dd00d7c4f5f1a5ffac17c18d678891b1109ca2073e854836f172e13a49f2a6
+    kubeVersion: '>= 1.19.0'
+    name: oryx-gateway
+    type: application
+    urls:
+    - oryx-gateway-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: 2.3.0
-    created: "2023-07-31T15:10:15.788554646+03:00"
+    created: "2023-08-13T23:48:11.049948097+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
       version: 6.3.2
     description: A Helm chart for Oryx Gatewy
-    digest: b250112a2851da6e9ca8f515e823bfbcdb30ed5f970b5aa2b8ee95e25b8bdc0e
+    digest: 82a382a40615614f0e88f861fc9606fabbde0df33a0e57b43fe7a82a67d8d2f5
     kubeVersion: '>= 1.19.0'
     name: oryx-gateway
     type: application
@@ -18,7 +33,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 2.3.0
-    created: "2023-07-31T15:10:15.78310518+03:00"
+    created: "2023-08-13T23:48:11.044245867+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
@@ -33,7 +48,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T15:10:15.77662455+03:00"
+    created: "2023-08-13T23:48:11.037047206+03:00"
     dependencies:
     - name: mongodb-sharded
       repository: https://charts.bitnami.com/bitnami
@@ -48,8 +63,19 @@ entries:
     version: 1.0.0
   oryx-leanrepo:
   - apiVersion: v2
+    appVersion: 1.3.0
+    created: "2023-08-13T23:48:11.056973529+03:00"
+    description: A Helm chart for Oryx LeanRepo
+    digest: 82ebc1f905ece4ea7964588c1fa331e4e5736789f9e3849a250712172e50a5a6
+    kubeVersion: '>= 1.19.0'
+    name: oryx-leanrepo
+    type: application
+    urls:
+    - oryx-leanrepo-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T15:10:15.789397674+03:00"
+    created: "2023-08-13T23:48:11.056577789+03:00"
     description: A Helm chart for Oryx Gatewy
     digest: 643e64abd616edbd301b0815065b1bddcbab1235d6f34dfddd819635d35d278d
     kubeVersion: '>= 1.19.0'
@@ -60,7 +86,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-07-31T15:10:15.78897561+03:00"
+    created: "2023-08-13T23:48:11.056096809+03:00"
     description: A Helm chart for Oryx Gatewy
     digest: 4df180f5418984d283fa3867e4e319f74c0485f3a114174747fa4a9a7ae5e6bc
     kubeVersion: '>= 1.19.0'
@@ -69,4 +95,4 @@ entries:
     urls:
     - oryx-leanrepo-1.0.0.tgz
     version: 1.0.0
-generated: "2023-07-31T15:10:15.769297078+03:00"
+generated: "2023-08-13T23:48:11.019161458+03:00"
