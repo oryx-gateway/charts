@@ -78,15 +78,15 @@ spec:
               value: {{ .Release.Name }}
             - name: COMPONENT_NAME
               value: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
-            - name: PATH_SUFFIX
-              value: "{{ .Values.oryx.leanrepo.settings.schemaName }}"
+            - name: TOPIC_NAME
+              value: "{{ .Values.oryx.leanrepo.settings.topic }}"
             - name: GROUP_ID
               value: "{{ .Values.oryx.leanrepo.settings.groupId }}"
             - name: JSON_SCHEMA_PATH
-              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.schemaName }}.json
+              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.topic }}.json
 {{- if .Values.oryx.leanrepo.settings.state }}
             - name: STATE_MACHINE_PATH
-              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.schemaName }}.fsm.json
+              value: /opt/oryxgateway/config/{{ .Values.oryx.leanrepo.settings.topic }}.fsm.json
 {{- end }}
             - name: GATEWAY_SERVICE_API_KEY
               valueFrom:

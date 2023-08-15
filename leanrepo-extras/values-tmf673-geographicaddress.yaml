@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 3f61db2c-250b-4344-8a6d-def32325edf8
-      schemaName: geographicaddress
+      topic: TMF673.GeographicAddress
       schema: |
         {
           "$id": "https://example.com/schemas/GeographicAddress",

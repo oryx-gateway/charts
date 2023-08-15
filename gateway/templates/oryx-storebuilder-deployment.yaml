@@ -23,6 +23,7 @@ spec:
         release: {{ .Release.Name }}
         chart: {{ .Chart.Name }}-{{ .Chart.Version }}
         oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+        sidecar.istio.io/inject: "false"
       {{- if or .Values.global.podAnnotations .Values.oryx.storebuilder.podAnnotations }}
       annotations:
       {{- range $key, $value := .Values.global.podAnnotations }}
@@ -75,6 +76,8 @@ spec:
               value: {{ .Values.oryx.storebuilder.settings.schemaregistryUrl }}
             - name: CONNECT_BOOTSTRAP_SERVERS
               value: {{ .Release.Name }}-{{ .Values.kafka.broker.name }}-headless:9092
+            - name: TOPIC_NAMING_STRATEGY
+              value: {{ .Values.oryx.gateway.settings.topicNamingStrategy }}
             {{- range $key, $value := .Values.oryx.storebuilder.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}

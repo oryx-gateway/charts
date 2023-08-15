@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 79c67044-a9e6-471f-b40c-8de03f5c99c4
-      schemaName: product
+      topic: TMF637.ProductInventory
       schema: |
         {
           "$id": "https://example.com/schemas/Product",

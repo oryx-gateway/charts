@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 913d77d0-c3e7-4faa-bb36-165a2040a70c
-      schemaName: category
+      topic: TMF620.ProductCategory
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/Category",

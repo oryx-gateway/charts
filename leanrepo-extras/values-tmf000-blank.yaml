@@ -2,5 +2,5 @@ oryx:
   leanrepo:
     settings:
       groupId: 00000000-0000-0000-0000-000000000000
-      schemaName: schemaname
+      topic: topic
       schema: |

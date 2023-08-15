@@ -35,7 +35,7 @@ oryx:
   leanrepo:
     enabled: true
     name: "leanrepo"
-    image: oryxgateway/leanrepo:1.2.0
+    image: oryxgateway/leanrepo:1.3.0
     imagePullSecrets:
       - "gateway-registry"
     type: leanrepo

@@ -26,7 +26,7 @@ spec:
         port: 8080
   eventNotification:
     publishedEvents: 
-    - name: {{ .Release.Name }}
+    - name: {{ .Values.oryx.leanrepo.settings.topic }}
       href: http://{{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}:8080/{{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}/tmf-api/partyRoleManagement/v4/hub
     subscribedEvents: [ ]
   management: 

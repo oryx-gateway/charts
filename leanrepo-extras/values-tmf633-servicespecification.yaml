@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 92d8e135-21c3-46ec-b76c-d5be14e599b8
-      schemaName: servicespecification
+      topic: TMF633.ServiceSpecification
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ServiceSpecification",
