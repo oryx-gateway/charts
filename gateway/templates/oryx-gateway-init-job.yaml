@@ -1,0 +1,66 @@
+apiVersion: batch/v1  
+kind: Job  
+metadata:  
+  name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+  annotations:  
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:  
+  template:  
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+        sidecar.istio.io/inject: "false"
+      {{- if or .Values.global.podAnnotations .Values.oryx.gateway.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.gateway.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      restartPolicy: OnFailure
+      {{- if .Values.oryx.gateway.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.gateway.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.gatewayInit.name }}
+          image: {{ .Values.oryx.gatewayInit.image }}
+          imagePullPolicy: "Always"
+          resources:
+{{ toYaml .Values.oryx.gateway.resources | indent 12 }}
+          env:
+            - name: SCHEMAREGISTRY_URL
+              value: {{ .Values.oryx.gateway.settings.schemaregistryUrl }}
+            - name: TOPIC_NAMING_STRATEGY
+              value: {{ .Values.oryx.gateway.settings.topicNamingStrategy }}
+            {{- range $key, $value := .Values.oryx.gateway.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}

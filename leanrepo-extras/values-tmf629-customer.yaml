@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 8de26639-c0a8-45b7-9fe2-d09318bbee0d
-      schemaName: customer
+      topic: TMF629.Customer
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/Customer",

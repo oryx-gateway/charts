@@ -1,10 +1,10 @@
 apiVersion: v2
 name: oryx-gateway
-version: 1.1.0
+version: 1.2.0
 kubeVersion: ">= 1.19.0"
 type: application
-appVersion: "2.3.0"
-description: A Helm chart for Oryx Gatewy
+appVersion: "2.6.0"
+description: A Helm chart for Oryx Gateway
 
 dependencies:
   - name: mongodb-sharded

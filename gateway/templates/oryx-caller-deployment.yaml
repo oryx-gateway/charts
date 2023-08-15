@@ -23,6 +23,7 @@ spec:
         release: {{ .Release.Name }}
         chart: {{ .Chart.Name }}-{{ .Chart.Version }}
         oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+        sidecar.istio.io/inject: "false"
       {{- if or .Values.global.podAnnotations .Values.oryx.caller.podAnnotations }}
       annotations:
       {{- range $key, $value := .Values.global.podAnnotations }}

@@ -13,16 +13,20 @@ oda:
   enabled: true
 
 oryx:
+  gatewayInit:
+    name: "gateway-init"
+    image: oryxgateway/gateway-init:1.1.0
   gateway:
     enabled: true
     name: "gateway"
-    image: oryxgateway/gateway:2.4.0
+    image: oryxgateway/gateway:2.6.0
     imagePullSecrets:
       - "gateway-registry"
     type: eventmanagement
-    replicas: 1
+    replicas: 3
     updateStrategy: "RollingUpdate"
     settings:
+      topicNamingStrategy: "suffixed_name"
       schemaregistryUrl: "http://gateway-schemaregistry:8081"
       ksqldbUrl: "http://gateway-ksqldb:8088"
       mongodbUrl: mongodb://root:pa55w0rd@gateway-mongodb-sharded:27017
@@ -92,7 +96,7 @@ oryx:
   storebuilder:
     enabled: true
     name: "storebuilder"
-    image: oryxgateway/storebuilder:1.1.0
+    image: oryxgateway/storebuilder:1.2.0
     imagePullPolicy: "Always"
     imagePullSecrets:
       - "gateway-registry"

@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 97e60848-2c7a-4de5-adeb-78f351872678
-      schemaName: productofferingprice
+      topic: TMF620.ProductOfferingPrice
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ProductOfferingPrice",

@@ -86,6 +86,8 @@ spec:
               value: {{ .Values.oryx.gateway.settings.mongodbUrl }}
             - name: MONGODB_DATABASE
               value: {{ .Values.oryx.gateway.settings.mongodbDatabase }}
+            - name: TOPIC_NAMING_STRATEGY
+              value: {{ .Values.oryx.gateway.settings.topicNamingStrategy }}
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:

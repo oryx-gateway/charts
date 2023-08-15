@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: cb619fa6-9dcf-4957-8153-dbb011b19a18
-      schemaName: partyrole
+      topic: TMF669.PartyRole
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/PartyRole",

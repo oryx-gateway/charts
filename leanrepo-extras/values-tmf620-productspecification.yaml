@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 5f72897d-3867-494f-9849-b1955f9ca6df
-      schemaName: productspecification
+      topic: TMF620.ProductSpecification
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ProductSpecification",
