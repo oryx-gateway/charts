@@ -13,9 +13,8 @@ oryx:
           "required": ["engagedParty", "@type"],
           "properties": {
             "id": {
-              "description": "unique identifier (UUID)",
+              "description": "Unique identifier",
               "type": "string",
-              "format": "uuid",
               "readOnly": true,
               "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
             },
@@ -141,9 +140,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -166,11 +163,9 @@ oryx:
               "required": ["@type"],
               "properties": {
                 "id": {
-                  "description": "unique identifier (UUID)",
+                  "description": "Unique identifier",
                   "type": "string",
-                  "format": "uuid",
-                  "readOnly": true,
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "readOnly": true
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -232,9 +227,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -279,9 +272,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -427,9 +418,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -471,9 +460,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -510,9 +497,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -549,9 +534,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -616,9 +599,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -655,9 +636,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
@@ -833,9 +812,7 @@ oryx:
               "properties": {
                 "id": {
                   "description": "Identifier of the referred entity.",
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd"
+                  "type": "string"
                 },
                 "href": {
                   "description": "Hyperlink reference",
