@@ -15,7 +15,7 @@ oda:
 oryx:
   gatewayInit:
     name: "gateway-init"
-    image: oryxgateway/gateway-init:1.1.0
+    image: oryxgateway/gateway-init:1.2.0
   gateway:
     enabled: true
     name: "gateway"
@@ -51,7 +51,7 @@ oryx:
   operator:
     enabled: true
     name: "gateway-operator"
-    image: oryxgateway/gateway-operator:1.0.0
+    image: oryxgateway/gateway-operator:1.1.0
     imagePullSecrets:
       - "gateway-registry"
     updateStrategy: "RollingUpdate"
