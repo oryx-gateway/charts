@@ -1,0 +1,104 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: d4223d0d-ee55-4ae6-afad-ed9fd34280ab
+      topic: TMF652.CancelResourceOrder
+      schema: |
+        {
+          "$id": "https://oryx-gateway.net/schemas/CancelResourceOrder",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "CancelResourceOrder",
+          "type": "object",
+          "description": "",
+          "required": ["@type", "resourceOrder"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "id of the cancellation request (this is not an order id)"
+            },
+            "href": {
+              "type": "string",
+              "description": "Hyperlink to access the cancellation request"
+            },
+            "cancellationReason": {
+              "type": "string",
+              "description": "Reason why the order is cancelled."
+            },
+            "effectiveCancellationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date when the order is cancelled."
+            },
+            "requestedCancellationDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date when the submitter wants the order to be cancelled"
+            },
+            "resourceOrder": {
+              "$ref": "#/definitions/ResourceOrderRef"
+            },
+            "state": {
+              "$ref": "#/definitions/TaskStateType",
+              "description": "Tracks the lifecycle status of the cancellation request, such as Acknowledged, Rejected, InProgress, Pending and so on."
+            },
+            "@baseType": {
+              "type": "string",
+              "description": "When sub-classing, this defines the super-class"
+            },
+            "@schemaLocation": {
+              "type": "string",
+              "format": "uri",
+              "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+            },
+            "@type": {
+              "type": "string",
+              "description": "When sub-classing, this defines the sub-class entity name"
+            }
+          },
+          "definitions": {
+            "ResourceOrderRef": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The unique identifier of the related resource order"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Hyperlink to access the related Resource Order"
+                },
+                "@baseType": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the super-class"
+                },
+                "@schemaLocation": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "A URI to a JSON-Schema file that defines additional attributes and relationships"
+                },
+                "@type": {
+                  "type": "string",
+                  "description": "When sub-classing, this defines the sub-class entity name"
+                },
+                "@referredType": {
+                  "type": "string",
+                  "description": "The actual type of the target instance when needed for disambiguation."
+                }
+              }
+            },
+            "TaskStateType": {
+              "type": "string",
+              "description": "Possible values for the state of a task",
+              "enum": [
+                "acknowledged",
+                "terminatedWithError",
+                "inProgress",
+                "done"
+              ]
+            }
+          }
+        }
+        
