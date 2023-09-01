@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 469109bd-2c48-4b74-a076-8a55e59be6d9
-      topic: TMF634.ResourceSpecification
+      topic: TMF634.resourceSpecification
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ResourceSpecification",

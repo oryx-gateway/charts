@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 069fbb9b-167c-4ff9-bc74-d60dc3747adf
-      topic: TMF638.ServiceInventory
+      topic: TMF638.serviceInventory
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/Service",

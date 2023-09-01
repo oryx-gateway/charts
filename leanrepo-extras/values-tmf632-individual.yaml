@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 2aa44cd8-b70a-463e-bf55-3fed459954ad
-      topic: TMF632.Individual
+      topic: TMF632.individual
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/Individual",
