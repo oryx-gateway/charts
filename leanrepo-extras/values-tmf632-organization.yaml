@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: a2fd30e1-f7ec-4c32-85a6-b2f9484e4ee8
-      topic: TMF632.Organization
+      topic: TMF632.organization
       schema: |
         {
           "$id": "https://example.com/schemas/Organization",

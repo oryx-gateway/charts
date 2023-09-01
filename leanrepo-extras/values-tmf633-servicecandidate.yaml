@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 6077899c-36b2-4c8f-ac0d-bba1a2bb6b2e
-      topic: TMF633.ServiceCandidate
+      topic: TMF633.serviceCandidate
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ServiceCandidate",

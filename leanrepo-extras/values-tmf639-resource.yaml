@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: ed682efa-3b06-4fff-8377-296a4cc32dd4
-      topic: TMF639.ResourceInventory
+      topic: TMF639.resourceInventory
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/Resource",

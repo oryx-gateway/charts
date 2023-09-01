@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: 77f231e3-21e8-4d17-bdbb-822c2df23e9c
-      topic: TMF633.ServiceCatalog
+      topic: TMF633.serviceCatalog
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ServiceCatalog",

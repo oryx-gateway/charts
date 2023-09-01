@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: d4223d0d-ee55-4ae6-afad-ed9fd34280ab
-      topic: TMF652.CancelResourceOrder
+      topic: TMF652.cancelResourceOrder
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/CancelResourceOrder",

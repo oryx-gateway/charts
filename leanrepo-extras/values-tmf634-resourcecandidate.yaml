@@ -2,7 +2,7 @@ oryx:
   leanrepo:
     settings:
       groupId: f7743da2-b3bb-45b4-9b57-b88c5f76f7c6
-      topic: TMF634.ResourceCandidate
+      topic: TMF634.resourceCandidate
       schema: |
         {
           "$id": "https://oryx-gateway.net/schemas/ResourceCandidate",
