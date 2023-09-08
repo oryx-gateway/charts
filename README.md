@@ -30,16 +30,6 @@ Edit the deployment using:
 
 `kubectl edit deployment oda-controller-ingress -n canvas`
 
-In this file in the spec part, add the following group:
-
-`imagePullSecrets:
-- name: gateway-registry`
-
-and replace the container image for the component-controller with:
-
-`cloud.canister.io:5000/oryxgateway/component-controller:latest`
-
-
 ## installing Eventhub gateway
 
 To add the Helm Repo run the following command:
