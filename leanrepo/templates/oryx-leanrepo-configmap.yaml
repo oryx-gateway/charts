@@ -11,10 +11,8 @@ metadata:
 data:
   "{{ .Values.oryx.leanrepo.settings.topic }}.json": |
 {{ .Values.oryx.leanrepo.settings.schema | indent 4 }}
-
 {{- if .Values.oryx.leanrepo.settings.state }}
   "{{ .Values.oryx.leanrepo.settings.topic }}.fsm.json": |
 {{ .Values.oryx.leanrepo.settings.state | indent 4 }}
 {{- end }}
-
 {{- end }}

@@ -1,0 +1,1529 @@
+oryx:
+  leanrepo:
+    settings:
+      groupId: 008d2496-8dce-43bb-82c5-5fcf36ddf85f
+      topic: TMF641.serviceOrder
+      schema: |
+        {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "$id": "http://example.com/example.json",
+            "type": "object",
+            "default": {},
+            "title": "ServiceOrder",
+            "required": [
+                "type",
+                "id",
+                "href",
+                "category",
+                "completionDate",
+                "externalId",
+                "orderDate",
+                "priority",
+                "startDate",
+                "errorMessage",
+                "externalReference",
+                "jeopardyAlert",
+                "milestone",
+                "note",
+                "orderRelationship",
+                "relatedParty",
+                "serviceOrderItem",
+                "state"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The type Schema",
+                    "examples": [
+                        "ServiceOrder"
+                    ]
+                },
+                "id": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The id Schema",
+                    "examples": [
+                        "8e9a56fd-8eea-44c8-a7af-28ebf550d38d"
+                    ]
+                },
+                "href": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The href Schema",
+                    "examples": [
+                        "https://service-ordering-management-api.lab36.int.satec.es/tmf-api/serviceOrdering/v4/serviceOrder/8e9a56fd-8eea-44c8-a7af-28ebf550d38d"
+                    ]
+                },
+                "category": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The category Schema",
+                    "examples": [
+                        "Residential"
+                    ]
+                },
+                "completionDate": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The completionDate Schema",
+                    "examples": [
+                        "2023-02-28T14:56:02.07Z"
+                    ]
+                },
+                "externalId": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The externalId Schema",
+                    "examples": [
+                        "132477"
+                    ]
+                },
+                "orderDate": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The orderDate Schema",
+                    "examples": [
+                        "2023-02-28T14:54:44.529Z"
+                    ]
+                },
+                "priority": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The priority Schema",
+                    "examples": [
+                        "High"
+                    ]
+                },
+                "startDate": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The startDate Schema",
+                    "examples": [
+                        "2023-02-28T14:54:52.331Z"
+                    ]
+                },
+                "errorMessage": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The errorMessage Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "externalReference": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The externalReference Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "jeopardyAlert": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The jeopardyAlert Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "milestone": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The milestone Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "note": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The note Schema",
+                    "items": {
+                        "type": "object",
+                        "title": "A Schema",
+                        "required": [
+                            "author",
+                            "date",
+                            "text"
+                        ],
+                        "properties": {
+                            "author": {
+                                "type": "string",
+                                "title": "The author Schema",
+                                "examples": [
+                                    "Service Order Management (auto)"
+                                ]
+                            },
+                            "date": {
+                                "type": "string",
+                                "title": "The date Schema",
+                                "examples": [
+                                    "2023-02-28T14:55:51.304Z",
+                                    "2023-02-28T14:55:07.533Z",
+                                    "2023-02-28T14:54:51.442Z",
+                                    "2023-02-28T14:55:55.92Z",
+                                    "2023-02-28T14:55:56.182Z",
+                                    "2023-02-28T14:55:57.946Z",
+                                    "2023-02-28T14:56:01.327Z"
+                                ]
+                            },
+                            "text": {
+                                "type": "string",
+                                "title": "The text Schema",
+                                "examples": [
+                                    "Setting order item (IPTV RFS) state from inProgress to completed.",
+                                    "Service order (132477) state changed from inProgress to pending. Reason: CANCELATION RECEIVED! locking ServiceOrder Id: '132477 ' Server is waiting to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'",
+                                    "Setting order item (IPTV RFS) state from acknowledged to inProgress.",
+                                    "Service order (132477) state changed from pending to assessingCancellation. Reason: Server is ready to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'",
+                                    "Service order (132477) state changed from assessingCancellation to pendingCancellation. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'",
+                                    "Service order (132477) state changed from pendingCancellation to cancelled. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'",
+                                    "Setting order item (Internet TV Service: IPTV CFS) state from cancelled to completed."
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:51.304Z",
+                            "text": "Setting order item (IPTV RFS) state from inProgress to completed."
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:07.533Z",
+                            "text": "Service order (132477) state changed from inProgress to pending. Reason: CANCELATION RECEIVED! locking ServiceOrder Id: '132477 ' Server is waiting to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:54:51.442Z",
+                            "text": "Setting order item (IPTV RFS) state from acknowledged to inProgress."
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:55.92Z",
+                            "text": "Service order (132477) state changed from pending to assessingCancellation. Reason: Server is ready to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:56.182Z",
+                            "text": "Service order (132477) state changed from assessingCancellation to pendingCancellation. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:57.946Z",
+                            "text": "Service order (132477) state changed from pendingCancellation to cancelled. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:56:01.327Z",
+                            "text": "Setting order item (Internet TV Service: IPTV CFS) state from cancelled to completed."
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:51.304Z",
+                            "text": "Setting order item (IPTV RFS) state from inProgress to completed."
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:07.533Z",
+                            "text": "Service order (132477) state changed from inProgress to pending. Reason: CANCELATION RECEIVED! locking ServiceOrder Id: '132477 ' Server is waiting to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:54:51.442Z",
+                            "text": "Setting order item (IPTV RFS) state from acknowledged to inProgress."
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:55.92Z",
+                            "text": "Service order (132477) state changed from pending to assessingCancellation. Reason: Server is ready to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:56.182Z",
+                            "text": "Service order (132477) state changed from assessingCancellation to pendingCancellation. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:55:57.946Z",
+                            "text": "Service order (132477) state changed from pendingCancellation to cancelled. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                        },
+                        {
+                            "author": "Service Order Management (auto)",
+                            "date": "2023-02-28T14:56:01.327Z",
+                            "text": "Setting order item (Internet TV Service: IPTV CFS) state from cancelled to completed."
+                        }]
+                    ]
+                },
+                "orderRelationship": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The orderRelationship Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "relatedParty": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The relatedParty Schema",
+                    "items": {
+                        "type": "object",
+                        "title": "A Schema",
+                        "required": [
+                            "id",
+                            "href",
+                            "name",
+                            "role",
+                            "@referredType"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "The id Schema",
+                                "examples": [
+                                    "3",
+                                    "2"
+                                ]
+                            },
+                            "href": {
+                                "type": "string",
+                                "title": "The href Schema",
+                                "examples": [
+                                    "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                                    "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "title": "The name Schema",
+                                "examples": [
+                                    "Johannes Bester",
+                                    "Philip Risser"
+                                ]
+                            },
+                            "role": {
+                                "type": "string",
+                                "title": "The role Schema",
+                                "examples": [
+                                    "Contact",
+                                    "User"
+                                ]
+                            },
+                            "@referredType": {
+                                "type": "string",
+                                "title": "The @referredType Schema",
+                                "examples": [
+                                    "Contact",
+                                    "User"
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "id": "3",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                            "name": "Johannes Bester",
+                            "role": "Contact",
+                            "@referredType": "Contact"
+                        },
+                        {
+                            "id": "2",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                            "name": "Philip Risser",
+                            "role": "User",
+                            "@referredType": "User"
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "id": "3",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                            "name": "Johannes Bester",
+                            "role": "Contact",
+                            "@referredType": "Contact"
+                        },
+                        {
+                            "id": "2",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                            "name": "Philip Risser",
+                            "role": "User",
+                            "@referredType": "User"
+                        }]
+                    ]
+                },
+                "serviceOrderItem": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The serviceOrderItem Schema",
+                    "items": {
+                        "type": "object",
+                        "title": "A Schema",
+                        "required": [
+                            "id",
+                            "action",
+                            "errorMessage",
+                            "service",
+                            "serviceOrderItemRelationship",
+                            "state"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "The id Schema",
+                                "examples": [
+                                    "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0",
+                                    "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                ]
+                            },
+                            "action": {
+                                "type": "string",
+                                "title": "The action Schema",
+                                "examples": [
+                                    "add"
+                                ]
+                            },
+                            "errorMessage": {
+                                "type": "array",
+                                "title": "The errorMessage Schema",
+                                "items": {},
+                                "examples": [
+                                    [],
+                                    []
+                                ]
+                            },
+                            "service": {
+                                "type": "object",
+                                "title": "The service Schema",
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "feature",
+                                    "note",
+                                    "place",
+                                    "relatedEntity",
+                                    "relatedParty",
+                                    "serviceCharacteristic",
+                                    "serviceOrderItem",
+                                    "serviceRelationship",
+                                    "serviceSpecification",
+                                    "supportingResource",
+                                    "supportingService",
+                                    "@baseType",
+                                    "@type"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "title": "The id Schema",
+                                        "examples": [
+                                            "267375",
+                                            "267348"
+                                        ]
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "title": "The name Schema",
+                                        "examples": [
+                                            "Internet TV Service: IPTV CFS",
+                                            "IPTV RFS"
+                                        ]
+                                    },
+                                    "feature": {
+                                        "type": "array",
+                                        "title": "The feature Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "note": {
+                                        "type": "array",
+                                        "title": "The note Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "place": {
+                                        "type": "array",
+                                        "title": "The place Schema",
+                                        "items": {
+                                            "type": "object",
+                                            "title": "A Schema",
+                                            "required": [
+                                                "id",
+                                                "href",
+                                                "role"
+                                            ],
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "title": "The id Schema",
+                                                    "examples": [
+                                                        "006f2ad4-06d9-45d5-9fff-0e374ebffe64"
+                                                    ]
+                                                },
+                                                "href": {
+                                                    "type": "string",
+                                                    "title": "The href Schema",
+                                                    "examples": [
+                                                        "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d"
+                                                    ]
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "title": "The role Schema",
+                                                    "examples": [
+                                                        "Service address"
+                                                    ]
+                                                }
+                                            },
+                                            "examples": [{
+                                                "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                                "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                                "role": "Service address"
+                                            },
+                                            {
+                                                "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                                "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                                "role": "Service address"
+                                            }]
+                                        },
+                                        "examples": [
+                                            [{
+                                                "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                                "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                                "role": "Service address"
+                                            }],
+                                            [{
+                                                "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                                "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                                "role": "Service address"
+                                            }]
+                                        ]
+                                    },
+                                    "relatedEntity": {
+                                        "type": "array",
+                                        "title": "The relatedEntity Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "relatedParty": {
+                                        "type": "array",
+                                        "title": "The relatedParty Schema",
+                                        "items": {
+                                            "type": "object",
+                                            "title": "A Schema",
+                                            "required": [
+                                                "id",
+                                                "href",
+                                                "name",
+                                                "role",
+                                                "@referredType"
+                                            ],
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "title": "The id Schema",
+                                                    "examples": [
+                                                        "1"
+                                                    ]
+                                                },
+                                                "href": {
+                                                    "type": "string",
+                                                    "title": "The href Schema",
+                                                    "examples": [
+                                                        "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX"
+                                                    ]
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "title": "The name Schema",
+                                                    "examples": [
+                                                        "Johannes Bester"
+                                                    ]
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "title": "The role Schema",
+                                                    "examples": [
+                                                        "Customer"
+                                                    ]
+                                                },
+                                                "@referredType": {
+                                                    "type": "string",
+                                                    "title": "The @referredType Schema",
+                                                    "examples": [
+                                                        "Customer"
+                                                    ]
+                                                }
+                                            },
+                                            "examples": [{
+                                                "id": "1",
+                                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                                "name": "Johannes Bester",
+                                                "role": "Customer",
+                                                "@referredType": "Customer"
+                                            },
+                                            {
+                                                "id": "1",
+                                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                                "name": "Johannes Bester",
+                                                "role": "Customer",
+                                                "@referredType": "Customer"
+                                            }]
+                                        },
+                                        "examples": [
+                                            [{
+                                                "id": "1",
+                                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                                "name": "Johannes Bester",
+                                                "role": "Customer",
+                                                "@referredType": "Customer"
+                                            }],
+                                            [{
+                                                "id": "1",
+                                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                                "name": "Johannes Bester",
+                                                "role": "Customer",
+                                                "@referredType": "Customer"
+                                            }]
+                                        ]
+                                    },
+                                    "serviceCharacteristic": {
+                                        "type": "array",
+                                        "title": "The serviceCharacteristic Schema",
+                                        "items": {
+                                            "type": "object",
+                                            "title": "A Schema",
+                                            "required": [
+                                                "name",
+                                                "valueType",
+                                                "value"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "title": "The name Schema",
+                                                    "examples": [
+                                                        "channelList",
+                                                        "serialNumber",
+                                                        "numSTB",
+                                                        "vendor",
+                                                        "model"
+                                                    ]
+                                                },
+                                                "valueType": {
+                                                    "type": "string",
+                                                    "title": "The valueType Schema",
+                                                    "examples": [
+                                                        "String"
+                                                    ]
+                                                },
+                                                "value": {
+                                                    "type": "integer",
+                                                    "title": "The value Schema",
+                                                    "examples": [
+                                                        1
+                                                    ]
+                                                }
+                                            },
+                                            "examples": [{
+                                                "name": "channelList",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "serialNumber",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "numSTB",
+                                                "value": 1
+                                            },
+                                            {
+                                                "name": "vendor",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "model",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "model",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "vendor",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "numSTB",
+                                                "value": 1
+                                            },
+                                            {
+                                                "name": "serialNumber",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "channelList",
+                                                "valueType": "String"
+                                            }]
+                                        },
+                                        "examples": [
+                                            [{
+                                                "name": "channelList",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "serialNumber",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "numSTB",
+                                                "value": 1
+                                            },
+                                            {
+                                                "name": "vendor",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "model",
+                                                "valueType": "String"
+                                            }],
+                                            [{
+                                                "name": "model",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "vendor",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "numSTB",
+                                                "value": 1
+                                            },
+                                            {
+                                                "name": "serialNumber",
+                                                "valueType": "String"
+                                            },
+                                            {
+                                                "name": "channelList",
+                                                "valueType": "String"
+                                            }]
+                                        ]
+                                    },
+                                    "serviceOrderItem": {
+                                        "type": "array",
+                                        "title": "The serviceOrderItem Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "serviceRelationship": {
+                                        "type": "array",
+                                        "title": "The serviceRelationship Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "serviceSpecification": {
+                                        "type": "object",
+                                        "title": "The serviceSpecification Schema",
+                                        "required": [
+                                            "id",
+                                            "href",
+                                            "name",
+                                            "version",
+                                            "@baseType",
+                                            "@schemaLocation",
+                                            "@type"
+                                        ],
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "title": "The id Schema",
+                                                "examples": [
+                                                    "35",
+                                                    "261"
+                                                ]
+                                            },
+                                            "href": {
+                                                "type": "string",
+                                                "title": "The href Schema",
+                                                "examples": [
+                                                    "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                                                    "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496"
+                                                ]
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "title": "The name Schema",
+                                                "examples": [
+                                                    "IPTV CFS",
+                                                    "IPTV RFS"
+                                                ]
+                                            },
+                                            "version": {
+                                                "type": "string",
+                                                "title": "The version Schema",
+                                                "examples": [
+                                                    "1"
+                                                ]
+                                            },
+                                            "@baseType": {
+                                                "type": "string",
+                                                "title": "The @baseType Schema",
+                                                "examples": [
+                                                    "CustomerFacingServiceSpecAtomic",
+                                                    "ResourceFacingServiceSpecAtomic"
+                                                ]
+                                            },
+                                            "@schemaLocation": {
+                                                "type": "string",
+                                                "title": "The @schemaLocation Schema",
+                                                "examples": [
+                                                    "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html"
+                                                ]
+                                            },
+                                            "@type": {
+                                                "type": "string",
+                                                "title": "The @type Schema",
+                                                "examples": [
+                                                    "TelenorIPTVCFS",
+                                                    "TelenorIPTVRFS"
+                                                ]
+                                            }
+                                        },
+                                        "examples": [{
+                                            "id": "35",
+                                            "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                                            "name": "IPTV CFS",
+                                            "version": "1",
+                                            "@baseType": "CustomerFacingServiceSpecAtomic",
+                                            "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                            "@type": "TelenorIPTVCFS"
+                                        },
+                                        {
+                                            "id": "261",
+                                            "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496",
+                                            "name": "IPTV RFS",
+                                            "version": "1",
+                                            "@baseType": "ResourceFacingServiceSpecAtomic",
+                                            "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                            "@type": "TelenorIPTVRFS"
+                                        }]
+                                    },
+                                    "supportingResource": {
+                                        "type": "array",
+                                        "title": "The supportingResource Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "supportingService": {
+                                        "type": "array",
+                                        "title": "The supportingService Schema",
+                                        "items": {},
+                                        "examples": [
+                                            [],
+                                            []
+                                        ]
+                                    },
+                                    "@baseType": {
+                                        "type": "string",
+                                        "title": "The @baseType Schema",
+                                        "examples": [
+                                            "CustomerFacingServiceSpecAtomic",
+                                            "ResourceFacingServiceSpecAtomic"
+                                        ]
+                                    },
+                                    "@type": {
+                                        "type": "string",
+                                        "title": "The @type Schema",
+                                        "examples": [
+                                            "TelenorIPTVCFS",
+                                            "TelenorIPTVRFS"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "id": "267375",
+                                    "name": "Internet TV Service: IPTV CFS",
+                                    "feature": [],
+                                    "note": [],
+                                    "place": [{
+                                        "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                        "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "role": "Service address"
+                                    }],
+                                    "relatedEntity": [],
+                                    "relatedParty": [{
+                                        "id": "1",
+                                        "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Johannes Bester",
+                                        "role": "Customer",
+                                        "@referredType": "Customer"
+                                    }],
+                                    "serviceCharacteristic": [{
+                                        "name": "channelList",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "serialNumber",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "numSTB",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "vendor",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "model",
+                                        "valueType": "String"
+                                    }],
+                                    "serviceOrderItem": [],
+                                    "serviceRelationship": [],
+                                    "serviceSpecification": {
+                                        "id": "35",
+                                        "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                                        "name": "IPTV CFS",
+                                        "version": "1",
+                                        "@baseType": "CustomerFacingServiceSpecAtomic",
+                                        "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                        "@type": "TelenorIPTVCFS"
+                                    },
+                                    "supportingResource": [],
+                                    "supportingService": [],
+                                    "@baseType": "CustomerFacingServiceSpecAtomic",
+                                    "@type": "TelenorIPTVCFS"
+                                },
+                                {
+                                    "id": "267348",
+                                    "name": "IPTV RFS",
+                                    "feature": [],
+                                    "note": [],
+                                    "place": [{
+                                        "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                        "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "role": "Service address"
+                                    }],
+                                    "relatedEntity": [],
+                                    "relatedParty": [{
+                                        "id": "1",
+                                        "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Johannes Bester",
+                                        "role": "Customer",
+                                        "@referredType": "Customer"
+                                    }],
+                                    "serviceCharacteristic": [{
+                                        "name": "model",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "vendor",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "numSTB",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "serialNumber",
+                                        "valueType": "String"
+                                    },
+                                    {
+                                        "name": "channelList",
+                                        "valueType": "String"
+                                    }],
+                                    "serviceOrderItem": [],
+                                    "serviceRelationship": [],
+                                    "serviceSpecification": {
+                                        "id": "261",
+                                        "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496",
+                                        "name": "IPTV RFS",
+                                        "version": "1",
+                                        "@baseType": "ResourceFacingServiceSpecAtomic",
+                                        "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                        "@type": "TelenorIPTVRFS"
+                                    },
+                                    "supportingResource": [],
+                                    "supportingService": [],
+                                    "@baseType": "ResourceFacingServiceSpecAtomic",
+                                    "@type": "TelenorIPTVRFS"
+                                }]
+                            },
+                            "serviceOrderItemRelationship": {
+                                "type": "array",
+                                "title": "The serviceOrderItemRelationship Schema",
+                                "items": {
+                                    "type": "object",
+                                    "title": "A Schema",
+                                    "required": [
+                                        "relationshipType",
+                                        "orderItem"
+                                    ],
+                                    "properties": {
+                                        "relationshipType": {
+                                            "type": "string",
+                                            "title": "The relationshipType Schema",
+                                            "examples": [
+                                                "isRealizedBy",
+                                                "realizes"
+                                            ]
+                                        },
+                                        "orderItem": {
+                                            "type": "object",
+                                            "title": "The orderItem Schema",
+                                            "required": [
+                                                "itemId"
+                                            ],
+                                            "properties": {
+                                                "itemId": {
+                                                    "type": "string",
+                                                    "title": "The itemId Schema",
+                                                    "examples": [
+                                                        "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0",
+                                                        "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                                    ]
+                                                }
+                                            },
+                                            "examples": [{
+                                                "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                            },
+                                            {
+                                                "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                            }]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "relationshipType": "isRealizedBy",
+                                        "orderItem": {
+                                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                        }
+                                    },
+                                    {
+                                        "relationshipType": "realizes",
+                                        "orderItem": {
+                                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                        }
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "relationshipType": "isRealizedBy",
+                                        "orderItem": {
+                                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                        }
+                                    }],
+                                    [{
+                                        "relationshipType": "realizes",
+                                        "orderItem": {
+                                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                        }
+                                    }]
+                                ]
+                            },
+                            "state": {
+                                "type": "string",
+                                "title": "The state Schema",
+                                "examples": [
+                                    "completed"
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0",
+                            "action": "add",
+                            "errorMessage": [],
+                            "service": {
+                                "id": "267375",
+                                "name": "Internet TV Service: IPTV CFS",
+                                "feature": [],
+                                "note": [],
+                                "place": [{
+                                    "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                    "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                    "role": "Service address"
+                                }],
+                                "relatedEntity": [],
+                                "relatedParty": [{
+                                    "id": "1",
+                                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                    "name": "Johannes Bester",
+                                    "role": "Customer",
+                                    "@referredType": "Customer"
+                                }],
+                                "serviceCharacteristic": [{
+                                    "name": "channelList",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "serialNumber",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "numSTB",
+                                    "value": 1
+                                },
+                                {
+                                    "name": "vendor",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "model",
+                                    "valueType": "String"
+                                }],
+                                "serviceOrderItem": [],
+                                "serviceRelationship": [],
+                                "serviceSpecification": {
+                                    "id": "35",
+                                    "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                                    "name": "IPTV CFS",
+                                    "version": "1",
+                                    "@baseType": "CustomerFacingServiceSpecAtomic",
+                                    "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                    "@type": "TelenorIPTVCFS"
+                                },
+                                "supportingResource": [],
+                                "supportingService": [],
+                                "@baseType": "CustomerFacingServiceSpecAtomic",
+                                "@type": "TelenorIPTVCFS"
+                            },
+                            "serviceOrderItemRelationship": [{
+                                "relationshipType": "isRealizedBy",
+                                "orderItem": {
+                                    "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                }
+                            }],
+                            "state": "completed"
+                        },
+                        {
+                            "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0",
+                            "action": "add",
+                            "errorMessage": [],
+                            "service": {
+                                "id": "267348",
+                                "name": "IPTV RFS",
+                                "feature": [],
+                                "note": [],
+                                "place": [{
+                                    "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                    "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                    "role": "Service address"
+                                }],
+                                "relatedEntity": [],
+                                "relatedParty": [{
+                                    "id": "1",
+                                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                    "name": "Johannes Bester",
+                                    "role": "Customer",
+                                    "@referredType": "Customer"
+                                }],
+                                "serviceCharacteristic": [{
+                                    "name": "model",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "vendor",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "numSTB",
+                                    "value": 1
+                                },
+                                {
+                                    "name": "serialNumber",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "channelList",
+                                    "valueType": "String"
+                                }],
+                                "serviceOrderItem": [],
+                                "serviceRelationship": [],
+                                "serviceSpecification": {
+                                    "id": "261",
+                                    "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496",
+                                    "name": "IPTV RFS",
+                                    "version": "1",
+                                    "@baseType": "ResourceFacingServiceSpecAtomic",
+                                    "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                    "@type": "TelenorIPTVRFS"
+                                },
+                                "supportingResource": [],
+                                "supportingService": [],
+                                "@baseType": "ResourceFacingServiceSpecAtomic",
+                                "@type": "TelenorIPTVRFS"
+                            },
+                            "serviceOrderItemRelationship": [{
+                                "relationshipType": "realizes",
+                                "orderItem": {
+                                    "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                }
+                            }],
+                            "state": "completed"
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0",
+                            "action": "add",
+                            "errorMessage": [],
+                            "service": {
+                                "id": "267375",
+                                "name": "Internet TV Service: IPTV CFS",
+                                "feature": [],
+                                "note": [],
+                                "place": [{
+                                    "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                    "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                    "role": "Service address"
+                                }],
+                                "relatedEntity": [],
+                                "relatedParty": [{
+                                    "id": "1",
+                                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                    "name": "Johannes Bester",
+                                    "role": "Customer",
+                                    "@referredType": "Customer"
+                                }],
+                                "serviceCharacteristic": [{
+                                    "name": "channelList",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "serialNumber",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "numSTB",
+                                    "value": 1
+                                },
+                                {
+                                    "name": "vendor",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "model",
+                                    "valueType": "String"
+                                }],
+                                "serviceOrderItem": [],
+                                "serviceRelationship": [],
+                                "serviceSpecification": {
+                                    "id": "35",
+                                    "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                                    "name": "IPTV CFS",
+                                    "version": "1",
+                                    "@baseType": "CustomerFacingServiceSpecAtomic",
+                                    "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                    "@type": "TelenorIPTVCFS"
+                                },
+                                "supportingResource": [],
+                                "supportingService": [],
+                                "@baseType": "CustomerFacingServiceSpecAtomic",
+                                "@type": "TelenorIPTVCFS"
+                            },
+                            "serviceOrderItemRelationship": [{
+                                "relationshipType": "isRealizedBy",
+                                "orderItem": {
+                                    "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                                }
+                            }],
+                            "state": "completed"
+                        },
+                        {
+                            "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0",
+                            "action": "add",
+                            "errorMessage": [],
+                            "service": {
+                                "id": "267348",
+                                "name": "IPTV RFS",
+                                "feature": [],
+                                "note": [],
+                                "place": [{
+                                    "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                                    "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                    "role": "Service address"
+                                }],
+                                "relatedEntity": [],
+                                "relatedParty": [{
+                                    "id": "1",
+                                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                    "name": "Johannes Bester",
+                                    "role": "Customer",
+                                    "@referredType": "Customer"
+                                }],
+                                "serviceCharacteristic": [{
+                                    "name": "model",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "vendor",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "numSTB",
+                                    "value": 1
+                                },
+                                {
+                                    "name": "serialNumber",
+                                    "valueType": "String"
+                                },
+                                {
+                                    "name": "channelList",
+                                    "valueType": "String"
+                                }],
+                                "serviceOrderItem": [],
+                                "serviceRelationship": [],
+                                "serviceSpecification": {
+                                    "id": "261",
+                                    "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496",
+                                    "name": "IPTV RFS",
+                                    "version": "1",
+                                    "@baseType": "ResourceFacingServiceSpecAtomic",
+                                    "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                                    "@type": "TelenorIPTVRFS"
+                                },
+                                "supportingResource": [],
+                                "supportingService": [],
+                                "@baseType": "ResourceFacingServiceSpecAtomic",
+                                "@type": "TelenorIPTVRFS"
+                            },
+                            "serviceOrderItemRelationship": [{
+                                "relationshipType": "realizes",
+                                "orderItem": {
+                                    "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                                }
+                            }],
+                            "state": "completed"
+                        }]
+                    ]
+                },
+                "state": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The state Schema",
+                    "examples": [
+                        "completed"
+                    ]
+                }
+            },
+            "examples": [{
+                "type": "ServiceOrder",
+                "id": "8e9a56fd-8eea-44c8-a7af-28ebf550d38d",
+                "href": "https://service-ordering-management-api.lab36.int.satec.es/tmf-api/serviceOrdering/v4/serviceOrder/8e9a56fd-8eea-44c8-a7af-28ebf550d38d",
+                "category": "Residential",
+                "completionDate": "2023-02-28T14:56:02.07Z",
+                "externalId": "132477",
+                "orderDate": "2023-02-28T14:54:44.529Z",
+                "priority": "High",
+                "startDate": "2023-02-28T14:54:52.331Z",
+                "errorMessage": [],
+                "externalReference": [],
+                "jeopardyAlert": [],
+                "milestone": [],
+                "note": [{
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:55:51.304Z",
+                    "text": "Setting order item (IPTV RFS) state from inProgress to completed."
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:55:07.533Z",
+                    "text": "Service order (132477) state changed from inProgress to pending. Reason: CANCELATION RECEIVED! locking ServiceOrder Id: '132477 ' Server is waiting to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:54:51.442Z",
+                    "text": "Setting order item (IPTV RFS) state from acknowledged to inProgress."
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:55:55.92Z",
+                    "text": "Service order (132477) state changed from pending to assessingCancellation. Reason: Server is ready to start evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a', asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:55:56.182Z",
+                    "text": "Service order (132477) state changed from assessingCancellation to pendingCancellation. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:55:57.946Z",
+                    "text": "Service order (132477) state changed from pendingCancellation to cancelled. Reason: CANCELATION APROVED! Evaluating PONR CancelServiceOrder Id: '7d06ad6c-3c9c-40ec-b2ee-4cc3ee10b11a' asociated to ServiceOrder Id: '8e9a56fd-8eea-44c8-a7af-28ebf550d38d'"
+                },
+                {
+                    "author": "Service Order Management (auto)",
+                    "date": "2023-02-28T14:56:01.327Z",
+                    "text": "Setting order item (Internet TV Service: IPTV CFS) state from cancelled to completed."
+                }],
+                "orderRelationship": [],
+                "relatedParty": [{
+                    "id": "3",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                    "name": "Johannes Bester",
+                    "role": "Contact",
+                    "@referredType": "Contact"
+                },
+                {
+                    "id": "2",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                    "name": "Philip Risser",
+                    "role": "User",
+                    "@referredType": "User"
+                }],
+                "serviceOrderItem": [{
+                    "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0",
+                    "action": "add",
+                    "errorMessage": [],
+                    "service": {
+                        "id": "267375",
+                        "name": "Internet TV Service: IPTV CFS",
+                        "feature": [],
+                        "note": [],
+                        "place": [{
+                            "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                            "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "role": "Service address"
+                        }],
+                        "relatedEntity": [],
+                        "relatedParty": [{
+                            "id": "1",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Johannes Bester",
+                            "role": "Customer",
+                            "@referredType": "Customer"
+                        }],
+                        "serviceCharacteristic": [{
+                            "name": "channelList",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "serialNumber",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "numSTB",
+                            "value": 1
+                        },
+                        {
+                            "name": "vendor",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "model",
+                            "valueType": "String"
+                        }],
+                        "serviceOrderItem": [],
+                        "serviceRelationship": [],
+                        "serviceSpecification": {
+                            "id": "35",
+                            "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/35/132",
+                            "name": "IPTV CFS",
+                            "version": "1",
+                            "@baseType": "CustomerFacingServiceSpecAtomic",
+                            "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                            "@type": "TelenorIPTVCFS"
+                        },
+                        "supportingResource": [],
+                        "supportingService": [],
+                        "@baseType": "CustomerFacingServiceSpecAtomic",
+                        "@type": "TelenorIPTVCFS"
+                    },
+                    "serviceOrderItemRelationship": [{
+                        "relationshipType": "isRealizedBy",
+                        "orderItem": {
+                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0"
+                        }
+                    }],
+                    "state": "completed"
+                },
+                {
+                    "id": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0_0",
+                    "action": "add",
+                    "errorMessage": [],
+                    "service": {
+                        "id": "267348",
+                        "name": "IPTV RFS",
+                        "feature": [],
+                        "note": [],
+                        "place": [{
+                            "id": "006f2ad4-06d9-45d5-9fff-0e374ebffe64",
+                            "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "role": "Service address"
+                        }],
+                        "relatedEntity": [],
+                        "relatedParty": [{
+                            "id": "1",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Johannes Bester",
+                            "role": "Customer",
+                            "@referredType": "Customer"
+                        }],
+                        "serviceCharacteristic": [{
+                            "name": "model",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "vendor",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "numSTB",
+                            "value": 1
+                        },
+                        {
+                            "name": "serialNumber",
+                            "valueType": "String"
+                        },
+                        {
+                            "name": "channelList",
+                            "valueType": "String"
+                        }],
+                        "serviceOrderItem": [],
+                        "serviceRelationship": [],
+                        "serviceSpecification": {
+                            "id": "261",
+                            "href": "http://tmf633-service-catalog-api:8080/tmf-api/serviceCatalogManagement/v4/serviceSpecification/261/496",
+                            "name": "IPTV RFS",
+                            "version": "1",
+                            "@baseType": "ResourceFacingServiceSpecAtomic",
+                            "@schemaLocation": "http://localhost:8334/tmf-api/serviceCatalogManagement/v2/swagger-ui.html",
+                            "@type": "TelenorIPTVRFS"
+                        },
+                        "supportingResource": [],
+                        "supportingService": [],
+                        "@baseType": "ResourceFacingServiceSpecAtomic",
+                        "@type": "TelenorIPTVRFS"
+                    },
+                    "serviceOrderItemRelationship": [{
+                        "relationshipType": "realizes",
+                        "orderItem": {
+                            "itemId": "4da6f25f-a5a4-434a-954c-d43189aebfda_174611_0"
+                        }
+                    }],
+                    "state": "completed"
+                }],
+                "state": "completed"
+            }]
+        }
