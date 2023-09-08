@@ -1,7 +1,7 @@
 oryx:
   leanrepo:
     settings:
-      groupId: 86102ede-ac97-43a8-ad33-85d30dc0052a
+      groupId: c6449911-628e-4a6d-a69a-13cacea9503b
       topic: TMF652.resourceOrder
       schema: |
         {

@@ -1,6 +1,6 @@
 {{- if .Values.redis.enabled }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-{{ .Values.redis.name }}
   labels:
@@ -9,13 +9,12 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
 spec:
+  serviceName: {{ .Release.Name }}-{{ .Values.redis.name }}
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Release.Name }}-{{ .Values.redis.name }}
       release: {{ .Release.Name }}
-  replicas: {{ .Values.redis.replicas }}
-  strategy:
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -66,15 +65,23 @@ spec:
           volumeMounts:
             - name: redis-volume
               mountPath: /data
+{{ if not .Values.redis.persistence.enabled }}
       volumes:
         - name: redis-volume
-      {{ if not .Values.redis.persistence.enabled }}
           emptyDir: { }
-      {{- else }}
-          persistentVolumeClaim:
-            claimName: redis-volume-pvc
-      {{- end }}
+{{- end }}
 
+{{- if .Values.redis.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.redis.persistence.size }}
+        storageClassName: {{ .Values.redis.persistence.storageClass }}
+{{- end }}
       {{- if .Values.redis.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.redis.nodeSelector | indent 8 }}

@@ -17,7 +17,6 @@ redis:
     enabled: false
     size: 10Gi
     storageClass: null
-  replicas: 1
   updateStrategy: "RollingUpdate"
   resources:
     requests:

@@ -1,0 +1,1325 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "ProductOrder",
+    "required": [
+        "id",
+        "href",
+        "category",
+        "description",
+        "externalId",
+        "notificationContact",
+        "orderDate",
+        "priority",
+        "state",
+        "productOrderItem",
+        "relatedParty"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "default": "",
+            "title": "The id Schema",
+            "examples": [
+                "bde159e4-d337-4681-a19c-7f453134df7c"
+            ]
+        },
+        "href": {
+            "type": "string",
+            "default": "",
+            "title": "The href Schema",
+            "examples": [
+                "https://tmf622-product-ordering-api.async.alvatest.net/tmf-api/productOrderingManagement/v4/productOrder/bde159e4-d337-4681-a19c-7f453134df7c"
+            ]
+        },
+        "category": {
+            "type": "string",
+            "default": "",
+            "title": "The category Schema",
+            "examples": [
+                "Residential"
+            ]
+        },
+        "description": {
+            "type": "string",
+            "default": "",
+            "title": "The description Schema",
+            "examples": [
+                " Mobile Line 4G"
+            ]
+        },
+        "externalId": {
+            "type": "string",
+            "default": "",
+            "title": "The externalId Schema",
+            "examples": [
+                "JMA133164"
+            ]
+        },
+        "notificationContact": {
+            "type": "string",
+            "default": "",
+            "title": "The notificationContact Schema",
+            "examples": [
+                "provisioning@bearingpoint.com"
+            ]
+        },
+        "orderDate": {
+            "type": "string",
+            "default": "",
+            "title": "The orderDate Schema",
+            "examples": [
+                "2023-08-31T11:51:32.225Z"
+            ]
+        },
+        "priority": {
+            "type": "string",
+            "default": "",
+            "title": "The priority Schema",
+            "examples": [
+                "High"
+            ]
+        },
+        "state": {
+            "type": "string",
+            "default": "",
+            "title": "The state Schema",
+            "examples": [
+                "acknowledged"
+            ]
+        },
+        "productOrderItem": {
+            "type": "array",
+            "default": [],
+            "title": "The productOrderItem Schema",
+            "items": {
+                "type": "object",
+                "title": "A Schema",
+                "required": [
+                    "id",
+                    "quantity",
+                    "action",
+                    "state",
+                    "productOffering",
+                    "product",
+                    "productOrderItemRelationship"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "The id Schema",
+                        "examples": [
+                            "186775",
+                            "186776"
+                        ]
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "title": "The quantity Schema",
+                        "examples": [
+                            1
+                        ]
+                    },
+                    "action": {
+                        "type": "string",
+                        "title": "The action Schema",
+                        "examples": [
+                            "add"
+                        ]
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "The state Schema",
+                        "examples": [
+                            "acknowledged"
+                        ]
+                    },
+                    "productOffering": {
+                        "type": "object",
+                        "title": "The productOffering Schema",
+                        "required": [
+                            "id",
+                            "href",
+                            "name"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "The id Schema",
+                                "examples": [
+                                    "7",
+                                    "8"
+                                ]
+                            },
+                            "href": {
+                                "type": "string",
+                                "title": "The href Schema",
+                                "examples": [
+                                    "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/7",
+                                    "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/8"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "title": "The name Schema",
+                                "examples": [
+                                    "Mobile Service",
+                                    "SIM Card"
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "id": "7",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/7",
+                            "name": "Mobile Service"
+                        },
+                        {
+                            "id": "8",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/8",
+                            "name": "SIM Card"
+                        }]
+                    },
+                    "product": {
+                        "type": "object",
+                        "title": "The product Schema",
+                        "required": [
+                            "id",
+                            "href",
+                            "name",
+                            "place",
+                            "productCharacteristic",
+                            "relatedParty",
+                            "productSpecification"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "title": "The id Schema",
+                                "examples": [
+                                    "acf4da9d-3228-44c7-b613-b94d294de27e",
+                                    "f3032f8a-030a-42cd-bcac-d71c9ca03373"
+                                ]
+                            },
+                            "href": {
+                                "type": "string",
+                                "title": "The href Schema",
+                                "examples": [
+                                    "http: //",
+                                    "none"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "title": "The name Schema",
+                                "examples": [
+                                    "Mobile Service",
+                                    "Physical SIM Card Template"
+                                ]
+                            },
+                            "place": {
+                                "type": "array",
+                                "title": "The place Schema",
+                                "items": {
+                                    "type": "object",
+                                    "title": "A Schema",
+                                    "required": [
+                                        "id",
+                                        "href",
+                                        "name",
+                                        "role"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "title": "The id Schema",
+                                            "examples": [
+                                                "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d"
+                                            ]
+                                        },
+                                        "href": {
+                                            "type": "string",
+                                            "title": "The href Schema",
+                                            "examples": [
+                                                "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                                "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d"
+                                            ]
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "title": "The name Schema",
+                                            "examples": [
+                                                "Internet service address"
+                                            ]
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "title": "The role Schema",
+                                            "examples": [
+                                                "Service address"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "name": "Internet service address",
+                                        "role": "Service address"
+                                    },
+                                    {
+                                        "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "name": "Internet service address",
+                                        "role": "Service address"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "name": "Internet service address",
+                                        "role": "Service address"
+                                    }],
+                                    [{
+                                        "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                        "name": "Internet service address",
+                                        "role": "Service address"
+                                    }]
+                                ]
+                            },
+                            "productCharacteristic": {
+                                "type": "array",
+                                "title": "The productCharacteristic Schema",
+                                "items": {
+                                    "type": "object",
+                                    "title": "A Schema",
+                                    "required": [
+                                        "characteristicId",
+                                        "name",
+                                        "value"
+                                    ],
+                                    "properties": {
+                                        "characteristicId": {
+                                            "type": "integer",
+                                            "title": "The characteristicId Schema",
+                                            "examples": [
+                                                396,
+                                                397,
+                                                398,
+                                                399,
+                                                400,
+                                                401,
+                                                402,
+                                                403,
+                                                404,
+                                                410,
+                                                411,
+                                                412,
+                                                413
+                                            ]
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "title": "The name Schema",
+                                            "examples": [
+                                                "MSISDN",
+                                                "dataVolume",
+                                                "bandwith",
+                                                "nVoiceMinutes",
+                                                "smsUnits",
+                                                "iVoiceMinutes",
+                                                "mmsUnits",
+                                                "number",
+                                                "usageLimit",
+                                                "iccid",
+                                                "simFormat",
+                                                "simType",
+                                                "formFactor"
+                                            ]
+                                        },
+                                        "value": {
+                                            "type": "string",
+                                            "title": "The value Schema",
+                                            "examples": [
+                                                "459",
+                                                "1000",
+                                                "111",
+                                                "60",
+                                                "Minutes",
+                                                "11",
+                                                "530",
+                                                "NANO",
+                                                "SIM",
+                                                "XXX"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "characteristicId": 396,
+                                        "name": "MSISDN",
+                                        "value": "459"
+                                    },
+                                    {
+                                        "characteristicId": 397,
+                                        "name": "dataVolume",
+                                        "value": "1000"
+                                    },
+                                    {
+                                        "characteristicId": 398,
+                                        "name": "bandwith",
+                                        "value": "111"
+                                    },
+                                    {
+                                        "characteristicId": 399,
+                                        "name": "nVoiceMinutes",
+                                        "value": "60"
+                                    },
+                                    {
+                                        "characteristicId": 400,
+                                        "name": "smsUnits",
+                                        "value": "Minutes"
+                                    },
+                                    {
+                                        "characteristicId": 401,
+                                        "name": "iVoiceMinutes",
+                                        "value": "60"
+                                    },
+                                    {
+                                        "characteristicId": 402,
+                                        "name": "mmsUnits",
+                                        "value": "Minutes"
+                                    },
+                                    {
+                                        "characteristicId": 403,
+                                        "name": "number",
+                                        "value": "11"
+                                    },
+                                    {
+                                        "characteristicId": 404,
+                                        "name": "usageLimit",
+                                        "value": "1000"
+                                    },
+                                    {
+                                        "characteristicId": 410,
+                                        "name": "iccid",
+                                        "value": "530"
+                                    },
+                                    {
+                                        "characteristicId": 411,
+                                        "name": "simFormat",
+                                        "value": "NANO"
+                                    },
+                                    {
+                                        "characteristicId": 412,
+                                        "name": "simType",
+                                        "value": "SIM"
+                                    },
+                                    {
+                                        "characteristicId": 413,
+                                        "name": "formFactor",
+                                        "value": "XXX"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "characteristicId": 396,
+                                        "name": "MSISDN",
+                                        "value": "459"
+                                    },
+                                    {
+                                        "characteristicId": 397,
+                                        "name": "dataVolume",
+                                        "value": "1000"
+                                    },
+                                    {
+                                        "characteristicId": 398,
+                                        "name": "bandwith",
+                                        "value": "111"
+                                    },
+                                    {
+                                        "characteristicId": 399,
+                                        "name": "nVoiceMinutes",
+                                        "value": "60"
+                                    },
+                                    {
+                                        "characteristicId": 400,
+                                        "name": "smsUnits",
+                                        "value": "Minutes"
+                                    },
+                                    {
+                                        "characteristicId": 401,
+                                        "name": "iVoiceMinutes",
+                                        "value": "60"
+                                    },
+                                    {
+                                        "characteristicId": 402,
+                                        "name": "mmsUnits",
+                                        "value": "Minutes"
+                                    },
+                                    {
+                                        "characteristicId": 403,
+                                        "name": "number",
+                                        "value": "11"
+                                    },
+                                    {
+                                        "characteristicId": 404,
+                                        "name": "usageLimit",
+                                        "value": "1000"
+                                    }],
+                                    [{
+                                        "characteristicId": 410,
+                                        "name": "iccid",
+                                        "value": "530"
+                                    },
+                                    {
+                                        "characteristicId": 411,
+                                        "name": "simFormat",
+                                        "value": "NANO"
+                                    },
+                                    {
+                                        "characteristicId": 412,
+                                        "name": "simType",
+                                        "value": "SIM"
+                                    },
+                                    {
+                                        "characteristicId": 413,
+                                        "name": "formFactor",
+                                        "value": "XXX"
+                                    }]
+                                ]
+                            },
+                            "relatedParty": {
+                                "type": "array",
+                                "title": "The relatedParty Schema",
+                                "items": {
+                                    "type": "object",
+                                    "title": "A Schema",
+                                    "required": [
+                                        "@referredType",
+                                        "id",
+                                        "href",
+                                        "name",
+                                        "role"
+                                    ],
+                                    "properties": {
+                                        "@referredType": {
+                                            "type": "string",
+                                            "title": "The @referredType Schema",
+                                            "examples": [
+                                                "Customer"
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "title": "The id Schema",
+                                            "examples": [
+                                                "1"
+                                            ]
+                                        },
+                                        "href": {
+                                            "type": "string",
+                                            "title": "The href Schema",
+                                            "examples": [
+                                                "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                                "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX"
+                                            ]
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "title": "The name Schema",
+                                            "examples": [
+                                                "Johannes Bester",
+                                                "Alex Antor"
+                                            ]
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "title": "The role Schema",
+                                            "examples": [
+                                                "Customer"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "@referredType": "Customer",
+                                        "id": "1",
+                                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Johannes Bester",
+                                        "role": "Customer"
+                                    },
+                                    {
+                                        "@referredType": "Customer",
+                                        "id": "1",
+                                        "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Alex Antor",
+                                        "role": "Customer"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "@referredType": "Customer",
+                                        "id": "1",
+                                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Johannes Bester",
+                                        "role": "Customer"
+                                    }],
+                                    [{
+                                        "@referredType": "Customer",
+                                        "id": "1",
+                                        "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                        "name": "Alex Antor",
+                                        "role": "Customer"
+                                    }]
+                                ]
+                            },
+                            "productSpecification": {
+                                "type": "object",
+                                "title": "The productSpecification Schema",
+                                "required": [
+                                    "id",
+                                    "href",
+                                    "name",
+                                    "version"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "title": "The id Schema",
+                                        "examples": [
+                                            "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                            "36456995-1a8b-4dfe-b31a-2375ee8940c0"
+                                        ]
+                                    },
+                                    "href": {
+                                        "type": "string",
+                                        "title": "The href Schema",
+                                        "examples": [
+                                            "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                            "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0"
+                                        ]
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "title": "The name Schema",
+                                        "examples": [
+                                            "Mobile Line",
+                                            "Physical SIM template"
+                                        ]
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "title": "The version Schema",
+                                        "examples": [
+                                            "1"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "id": "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                    "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                    "name": "Mobile Line",
+                                    "version": "1"
+                                },
+                                {
+                                    "id": "36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                                    "name": "Physical SIM template",
+                                    "version": "1"
+                                }]
+                            }
+                        },
+                        "examples": [{
+                            "id": "acf4da9d-3228-44c7-b613-b94d294de27e",
+                            "href": "http: //",
+                            "name": "Mobile Service",
+                            "place": [{
+                                "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                "name": "Internet service address",
+                                "role": "Service address"
+                            }],
+                            "productCharacteristic": [{
+                                "characteristicId": 396,
+                                "name": "MSISDN",
+                                "value": "459"
+                            },
+                            {
+                                "characteristicId": 397,
+                                "name": "dataVolume",
+                                "value": "1000"
+                            },
+                            {
+                                "characteristicId": 398,
+                                "name": "bandwith",
+                                "value": "111"
+                            },
+                            {
+                                "characteristicId": 399,
+                                "name": "nVoiceMinutes",
+                                "value": "60"
+                            },
+                            {
+                                "characteristicId": 400,
+                                "name": "smsUnits",
+                                "value": "Minutes"
+                            },
+                            {
+                                "characteristicId": 401,
+                                "name": "iVoiceMinutes",
+                                "value": "60"
+                            },
+                            {
+                                "characteristicId": 402,
+                                "name": "mmsUnits",
+                                "value": "Minutes"
+                            },
+                            {
+                                "characteristicId": 403,
+                                "name": "number",
+                                "value": "11"
+                            },
+                            {
+                                "characteristicId": 404,
+                                "name": "usageLimit",
+                                "value": "1000"
+                            }],
+                            "relatedParty": [{
+                                "@referredType": "Customer",
+                                "id": "1",
+                                "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                "name": "Johannes Bester",
+                                "role": "Customer"
+                            }],
+                            "productSpecification": {
+                                "id": "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                                "name": "Mobile Line",
+                                "version": "1"
+                            }
+                        },
+                        {
+                            "id": "f3032f8a-030a-42cd-bcac-d71c9ca03373",
+                            "href": "none",
+                            "name": "Physical SIM Card Template",
+                            "place": [{
+                                "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                                "name": "Internet service address",
+                                "role": "Service address"
+                            }],
+                            "productCharacteristic": [{
+                                "characteristicId": 410,
+                                "name": "iccid",
+                                "value": "530"
+                            },
+                            {
+                                "characteristicId": 411,
+                                "name": "simFormat",
+                                "value": "NANO"
+                            },
+                            {
+                                "characteristicId": 412,
+                                "name": "simType",
+                                "value": "SIM"
+                            },
+                            {
+                                "characteristicId": 413,
+                                "name": "formFactor",
+                                "value": "XXX"
+                            }],
+                            "relatedParty": [{
+                                "@referredType": "Customer",
+                                "id": "1",
+                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                                "name": "Alex Antor",
+                                "role": "Customer"
+                            }],
+                            "productSpecification": {
+                                "id": "36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                                "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                                "name": "Physical SIM template",
+                                "version": "1"
+                            }
+                        }]
+                    },
+                    "productOrderItemRelationship": {
+                        "type": "array",
+                        "default": [],
+                        "title": "The productOrderItemRelationship Schema",
+                        "items": {
+                            "type": "object",
+                            "default": {},
+                            "title": "A Schema",
+                            "required": [
+                                "id",
+                                "relationshipType"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The id Schema",
+                                    "examples": [
+                                        "186775"
+                                    ]
+                                },
+                                "relationshipType": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The relationshipType Schema",
+                                    "examples": [
+                                        "reliesOn"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "id": "186775",
+                                "relationshipType": "reliesOn"
+                            }]
+                        },
+                        "examples": [
+                            [{
+                                "id": "186775",
+                                "relationshipType": "reliesOn"
+                            }]
+                        ]
+                    }
+                },
+                "examples": [{
+                    "id": "186775",
+                    "quantity": 1,
+                    "action": "add",
+                    "state": "acknowledged",
+                    "productOffering": {
+                        "id": "7",
+                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/7",
+                        "name": "Mobile Service"
+                    },
+                    "product": {
+                        "id": "acf4da9d-3228-44c7-b613-b94d294de27e",
+                        "href": "http: //",
+                        "name": "Mobile Service",
+                        "place": [{
+                            "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "name": "Internet service address",
+                            "role": "Service address"
+                        }],
+                        "productCharacteristic": [{
+                            "characteristicId": 396,
+                            "name": "MSISDN",
+                            "value": "459"
+                        },
+                        {
+                            "characteristicId": 397,
+                            "name": "dataVolume",
+                            "value": "1000"
+                        },
+                        {
+                            "characteristicId": 398,
+                            "name": "bandwith",
+                            "value": "111"
+                        },
+                        {
+                            "characteristicId": 399,
+                            "name": "nVoiceMinutes",
+                            "value": "60"
+                        },
+                        {
+                            "characteristicId": 400,
+                            "name": "smsUnits",
+                            "value": "Minutes"
+                        },
+                        {
+                            "characteristicId": 401,
+                            "name": "iVoiceMinutes",
+                            "value": "60"
+                        },
+                        {
+                            "characteristicId": 402,
+                            "name": "mmsUnits",
+                            "value": "Minutes"
+                        },
+                        {
+                            "characteristicId": 403,
+                            "name": "number",
+                            "value": "11"
+                        },
+                        {
+                            "characteristicId": 404,
+                            "name": "usageLimit",
+                            "value": "1000"
+                        }],
+                        "relatedParty": [{
+                            "@referredType": "Customer",
+                            "id": "1",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Johannes Bester",
+                            "role": "Customer"
+                        }],
+                        "productSpecification": {
+                            "id": "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                            "name": "Mobile Line",
+                            "version": "1"
+                        }
+                    }
+                },
+                {
+                    "id": "186776",
+                    "quantity": 1,
+                    "action": "add",
+                    "state": "acknowledged",
+                    "productOrderItemRelationship": [{
+                        "id": "186775",
+                        "relationshipType": "reliesOn"
+                    }],
+                    "productOffering": {
+                        "id": "8",
+                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/8",
+                        "name": "SIM Card"
+                    },
+                    "product": {
+                        "id": "f3032f8a-030a-42cd-bcac-d71c9ca03373",
+                        "href": "none",
+                        "name": "Physical SIM Card Template",
+                        "place": [{
+                            "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "name": "Internet service address",
+                            "role": "Service address"
+                        }],
+                        "productCharacteristic": [{
+                            "characteristicId": 410,
+                            "name": "iccid",
+                            "value": "530"
+                        },
+                        {
+                            "characteristicId": 411,
+                            "name": "simFormat",
+                            "value": "NANO"
+                        },
+                        {
+                            "characteristicId": 412,
+                            "name": "simType",
+                            "value": "SIM"
+                        },
+                        {
+                            "characteristicId": 413,
+                            "name": "formFactor",
+                            "value": "XXX"
+                        }],
+                        "relatedParty": [{
+                            "@referredType": "Customer",
+                            "id": "1",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Alex Antor",
+                            "role": "Customer"
+                        }],
+                        "productSpecification": {
+                            "id": "36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                            "name": "Physical SIM template",
+                            "version": "1"
+                        }
+                    }
+                }]
+            },
+            "examples": [
+                [{
+                    "id": "186775",
+                    "quantity": 1,
+                    "action": "add",
+                    "state": "acknowledged",
+                    "productOffering": {
+                        "id": "7",
+                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/7",
+                        "name": "Mobile Service"
+                    },
+                    "product": {
+                        "id": "acf4da9d-3228-44c7-b613-b94d294de27e",
+                        "href": "http: //",
+                        "name": "Mobile Service",
+                        "place": [{
+                            "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "name": "Internet service address",
+                            "role": "Service address"
+                        }],
+                        "productCharacteristic": [{
+                            "characteristicId": 396,
+                            "name": "MSISDN",
+                            "value": "459"
+                        },
+                        {
+                            "characteristicId": 397,
+                            "name": "dataVolume",
+                            "value": "1000"
+                        },
+                        {
+                            "characteristicId": 398,
+                            "name": "bandwith",
+                            "value": "111"
+                        },
+                        {
+                            "characteristicId": 399,
+                            "name": "nVoiceMinutes",
+                            "value": "60"
+                        },
+                        {
+                            "characteristicId": 400,
+                            "name": "smsUnits",
+                            "value": "Minutes"
+                        },
+                        {
+                            "characteristicId": 401,
+                            "name": "iVoiceMinutes",
+                            "value": "60"
+                        },
+                        {
+                            "characteristicId": 402,
+                            "name": "mmsUnits",
+                            "value": "Minutes"
+                        },
+                        {
+                            "characteristicId": 403,
+                            "name": "number",
+                            "value": "11"
+                        },
+                        {
+                            "characteristicId": 404,
+                            "name": "usageLimit",
+                            "value": "1000"
+                        }],
+                        "relatedParty": [{
+                            "@referredType": "Customer",
+                            "id": "1",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Johannes Bester",
+                            "role": "Customer"
+                        }],
+                        "productSpecification": {
+                            "id": "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                            "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                            "name": "Mobile Line",
+                            "version": "1"
+                        }
+                    }
+                },
+                {
+                    "id": "186776",
+                    "quantity": 1,
+                    "action": "add",
+                    "state": "acknowledged",
+                    "productOrderItemRelationship": [{
+                        "id": "186775",
+                        "relationshipType": "reliesOn"
+                    }],
+                    "productOffering": {
+                        "id": "8",
+                        "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/8",
+                        "name": "SIM Card"
+                    },
+                    "product": {
+                        "id": "f3032f8a-030a-42cd-bcac-d71c9ca03373",
+                        "href": "none",
+                        "name": "Physical SIM Card Template",
+                        "place": [{
+                            "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                            "name": "Internet service address",
+                            "role": "Service address"
+                        }],
+                        "productCharacteristic": [{
+                            "characteristicId": 410,
+                            "name": "iccid",
+                            "value": "530"
+                        },
+                        {
+                            "characteristicId": 411,
+                            "name": "simFormat",
+                            "value": "NANO"
+                        },
+                        {
+                            "characteristicId": 412,
+                            "name": "simType",
+                            "value": "SIM"
+                        },
+                        {
+                            "characteristicId": 413,
+                            "name": "formFactor",
+                            "value": "XXX"
+                        }],
+                        "relatedParty": [{
+                            "@referredType": "Customer",
+                            "id": "1",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                            "name": "Alex Antor",
+                            "role": "Customer"
+                        }],
+                        "productSpecification": {
+                            "id": "36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                            "name": "Physical SIM template",
+                            "version": "1"
+                        }
+                    }
+                }]
+            ]
+        },
+        "relatedParty": {
+            "type": "array",
+            "default": [],
+            "title": "The relatedParty Schema",
+            "items": {
+                "type": "object",
+                "title": "A Schema",
+                "required": [
+                    "@referredType",
+                    "id",
+                    "href",
+                    "name",
+                    "role"
+                ],
+                "properties": {
+                    "@referredType": {
+                        "type": "string",
+                        "title": "The @referredType Schema",
+                        "examples": [
+                            "User",
+                            "Contact"
+                        ]
+                    },
+                    "id": {
+                        "type": "string",
+                        "title": "The id Schema",
+                        "examples": [
+                            "2",
+                            "3"
+                        ]
+                    },
+                    "href": {
+                        "type": "string",
+                        "title": "The href Schema",
+                        "examples": [
+                            "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                            "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3"
+                        ]
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "The name Schema",
+                        "examples": [
+                            "Philip Risser",
+                            "Johannes Bester"
+                        ]
+                    },
+                    "role": {
+                        "type": "string",
+                        "title": "The role Schema",
+                        "examples": [
+                            "User",
+                            "Contact"
+                        ]
+                    }
+                },
+                "examples": [{
+                    "@referredType": "User",
+                    "id": "2",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                    "name": "Philip Risser",
+                    "role": "User"
+                },
+                {
+                    "@referredType": "Contact",
+                    "id": "3",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                    "name": "Johannes Bester",
+                    "role": "Contact"
+                }]
+            },
+            "examples": [
+                [{
+                    "@referredType": "User",
+                    "id": "2",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+                    "name": "Philip Risser",
+                    "role": "User"
+                },
+                {
+                    "@referredType": "Contact",
+                    "id": "3",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+                    "name": "Johannes Bester",
+                    "role": "Contact"
+                }]
+            ]
+        }
+    },
+    "examples": [{
+        "id": "bde159e4-d337-4681-a19c-7f453134df7c",
+        "href": "https://tmf622-product-ordering-api.async.alvatest.net/tmf-api/productOrderingManagement/v4/productOrder/bde159e4-d337-4681-a19c-7f453134df7c",
+        "category": "Residential",
+        "description": " Mobile Line 4G",
+        "externalId": "JMA133164",
+        "notificationContact": "provisioning@bearingpoint.com",
+        "orderDate": "2023-08-31T11:51:32.225Z",
+        "priority": "High",
+        "state": "acknowledged",
+        "productOrderItem": [{
+            "id": "186775",
+            "quantity": 1,
+            "action": "add",
+            "state": "acknowledged",
+            "productOffering": {
+                "id": "7",
+                "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/7",
+                "name": "Mobile Service"
+            },
+            "product": {
+                "id": "acf4da9d-3228-44c7-b613-b94d294de27e",
+                "href": "http: //",
+                "name": "Mobile Service",
+                "place": [{
+                    "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                    "href": "http: //geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                    "name": "Internet service address",
+                    "role": "Service address"
+                }],
+                "productCharacteristic": [{
+                    "characteristicId": 396,
+                    "name": "MSISDN",
+                    "value": "459"
+                },
+                {
+                    "characteristicId": 397,
+                    "name": "dataVolume",
+                    "value": "1000"
+                },
+                {
+                    "characteristicId": 398,
+                    "name": "bandwith",
+                    "value": "111"
+                },
+                {
+                    "characteristicId": 399,
+                    "name": "nVoiceMinutes",
+                    "value": "60"
+                },
+                {
+                    "characteristicId": 400,
+                    "name": "smsUnits",
+                    "value": "Minutes"
+                },
+                {
+                    "characteristicId": 401,
+                    "name": "iVoiceMinutes",
+                    "value": "60"
+                },
+                {
+                    "characteristicId": 402,
+                    "name": "mmsUnits",
+                    "value": "Minutes"
+                },
+                {
+                    "characteristicId": 403,
+                    "name": "number",
+                    "value": "11"
+                },
+                {
+                    "characteristicId": 404,
+                    "name": "usageLimit",
+                    "value": "1000"
+                }],
+                "relatedParty": [{
+                    "@referredType": "Customer",
+                    "id": "1",
+                    "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                    "name": "Johannes Bester",
+                    "role": "Customer"
+                }],
+                "productSpecification": {
+                    "id": "a695579c-f750-41dd-8a5d-96d68c3c2203",
+                    "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/a695579c-f750-41dd-8a5d-96d68c3c2203",
+                    "name": "Mobile Line",
+                    "version": "1"
+                }
+            }
+        },
+        {
+            "id": "186776",
+            "quantity": 1,
+            "action": "add",
+            "state": "acknowledged",
+            "productOrderItemRelationship": [{
+                "id": "186775",
+                "relationshipType": "reliesOn"
+            }],
+            "productOffering": {
+                "id": "8",
+                "href": "http: //eawlxd022.csgidev.com:60144/trerest_in/api/v1/productOffering/8",
+                "name": "SIM Card"
+            },
+            "product": {
+                "id": "f3032f8a-030a-42cd-bcac-d71c9ca03373",
+                "href": "none",
+                "name": "Physical SIM Card Template",
+                "place": [{
+                    "id": "d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                    "href": "http://geo-server:8080/api/v1/geographicAddress/d22c0c9c-5d3e-44c9-bbe5-1d8b6de08f9d",
+                    "name": "Internet service address",
+                    "role": "Service address"
+                }],
+                "productCharacteristic": [{
+                    "characteristicId": 410,
+                    "name": "iccid",
+                    "value": "530"
+                },
+                {
+                    "characteristicId": 411,
+                    "name": "simFormat",
+                    "value": "NANO"
+                },
+                {
+                    "characteristicId": 412,
+                    "name": "simType",
+                    "value": "SIM"
+                },
+                {
+                    "characteristicId": 413,
+                    "name": "formFactor",
+                    "value": "XXX"
+                }],
+                "relatedParty": [{
+                    "@referredType": "Customer",
+                    "id": "1",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementOrganization/XXXX",
+                    "name": "Alex Antor",
+                    "role": "Customer"
+                }],
+                "productSpecification": {
+                    "id": "36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                    "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/productSpecification/36456995-1a8b-4dfe-b31a-2375ee8940c0",
+                    "name": "Physical SIM template",
+                    "version": "1"
+                }
+            }
+        }],
+        "relatedParty": [{
+            "@referredType": "User",
+            "id": "2",
+            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/2",
+            "name": "Philip Risser",
+            "role": "User"
+        },
+        {
+            "@referredType": "Contact",
+            "id": "3",
+            "href": "http://eawlxd022.csgidev.com:60144/trerest_in/api/v1/partyManagementIndividual/3",
+            "name": "Johannes Bester",
+            "role": "Contact"
+        }]
+    }]
+}
