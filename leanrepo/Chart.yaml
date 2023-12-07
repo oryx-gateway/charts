@@ -1,7 +1,13 @@
 apiVersion: v2
 name: oryx-leanrepo
-version: 1.3.0
+version: 3.0.0
 kubeVersion: ">= 1.19.0"
 type: application
-appVersion: "1.3.0"
-description: A Helm chart for Oryx LeanRepo
+appVersion: "3.0.0"
+description: A Helm chart for Oryx Gateway
+
+dependencies:
+  - name: mongodb-sharded
+    version: "7.1.0"
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+    condition: dependencies.mongodb

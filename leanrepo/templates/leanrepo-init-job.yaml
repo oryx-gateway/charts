@@ -1,0 +1,63 @@
+apiVersion: batch/v1  
+kind: Job  
+metadata:  
+  name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}-{{ uuidv4 }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+spec:  
+  template:  
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+        release: {{ .Release.Name }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+        sidecar.istio.io/inject: "false"
+      {{- if or .Values.global.podAnnotations .Values.oryx.leanrepo.podAnnotations }}
+      annotations:
+      {{- range $key, $value := .Values.global.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- range $key, $value := .Values.oryx.leanrepo.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
+    spec:
+      restartPolicy: OnFailure
+      {{- if .Values.oryx.settings.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.oryx.settings.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.global.imagePullSecrets }}
+        - name: {{ . | quote }}
+      {{- end }} 
+      {{- end }}
+      containers:
+        - name: {{ .Release.Name }}-{{ .Values.oryx.leanrepoInit.name }}
+          image: {{ .Values.oryx.leanrepoInit.image }} 
+          imagePullPolicy: "Always"
+          resources:
+{{ toYaml .Values.oryx.leanrepoInit.resources | indent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.oryx.settings.gateway.configMap }}
+            - configMapRef:
+                name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
+          volumeMounts:
+            - mountPath: /opt/oryxgateway/config
+              name: configs
+            - mountPath: /opt/oryxleanrepo/config
+              name: leanrepo
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ .Values.oryx.settings.gateway.configMap }}-files
+        - name: leanrepo
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}-files

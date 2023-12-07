@@ -1,0 +1,172 @@
+oryx:
+  leanrepo:
+    components:
+    - name: TMF620.ProductCatalog
+      path: productCatalog
+      specifications:
+      - name: Catalog
+        path: catalog
+        title: Catalog
+        topic: TMF620.productCatalog.notification
+        state: ""
+      - name: Category
+        path: category
+        title: Category
+        topic: TMF620.productCategory.notification
+        state: ""
+      - name: Offering
+        path: offering
+        title: Offering
+        topic: TMF620.productOffering.notification
+        state: ""
+      - name: OfferingPrice
+        path: offeringPrice
+        title: OfferingPrice
+        topic: TMF620.productOfferingPrice.notification
+        state: ""
+      - name: Specification
+        path: specification
+        title: Specification
+        topic: TMF620.productSpecification.notification
+        state: ""
+    - name: TMF629.Customer
+      path: customer
+      specifications:
+      - name: Customer
+        path: customer
+        title: Customer
+        topic: TMF629.customer.notification
+        state: ""
+    - name: TMF632.Party
+      path: party
+      specifications:
+      - name: Individual
+        path: individual
+        title: Individual
+        topic: TMF632.individual.notification
+        state: ""
+      - name: Organization
+        path: organization
+        title: Organization
+        topic: TMF632.organization.notification
+        state: ""
+    - name: TMF633.ServiceCatalog
+      path: serviceCatalog
+      specifications:
+      - name: ServiceCandidate
+        path: serviceCandidate
+        title: ServiceCandidate
+        topic: TMF633.serviceCandidate.notification
+        state: ""
+      - name: ServiceCatalog
+        path: serviceCatalog
+        title: ServiceCatalog
+        topic: TMF633.serviceCatalog.notification
+        state: ""
+      - name: ServiceCategory
+        path: serviceCategory
+        title: ServiceCategory
+        topic: TMF633.serviceCategory.notification
+        state: ""
+      - name: ServiceSpecification
+        path: serviceSpecification
+        title: ServiceSpecification
+        topic: TMF633.serviceSpecification.notification
+        state: ""
+    - name: TMF634.ResourceCatalog
+      path: resourceCatalog
+      specifications:
+      - name: ResourceCandidate
+        path: resourceCandidate
+        title: ResourceCandidate
+        topic: TMF634.resourceCandidate.notification
+        state: ""
+      - name: ResourceCatalog
+        path: resourceCatalog
+        title: ResourceCatalog
+        topic: TMF634.resourceCatalog.notification
+        state: ""
+      - name: ResourceCategory
+        path: resourceCategory
+        title: ResourceCategory
+        topic: TMF634.resourceCategory.notification
+        state: ""
+      - name: ResourceSpecification
+        path: resourceSpecification
+        title: ResourceSpecification
+        topic: TMF634.resourceSpecification.notification
+        state: ""
+    - name: TMF637.ProductInventory
+      path: productInventory
+      specifications:
+      - name: ProductInventory
+        path: productInventory
+        title: ProductInventory
+        topic: TMF637.productInventory.notification
+        state: ""
+    - name: TMF638.ServiceInventory
+      path: serviceInventory
+      specifications:
+      - name: ServiceInventory
+        path: serviceInventory
+        title: ServiceInventory
+        topic: TMF638.serviceInventory.notification
+        state: ""
+    - name: TMF639.ResourceInventory
+      path: resourceInventory
+      specifications:
+      - name: ResourceInventory
+        path: resourceInventory
+        title: ResourceInventory
+        topic: TMF639.resourceInventory.notification
+        state: ""
+    - name: TMF652.ResourceOrder
+      path: resourceOrder
+      specifications:
+      - name: ResourceOrder
+        path: resourceOrder
+        title: ResourceOrder
+        topic: TMF652.resourceOrder.notification
+        state: ""
+      - name: CancelResourceOrder
+        path: cancelResourceOrder
+        title: CancelResourceOrder
+        topic: TMF652.cancelResourceOrder.notification
+        state: ""
+    - name: TMF669.PartyRole
+      path: partyRole
+      specifications:
+      - name: PartyRole
+        path: partyRole
+        title: PartyRole
+        topic: TMF669.partyRole.notification
+        state: ""
+    - name: TMF673.GeographicAddress
+      path: geographicAddress
+      specifications:
+      - name: GeographicAddress
+        path: geographicAddress
+        title: GeographicAddress
+        topic: TMF673.geographicAddress.notification
+        state: ""
+    - name: TMF674.GeographicSite
+      path: geographicSite
+      specifications:
+      - name: GeographicSite
+        path: geographicSite
+        title: GeographicSite
+        topic: TMF674.geographicSite.notification
+        state: ""
+    - name: TMF688.EventManagement
+      path: eventmanagement
+      specifications:
+      - name: Topic
+        path: topic
+        title: Topic
+        topic: TMF688.topic.notification
+        state: ""
+      - name: Hub
+        path: hub
+        title: Hub
+        topic: TMF688.hub.notification
+        state: ""
