@@ -6,49 +6,85 @@ global:
   tolerations: []
   affinity: {}
 
-ingress:
-  enabled: false
-
-redis:
+oda:
   enabled: true
-  name: "redis"
-  image: "redis:7"
-  persistence:
-    enabled: false
-    size: 10Gi
-    storageClass: null
-  updateStrategy: "RollingUpdate"
-  resources:
-    requests:
-      cpu: 100m
-      memory: 100Mi
-    limits:
-      cpu: 200m
-      memory: 200Mi
-  podAnnotations: {}
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+
+ingress: 
+  enabled: true
+
+dependencies:
+  mongodb: true
 
 oryx:
-  leanrepo:
-    enabled: true
-    name: "leanrepo"
-    image: oryxgateway/leanrepo:1.3.0
+  settings:
+    gateway: 
+      configMap: "gateway-gateway"
+    mongodb:
+      url: "mongodb://root:pa55w0rd@leanrepo-mongodb-sharded:27017"
+      database: "db"
     imagePullSecrets:
       - "gateway-registry"
-    type: leanrepo
-    replicas: 1
-    updateStrategy: "RollingUpdate"
-    settings: {}
+  leanrepoInit:
+    name: "leanrepo-init"
+    image: oryxgateway/leanrepo-init:3.0.0
     resources:
       requests:
-        cpu: 200m
-        memory: 500Mi
+        cpu: 500m
+        memory: 2Gi
       limits:
+        cpu: 1000m
+        memory: 4Gi
+  leanrepo:
+    enabled: true
+    type: leanrepo
+    name: leanrepo
+    image: oryxgateway/leanrepo:3.0.0
+    replicas: 1
+    updateStrategy: "RollingUpdate"
+    resources:
+      requests:
         cpu: 500m
         memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 2Gi
     podAnnotations: {}
     nodeSelector: {}
     tolerations: []
-    affinity: {}
+    affinity: {}  
+    components: []
+
+mongodb-sharded:
+  auth:
+    enabled: true
+    rootUser: root
+    rootPassword: pa55w0rd
+  shards: 3
+  configsvr:
+    replicaCount: 3
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 200m
+      limits:
+        memory: 512Mi
+        cpu: 500m
+  mongos:
+    replicaCount: 1
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+  shardsvr:
+    dataNode:
+      replicaCount: 2
+      resources:
+        requests:
+          memory: 1Gi
+          cpu: 500m
+        limits:
+          memory: 2Gi
+          cpu: 1000m

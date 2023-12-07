@@ -1,0 +1,32 @@
+dependencies:
+  mongodb: false
+
+oryx:
+  settings:
+    mongodb:
+      url: "mongodb://root:pa55w0rd@leanrepo-mongodb-sharded:27017"
+  leanrepo:
+    components:
+    - name: TMF634.ResourceCatalog
+      path: resourceCatalog
+      specifications:
+      - name: ResourceCandidate
+        path: resourceCandidate
+        title: ResourceCandidate
+        topic: TMF634.resourceCandidate.notification
+        state: ""
+      - name: ResourceCatalog
+        path: resourceCatalog
+        title: ResourceCatalog
+        topic: TMF634.resourceCatalog.notification
+        state: ""
+      - name: ResourceCategory
+        path: resourceCategory
+        title: ResourceCategory
+        topic: TMF634.resourceCategory.notification
+        state: ""
+      - name: ResourceSpecification
+        path: resourceSpecification
+        title: ResourceSpecification
+        topic: TMF634.resourceSpecification.notification
+        state: ""

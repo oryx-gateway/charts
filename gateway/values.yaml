@@ -6,37 +6,44 @@ global:
   tolerations: []
   affinity: {}
 
-ingress:
-  enabled: false
-
 oda:
   enabled: true
 
+ingress: 
+  enabled: true
+
+dependencies:
+  broker: 
+    kafka: true
+  schemaregistry:
+    confluent: false
+    apicurio: true
+  flink: true
+
 oryx:
-  gatewayInit:
-    name: "gateway-init"
-    image: oryxgateway/gateway-init:1.2.0-asyncapi
-  gateway:
-    enabled: true
-    name: "gateway"
-    image: oryxgateway/gateway:2.6.0
+  settings:
+    schemaRegistry:
+      vendor: "apicurio"
+      env: 
+        SCHEMA_REGISTRY_URL: "http://gateway-apicurio-registry:8080/apis/registry/v2/"
+    decorator: "none"
+    namingStrategy: "suffixed_name"
+    topics:
+      topic: "TMF688.topic.notification"
+      hub: "TMF688.hub.notification"
+    flink:
+      url: "http://gateway-gateway-flink-rest:8081"
+    brokerProperties: |
+      bootstrap.servers=http://gateway-kafka:9092
     imagePullSecrets:
       - "gateway-registry"
+  gateway:
+    enabled: true
     type: eventmanagement
-    replicas: 3
+    name: gateway
+    image: oryxgateway/gateway:3.0.0
+    replicas: 1
     updateStrategy: "RollingUpdate"
-    settings:
-      topicNamingStrategy: "suffixed_name"
-      schemaregistryUrl: "http://gateway-schemaregistry:8081"
-      ksqldbUrl: "http://gateway-ksqldb:8088"
-      mongodbUrl: mongodb://root:pa55w0rd@gateway-mongodb-sharded:27017
-      mongodbDatabase: gateway
-      kafkaClientProperties: |
-        bootstrap.servers=http://gateway-broker:9092
-      schemaregistryClientProperties: |
-        #
-      ksqldbClientProperties: |
-        #
     resources:
       requests:
         cpu: 500m
@@ -48,12 +55,20 @@ oryx:
     nodeSelector: {}
     tolerations: []
     affinity: {}
+  gatewayInit:
+    name: "gateway-init"
+    image: oryxgateway/gateway-init:3.0.0
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
   operator:
-    enabled: true
+    enabled: false
     name: "gateway-operator"
-    image: oryxgateway/gateway-operator:1.1.0
-    imagePullSecrets:
-      - "gateway-registry"
+    image: oryxgateway/gateway-operator:3.0.0
     updateStrategy: "RollingUpdate"
     resources:
       requests:
@@ -66,172 +81,85 @@ oryx:
     nodeSelector: {}
     tolerations: []
     affinity: {}
-  caller:
-    enabled: true
-    name: "caller"
-    image: oryxgateway/caller:2.1.0
-    imagePullSecrets:
-      - "gateway-registry"
-    replicas: 3
-    updateStrategy: "RollingUpdate"
-    settings:
-      schemaregistryUrl: "http://gateway-schemaregistry:8081"
-      kafkaClientProperties: |
-        bootstrap.servers=http://gateway-broker:9092
-      schemaregistryClientProperties: |
-        #
-      ksqldbClientProperties: |
-        #
-    resources:
-      requests:
-        cpu: 500m
-        memory: 500Mi
-      limits:
-        cpu: 1000m
-        memory: 1Gi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-  storebuilder:
-    enabled: true
-    name: "storebuilder"
-    image: oryxgateway/storebuilder:1.2.0
-    imagePullPolicy: "Always"
-    imagePullSecrets:
-      - "gateway-registry"
-    replicas: 1
-    updateStrategy: "RollingUpdate"
-    env:
-      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "3"
-      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "3"
-      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "3"
-    settings:
-      schemaregistryUrl: "http://gateway-schemaregistry:8081"
-      sinkProperties: |
-        mongodb.url=mongodb://root:pa55w0rd@gateway-mongodb-sharded:27017
-        mongodb.database=gateway
-    resources:
-      requests:
-        cpu: 500m
-        memory: 500Mi
-      limits:
-        cpu: 1000m
-        memory: 1Gi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
 
 kafka:
+  listeners:
+    client:
+      protocol: PLAINTEXT
+    controller:
+      protocol: PLAINTEXT
+    interbroker:
+      protocol: PLAINTEXT
+    external:
+      protocol: PLAINTEXT
+  controller:
+    replicaCount: 0
+  broker:
+    replicaCount: 3
+    extraEnvVars: 
+      - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
+        value: "false"
+    readinessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 30
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+  kraft:
+    enabled: false
   zookeeper:
     enabled: true
-    name: "zookeeper"
-    image: confluentinc/cp-zookeeper:6.2.7
-    replicas: 3
-    updateStrategy: "RollingUpdate"
-    settings:
-      heapOptions: "-Xms512M -Xmx512M"
-      tickTime: 2000
-      syncLimit: 5
-      initLimit: 10
-      maxClientCnxns: 60
-      autoPurgeSnapRetainCount: 3
-      autoPurgePurgeInterval: 24
-    env: {}
-    persistence:
-      enabled: true
-      dataDirSize: 10Gi
-      dataDirStorageClass: null
-      dataLogDirSize: 10Gi
-      dataLogDirStorageClass: null
+    replicaCount: 3 
     resources:
       requests:
-        cpu: 500m
-        memory: 500Mi
+        memory: 128Mi
+        cpu: 100m
       limits:
-        cpu: 1000m
-        memory: 1Gi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-  broker:
-    enabled: true
-    name: "broker"
-    image: confluentinc/cp-kafka:6.2.7
-    replicas: 3
-    updateStrategy: "RollingUpdate"
-    settings:
-      heapOptions: "-Xms512M -Xmx512M"
-    env:
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
-      KAFKA_MIN_INSYNC_REPLICAS: 2
-    persistence:
-      enabled: true
-      disksPerBroker: 3
-      size: 10Gi
-      storageClass: null
-    resources:
-      requests:
-        cpu: 500m
-        memory: 4Gi
-      limits:
-        cpu: 1000m
-        memory: 8Gi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-  schemaregistry:
-    enabled: true
-    name: "schemaregistry"
-    image: confluentinc/cp-schema-registry:6.2.7
-    replicas: 3
-    updateStrategy: "RollingUpdate"
-    settings:
-      heapOptions: "-Xms512M -Xmx512M"
-    resources:
-      requests:
-        cpu: 500m
-        memory: 500Mi
-      limits:
-        cpu: 1000m
-        memory: 1000Mi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-  ksqldb:
-    enabled: true
-    name: "ksqldb"
-    image: confluentinc/cp-ksqldb-server:6.2.7
-    replicas: 3
-    updateStrategy: "RollingUpdate"
-    settings:
-      heapOptions: "-Xms512M -Xmx512M"
-    resources:
-      requests:
-        cpu: 500m
-        memory: 2Gi
-      limits:
-        cpu: 1000m
-        memory: 4Gi
-    podAnnotations: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
+        memory: 256Mi
+        cpu: 200m
 
-mongodb-sharded:
-  auth:
-    rootUser: root
-    rootPassword: pa55w0rd
-  shards: 3
-  configsvr:
-    replicaCount: 3
-  mongos:
-    replicaCount: 1
-  shardsvr:
-    dataNode:
-      replicaCount: 2
+cp-helm-charts:
+  cp-zookeeper:
+    enabled: false
+  cp-kafka:
+    enabled: false
+  cp-schema-registry:
+    enabled: true
+  cp-kafka-rest:
+    enabled: false
+  cp-kafka-connect:
+    enabled: false
+  cp-ksql-server:
+    enabled: false
+  cp-control-center:
+    enabled: false
+
+apicurio-registry:
+  registry:
+    enabled: true
+    kafka:
+      bootstrapServers: gateway-kafka:9092
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 200m
+      limits:
+        memory: 512Mi
+        cpu: 500m
+
+kafka-ui:
+  yamlApplicationConfig:
+    kafka:
+      clusters:
+        - name: broker
+          bootstrapServers: gateway-kafka:9092
+    auth:
+      type: disabled
+    management:
+      health:
+        ldap:
+          enabled: false
