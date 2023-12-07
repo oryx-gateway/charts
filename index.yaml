@@ -2,149 +2,52 @@ apiVersion: v1
 entries:
   oryx-gateway:
   - apiVersion: v2
-    appVersion: 2.6.0
-    created: "2023-09-11T20:32:17.77868688+03:00"
+    appVersion: 3.0.0
+    created: "2023-12-07T16:05:08.684020803+02:00"
     dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
+    - condition: dependencies.broker.kafka
+      name: kafka
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 26.3.1
+    - condition: dependencies.broker.kafka
+      name: kafka-ui
+      repository: https://provectus.github.io/kafka-ui-charts
+      version: 0.7.5
+    - condition: dependencies.schemaregistry.confluent
+      name: cp-helm-charts
+      repository: https://confluentinc.github.io/cp-helm-charts/
+      version: 0.6.1
+    - condition: dependencies.schemaregistry.apicurio
+      name: apicurio-registry
+      repository: oci://ghcr.io/eshepelyuk/helm
+      version: 3.0.1
+    - condition: dependencies.flink
+      name: flink-kubernetes-operator
+      repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.7.0/
+      version: 1.7.0
     description: A Helm chart for Oryx Gateway
-    digest: 512e8a325988d52f6f4035dfc90251a3232ae56e4cb88beb33bc8d00711dfe55
+    digest: 17cb9fa76ee2cb1c1df9e9f7cef4ccd89c1b35820d7f3508298e355621223b21
     kubeVersion: '>= 1.19.0'
     name: oryx-gateway
     type: application
     urls:
-    - oryx-gateway-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v2
-    appVersion: 2.6.0
-    created: "2023-09-11T20:32:17.772748458+03:00"
-    dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
-    description: A Helm chart for Oryx Gateway
-    digest: d53c5df82b8f657ee94a75c59fbb825a73245c9ff37fb062de733c8057573e2d
-    kubeVersion: '>= 1.19.0'
-    name: oryx-gateway
-    type: application
-    urls:
-    - oryx-gateway-1.3.0-asyncapi.tgz
-    version: 1.3.0-asyncapi
-  - apiVersion: v2
-    appVersion: 2.6.0
-    created: "2023-09-11T20:32:17.767210494+03:00"
-    dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
-    description: A Helm chart for Oryx Gateway
-    digest: 84906a7de0273d3bf8abcda109dd27a5c7764699f7c24211153a8ce487257695
-    kubeVersion: '>= 1.19.0'
-    name: oryx-gateway
-    type: application
-    urls:
-    - oryx-gateway-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2023-09-11T20:32:17.76085407+03:00"
-    dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
-    description: A Helm chart for Oryx Gatewy
-    digest: 82a382a40615614f0e88f861fc9606fabbde0df33a0e57b43fe7a82a67d8d2f5
-    kubeVersion: '>= 1.19.0'
-    name: oryx-gateway
-    type: application
-    urls:
-    - oryx-gateway-1.1.0.tgz
-    version: 1.1.0
-  - apiVersion: v2
-    appVersion: 2.3.0
-    created: "2023-09-11T20:32:17.754845762+03:00"
-    dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
-    description: A Helm chart for Oryx Gatewy
-    digest: cd4e8f13b11a0ff2ccc39847616237ec143bbd803818bd4adabb1896df1d5109
-    kubeVersion: '>= 1.19.0'
-    name: oryx-gateway
-    type: application
-    urls:
-    - oryx-gateway-1.0.1.tgz
-    version: 1.0.1
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2023-09-11T20:32:17.74792503+03:00"
-    dependencies:
-    - name: mongodb-sharded
-      repository: https://charts.bitnami.com/bitnami
-      version: 6.3.2
-    description: A Helm chart for Oryx Gatewy
-    digest: aad80c97a530e6017e1de4709b2f2ebd560233e42cad6cfbdbebd25648470fb6
-    kubeVersion: '>= 1.19.0'
-    name: oryx-gateway
-    type: application
-    urls:
-    - oryx-gateway-1.0.0.tgz
-    version: 1.0.0
+    - oryx-gateway-3.0.0.tgz
+    version: 3.0.0
   oryx-leanrepo:
   - apiVersion: v2
-    appVersion: 1.4.0
-    created: "2023-09-11T20:32:17.781152869+03:00"
-    description: A Helm chart for Oryx LeanRepo
-    digest: 14908db5d03b30992b5dd999d36d2e5a0dc754d181fbb3eb3a84e6f675548056
+    appVersion: 3.0.0
+    created: "2023-12-07T16:05:08.689234968+02:00"
+    dependencies:
+    - condition: dependencies.mongodb
+      name: mongodb-sharded
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 7.1.0
+    description: A Helm chart for Oryx Gateway
+    digest: dad919c54c976565315906cb45511034ab719c3af035f8237dd9ba33ecd461b9
     kubeVersion: '>= 1.19.0'
     name: oryx-leanrepo
     type: application
     urls:
-    - oryx-leanrepo-1.4.0.tgz
-    version: 1.4.0
-  - apiVersion: v2
-    appVersion: 1.3.0
-    created: "2023-09-11T20:32:17.780771167+03:00"
-    description: A Helm chart for Oryx LeanRepo
-    digest: 0dc9cb712cbe8b0ce6217664c6e38bf3068076109f8b79fbf5c4941df67b0d03
-    kubeVersion: '>= 1.19.0'
-    name: oryx-leanrepo
-    type: application
-    urls:
-    - oryx-leanrepo-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v2
-    appVersion: 1.3.0
-    created: "2023-09-11T20:32:17.780182489+03:00"
-    description: A Helm chart for Oryx LeanRepo
-    digest: e0d584443bbae4932da535e7cc77d59c28a1623ea10a45a50e1b602688d41d4a
-    kubeVersion: '>= 1.19.0'
-    name: oryx-leanrepo
-    type: application
-    urls:
-    - oryx-leanrepo-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2023-09-11T20:32:17.779680583+03:00"
-    description: A Helm chart for Oryx Gatewy
-    digest: 643e64abd616edbd301b0815065b1bddcbab1235d6f34dfddd819635d35d278d
-    kubeVersion: '>= 1.19.0'
-    name: oryx-leanrepo
-    type: application
-    urls:
-    - oryx-leanrepo-1.1.0.tgz
-    version: 1.1.0
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2023-09-11T20:32:17.779198245+03:00"
-    description: A Helm chart for Oryx Gatewy
-    digest: 4df180f5418984d283fa3867e4e319f74c0485f3a114174747fa4a9a7ae5e6bc
-    kubeVersion: '>= 1.19.0'
-    name: oryx-leanrepo
-    type: application
-    urls:
-    - oryx-leanrepo-1.0.0.tgz
-    version: 1.0.0
-generated: "2023-09-11T20:32:17.732794213+03:00"
+    - oryx-leanrepo-3.0.0.tgz
+    version: 3.0.0
+generated: "2023-12-07T16:05:08.666871528+02:00"
