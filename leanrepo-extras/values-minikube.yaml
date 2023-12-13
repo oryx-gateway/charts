@@ -1,0 +1,9 @@
+dependencies:
+  mongodb: true
+  mongodb-sharded: false
+
+
+oryx:
+  settings:
+    mongodb:
+      url: "mongodb://root:pa55w0rd@leanrepo-mongodb:27017"

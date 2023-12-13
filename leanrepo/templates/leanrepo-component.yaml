@@ -1,5 +1,5 @@
 {{- if .Values.oda.enabled }}
-apiVersion: oda.tmforum.org/v1beta3
+apiVersion: oda.tmforum.org/v1beta1
 kind: component
 metadata:
   name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
@@ -17,17 +17,6 @@ spec:
       email: soaserele@gmail.com
   coreFunction:
     exposedAPIs:
-# {{- range .Values.oryx.leanrepo.components }}
-# {{- $componentName := .name -}}
-# {{- $componentPath := .path -}}
-# {{- range .specifications }}
-#       - name: {{ $componentName }}-{{ .name }}
-#         apitype: openapi
-#         implementation: {{ $componentName }}-{{ .name }}
-#         path: /{{ $componentPath }}/tmf-api/{{ .path }}
-#         port: 8080
-# {{- end }}
-# {{- end }}  
 {{- $releaseName := .Release.Name -}}
 {{- range .Values.oryx.leanrepo.components }}
       - name: {{ $releaseName }}-{{ .name }}
