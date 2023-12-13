@@ -1,21 +1,9 @@
 dependencies:
-- name: kafka
-  repository: oci://registry-1.docker.io/bitnamicharts
-  version: 26.3.1
-- name: kafka-ui
-  repository: https://provectus.github.io/kafka-ui-charts
-  version: 0.7.5
-- name: cp-helm-charts
-  repository: https://confluentinc.github.io/cp-helm-charts/
-  version: 0.6.1
-- name: apicurio-registry
-  repository: oci://ghcr.io/eshepelyuk/helm
-  version: 3.0.1
 - name: mongodb-sharded
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 7.1.0
-- name: flink-kubernetes-operator
-  repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.6.1/
-  version: 1.6.1
-digest: sha256:aa16cb0e7f19e5d0b01114799029e7b894d3ea8e217ac0c739b29a7949f6ac55
-generated: "2023-11-13T14:19:35.741132186+02:00"
+  version: 7.1.6
+- name: mongodb
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 14.4.2
+digest: sha256:2de10194ab30ae147da55cf9918ecaee3da6ebd1aeaf98dd168b5f7cb5eed668
+generated: "2023-12-13T17:03:28.773848643+02:00"

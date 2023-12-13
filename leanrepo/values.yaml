@@ -13,7 +13,8 @@ ingress:
   enabled: true
 
 dependencies:
-  mongodb: true
+  mongodb: false
+  mongodb-sharded: true
 
 oryx:
   settings:
@@ -53,6 +54,22 @@ oryx:
     tolerations: []
     affinity: {}  
     components: []
+
+mongodb:
+  auth:
+    enabled: true
+    rootUser: root
+    rootPassword: pa55w0rd
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 500m
+    limits:
+      memory: 1Gi
+      cpu: 1000m
+  persistence:
+    enabled: true
+    size: 10Gi
 
 mongodb-sharded:
   auth:
