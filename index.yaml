@@ -3,7 +3,7 @@ entries:
   oryx-gateway:
   - apiVersion: v2
     appVersion: 3.0.0
-    created: "2023-12-11T10:46:45.576047468+02:00"
+    created: "2023-12-13T17:06:33.494908331+02:00"
     dependencies:
     - condition: dependencies.broker.kafka
       name: kafka
@@ -26,7 +26,7 @@ entries:
       repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.7.0/
       version: 1.7.0
     description: A Helm chart for Oryx Gateway
-    digest: a71e49873fb6289ce562ca05f02a7df39d69f51dfc7bb510ca82043717982e1c
+    digest: f4f6c996eba12c19b0e384af90495a07b10c4ac78c6861559463c8a53639cf8d
     kubeVersion: '>= 1.19.0-0'
     name: oryx-gateway
     type: application
@@ -36,18 +36,22 @@ entries:
   oryx-leanrepo:
   - apiVersion: v2
     appVersion: 3.0.0
-    created: "2023-12-11T10:46:45.580430223+02:00"
+    created: "2023-12-13T17:06:33.505659527+02:00"
     dependencies:
-    - condition: dependencies.mongodb
+    - condition: dependencies.mongodb-sharded
       name: mongodb-sharded
       repository: oci://registry-1.docker.io/bitnamicharts
-      version: 7.1.0
+      version: 7.1.6
+    - condition: dependencies.mongodb
+      name: mongodb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 14.4.2
     description: A Helm chart for Oryx Gateway
-    digest: 3a0425385be8ff912ac52947eaa8a1f70a8e4dba749bc7a26f348d206d0d6988
+    digest: 5b207de0bf103d5872544f630bd8a5c9c44b588a68a826c1c7b914955dc82b10
     kubeVersion: '>= 1.19.0-0'
     name: oryx-leanrepo
     type: application
     urls:
     - oryx-leanrepo-3.0.0.tgz
     version: 3.0.0
-generated: "2023-12-11T10:46:45.559930838+02:00"
+generated: "2023-12-13T17:06:33.478038412+02:00"
