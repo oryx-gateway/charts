@@ -1,4 +1,5 @@
-{{- if .Values.dependencies.broker.kafka }}
+{{- if .Values.dependencies.schemaregistry.apicurio }}
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,7 +10,7 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   rules:
-    - host: apicurio.oryx.itrative.com
+    - host: apicurio.{{ .Values.ingress.host }}
       http:
         paths:
           - path: /
@@ -19,4 +20,5 @@ spec:
                 name: gateway-apicurio-registry
                 port:
                   number: 8080
+{{- end }}
 {{- end }}
