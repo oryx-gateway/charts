@@ -10,7 +10,8 @@ metadata:
     oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
 spec:
   rules:
-    - http:
+    - host: {{ .Values.ingress.host }}
+      http:
         paths:
           - path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/
             pathType: Prefix

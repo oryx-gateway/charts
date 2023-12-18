@@ -7,10 +7,11 @@ global:
   affinity: {}
 
 oda:
-  enabled: true
+  enabled: false
 
-ingress: 
-  enabled: true
+ingress:
+  host: ""
+  enabled: false
 
 dependencies:
   broker: 
@@ -96,9 +97,9 @@ kafka:
     replicaCount: 0
   broker:
     replicaCount: 3
-    extraEnvVars: 
-      - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
-        value: "false"
+    extraConfig: |
+      auto.create.topics.enable: false
+      offsets.topic.replication.factor: 3
     readinessProbe:
       initialDelaySeconds: 30
       periodSeconds: 30

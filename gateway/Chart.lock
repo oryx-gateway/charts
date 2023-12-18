@@ -1,7 +1,7 @@
 dependencies:
 - name: kafka
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 26.3.1
+  version: 26.4.5
 - name: kafka-ui
   repository: https://provectus.github.io/kafka-ui-charts
   version: 0.7.5
@@ -14,5 +14,5 @@ dependencies:
 - name: flink-kubernetes-operator
   repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.7.0/
   version: 1.7.0
-digest: sha256:6004df426b1807b64fd4beb9fcd77c3d49a548045ac5af73bc7227417e2a0791
-generated: "2023-11-23T15:38:32.96489638+02:00"
+digest: sha256:9166ab104821de7050afc9f91a1e4dd9ec829adfaa73fcc98b304febef1086a6
+generated: "2023-12-15T20:48:36.17849667+02:00"

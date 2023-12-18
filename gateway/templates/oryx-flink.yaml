@@ -10,6 +10,7 @@ spec:
     requests:
       storage: 40Gi
 ---
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -23,7 +24,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 500m
 spec:
   rules:
-    - host: flink.oryx.itrative.com
+    - host: flink.{{ .Values.ingress.host }}
       http:
         paths:
           - path: /
@@ -34,6 +35,7 @@ spec:
                 port:
                   number: 8081
 ---
+{{- end }}
 apiVersion: flink.apache.org/v1beta1
 kind: FlinkDeployment
 metadata:

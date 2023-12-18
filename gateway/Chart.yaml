@@ -8,7 +8,7 @@ description: A Helm chart for Oryx Gateway
 
 dependencies:
   - name: kafka
-    version: "26.3.1"
+    version: "26.4.5"
     repository: "oci://registry-1.docker.io/bitnamicharts"
     condition: dependencies.broker.kafka
   - name: kafka-ui
