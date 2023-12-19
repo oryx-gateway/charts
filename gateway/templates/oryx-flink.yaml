@@ -86,11 +86,11 @@ spec:
   jobManager:
     replicas: 1
     resource:
-      memory: 2g
+      memory: 1g
       cpu: 1
   taskManager:
     replicas: 3
     resource:
       memory: 2g
-      cpu: 2
+      cpu: 1
 {{- end }}
