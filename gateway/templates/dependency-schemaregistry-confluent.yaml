@@ -1,0 +1,19 @@
+{{- if or .Values.dependencies.schemaregistry.confluent }}
+apiVersion: platform.confluent.io/v1beta1
+kind: SchemaRegistry
+metadata:
+  name: {{ .Release.Name }}-schemaregistry
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-schema-registry:7.6.0
+    init: confluentinc/confluent-init-container:2.8.0
+  dependencies:
+    kafka:
+{{- if or .Values.dependencies.broker.strimzi.confluent }}
+      bootstrapEndpoint: {{ .Release.Name }}-kafka-kafka-bootstrap:9092
+{{- end }}
+{{- if or .Values.dependencies.broker.confluent }}
+      bootstrapEndpoint: {{ .Release.Name }}-kafka:9092
+{{- end }}
+{{- end }}
