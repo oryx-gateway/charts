@@ -1,18 +1,18 @@
 dependencies:
-- name: kafka
-  repository: oci://registry-1.docker.io/bitnamicharts
-  version: 26.4.5
+- name: confluent-for-kubernetes
+  repository: https://packages.confluent.io/helm
+  version: 0.921.2
+- name: strimzi-kafka-operator
+  repository: oci://quay.io/strimzi-helm
+  version: 0.40.0
+- name: flink-kubernetes-operator
+  repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.8.0/
+  version: 1.8.0
+- name: apicurio-registry
+  repository: oci://ghcr.io/eshepelyuk/helm
+  version: 3.8.0
 - name: kafka-ui
   repository: https://provectus.github.io/kafka-ui-charts
   version: 0.7.5
-- name: cp-helm-charts
-  repository: https://confluentinc.github.io/cp-helm-charts/
-  version: 0.6.1
-- name: apicurio-registry
-  repository: oci://ghcr.io/eshepelyuk/helm
-  version: 3.0.1
-- name: flink-kubernetes-operator
-  repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.7.0/
-  version: 1.7.0
-digest: sha256:9166ab104821de7050afc9f91a1e4dd9ec829adfaa73fcc98b304febef1086a6
-generated: "2023-12-15T20:48:36.17849667+02:00"
+digest: sha256:6349a6f43830f6fb039337de59fbf58cbe6332c064693ba11eb7bcdda946fa0d
+generated: "2024-04-03T10:43:19.065019565+03:00"

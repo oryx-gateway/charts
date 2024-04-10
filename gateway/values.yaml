@@ -10,34 +10,41 @@ oda:
   enabled: false
 
 ingress:
-  host: ""
   enabled: false
 
 dependencies:
   broker: 
-    kafka: true
+    confluent: false
+    strimzi: false
   schemaregistry:
     confluent: false
-    apicurio: true
-  flink: true
+    apicurio: false
+  flink: false
 
 oryx:
   settings:
     schemaRegistry:
-      vendor: "apicurio"
+      vendor: ""
       env: 
-        SCHEMA_REGISTRY_URL: "http://gateway-apicurio-registry:8080/apis/registry/v2/"
+        SCHEMA_REGISTRY_URL: ""
     decorator: "none"
     namingStrategy: "suffixed_name"
     topics:
       topic: "TMF688.topic.notification"
       hub: "TMF688.hub.notification"
     flink:
-      url: "http://gateway-gateway-flink-rest:8081"
-    brokerProperties: |
-      bootstrap.servers=http://gateway-kafka:9092
-    imagePullSecrets:
-      - "gateway-registry"
+      url: ""
+    brokerProperties: ""
+  gatewayInit:
+    name: "gateway-init"
+    image: oryxgateway/gateway-init:3.0.0
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
   gateway:
     enabled: true
     type: eventmanagement
@@ -52,20 +59,11 @@ oryx:
       limits:
         cpu: 1000m
         memory: 2Gi
+    imagePullSecrets: []
     podAnnotations: {}
     nodeSelector: {}
     tolerations: []
     affinity: {}
-  gatewayInit:
-    name: "gateway-init"
-    image: oryxgateway/gateway-init:3.0.0
-    resources:
-      requests:
-        cpu: 500m
-        memory: 2Gi
-      limits:
-        cpu: 1000m
-        memory: 4Gi
   operator:
     enabled: false
     name: "gateway-operator"
@@ -83,67 +81,9 @@ oryx:
     tolerations: []
     affinity: {}
 
-kafka:
-  listeners:
-    client:
-      protocol: PLAINTEXT
-    controller:
-      protocol: PLAINTEXT
-    interbroker:
-      protocol: PLAINTEXT
-    external:
-      protocol: PLAINTEXT
-  controller:
-    replicaCount: 0
-  broker:
-    replicaCount: 3
-    extraConfig: |
-      auto.create.topics.enable: false
-      offsets.topic.replication.factor: 3
-    readinessProbe:
-      initialDelaySeconds: 30
-      periodSeconds: 30
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 500m
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-  kraft:
-    enabled: false
-  zookeeper:
-    enabled: true
-    replicaCount: 3 
-    resources:
-      requests:
-        memory: 128Mi
-        cpu: 100m
-      limits:
-        memory: 256Mi
-        cpu: 200m
-
-cp-helm-charts:
-  cp-zookeeper:
-    enabled: false
-  cp-kafka:
-    enabled: false
-  cp-schema-registry:
-    enabled: true
-  cp-kafka-rest:
-    enabled: false
-  cp-kafka-connect:
-    enabled: false
-  cp-ksql-server:
-    enabled: false
-  cp-control-center:
-    enabled: false
-
 apicurio-registry:
   registry:
-    enabled: true
-    kafka:
-      bootstrapServers: gateway-kafka:9092
+    enabled: false
     resources:
       requests:
         memory: 256Mi
@@ -157,7 +97,7 @@ kafka-ui:
     kafka:
       clusters:
         - name: broker
-          bootstrapServers: gateway-kafka:9092
+          bootstrapServers: ""
     auth:
       type: disabled
     management:
