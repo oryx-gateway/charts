@@ -10,11 +10,11 @@ dependencies:
   - name: confluent-for-kubernetes
     version: "0.921.2"
     repository: "https://packages.confluent.io/helm"
-    condition : dependencies.broker.confluent,dependencies.schemaregistry.confluent
+    condition: dependencies.broker.confluent,dependencies.schemaregistry.confluent
   - name: strimzi-kafka-operator
     version: "0.40.0"
     repository: "oci://quay.io/strimzi-helm"
-    condition : dependencies.broker.strimzi
+    condition: dependencies.broker.strimzi
   - name: flink-kubernetes-operator
     version: "1.8.0"
     repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.8.0/
@@ -26,4 +26,4 @@ dependencies:
   - name: kafka-ui
     version: "0.7.5"
     repository: "https://provectus.github.io/kafka-ui-charts"
-    condition : dependencies.broker.confluent,dependencies.broker.strimzi
+    condition: dependencies.broker.strimzi,dependencies.broker.confluent
