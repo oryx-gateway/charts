@@ -7,10 +7,11 @@ global:
   affinity: {}
 
 oda:
-  enabled: true
+  enabled: false
 
 ingress: 
-  enabled: true
+  host: ""
+  enabled: false
 
 dependencies:
   mongodb: false
@@ -21,7 +22,7 @@ oryx:
     gateway: 
       configMap: "gateway-gateway"
     mongodb:
-      url: "mongodb://root:pa55w0rd@leanrepo-mongodb-sharded:27017"
+      url: "mongodb://root:pa55w0rd@mongodb-sharded:27017"
       database: "db"
     imagePullSecrets:
       - "gateway-registry"

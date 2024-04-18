@@ -10,7 +10,8 @@ metadata:
     oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
 spec:
   rules:
-    - http:
+    - host: {{ .Values.ingress.host }}
+      http:
         paths:
 {{- $releaseName := .Release.Name -}}
 {{- $instanceName := .Values.oryx.leanrepo.name -}}

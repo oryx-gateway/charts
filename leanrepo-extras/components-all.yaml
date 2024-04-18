@@ -120,6 +120,19 @@ oryx:
         title: ResourceInventory
         topic: TMF639.resourceInventory.notification
         state: ""
+    - name: TMF640.ServiceActivation
+      path: serviceActivation
+      specifications:
+      - name: Service
+        path: service
+        title: Service
+        topic: TMF640.service.notification
+        state: ""
+      - name: Monitor
+        path: monitor
+        title: Monitor
+        topic: TMF640.monitor.notification
+        state: ""
     - name: TMF652.ResourceOrder
       path: resourceOrder
       specifications:
@@ -169,4 +182,12 @@ oryx:
         path: hub
         title: Hub
         topic: TMF688.hub.notification
+        state: ""
+    - name: CAMARA.Service
+      path: camara
+      specifications:
+      - name: Service
+        path: service
+        title: Service
+        topic: CAMARA.service.notification
         state: ""

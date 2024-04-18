@@ -11,12 +11,14 @@ oda:
 
 ingress:
   host: "oryx.itrative.com"
-  enabled: false
+  enabled: true
 
 dependencies:
-  broker: 
+  broker:
+    confluent: false
     strimzi: true
   schemaregistry:
+    confluent: false
     apicurio: true
   flink: true
 
@@ -31,7 +33,7 @@ kafka-ui:
     kafka:
       clusters:
         - name: broker
-          bootstrapServers: oryx-kafka:9092
+          bootstrapServers: oryx-kafka-kafka-bootstrap:9092
     auth:
       type: disabled
     management:
