@@ -49,6 +49,8 @@ spec:
         - name: flink-data
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-flink-pvc
+      securityContext:
+        fsGroup: 9999
   jobManager:
     replicas: 1
     resource:
