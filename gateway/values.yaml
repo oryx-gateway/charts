@@ -104,3 +104,9 @@ kafka-ui:
       health:
         ldap:
           enabled: false
+
+strimzi-kafka-operator:
+  kubernetesServiceDnsDomain: cluster.local
+  extraEnvs:
+    - name: KUBERNETES_SERVICE_DNS_DOMAIN
+      value: "cluster.local"
