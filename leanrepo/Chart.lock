@@ -1,9 +1,6 @@
 dependencies:
-- name: mongodb-sharded
-  repository: oci://registry-1.docker.io/bitnamicharts
-  version: 7.1.6
-- name: mongodb
-  repository: oci://registry-1.docker.io/bitnamicharts
-  version: 14.4.2
-digest: sha256:2de10194ab30ae147da55cf9918ecaee3da6ebd1aeaf98dd168b5f7cb5eed668
-generated: "2023-12-13T17:03:28.773848643+02:00"
+- name: community-operator
+  repository: https://mongodb.github.io/helm-charts
+  version: 0.9.0
+digest: sha256:02392b6d2c3a4493844f8ff2c3a89bac05eac6e299840a1ddf173844d2f26bce
+generated: "2024-04-22T14:01:28.135208664+03:00"

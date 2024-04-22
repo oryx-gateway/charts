@@ -1,3 +1,6 @@
+tags:
+  mongodb: true
+
 global:
   imagePullPolicy: "IfNotPresent"
   imagePullSecrets: []
@@ -13,23 +16,13 @@ ingress:
   host: "oryx.itrative.com"
   enabled: true
 
-dependencies:
-  mongodb: false
-  mongodb-sharded: true
-
 oryx:
   settings:
     gateway: 
       configMap: "oryx-gateway"
     mongodb:
-      url: "mongodb://root:pa55w0rd@leanrepo-mongodb-sharded:27017"
-      database: "db"
+      url: "mongodb://root:pa55w0rd@leanrepo-mongodb-svc:27017/?authSource=admin"
   leanrepoInit:
     image: oryxgateway/leanrepo-init:3.1.0-devel
   leanrepo:
     image: oryxgateway/leanrepo:3.1.0-devel
-
-mongodb-sharded:
-  auth:
-    rootUser: root
-    rootPassword: pa55w0rd
