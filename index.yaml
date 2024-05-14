@@ -2,8 +2,40 @@ apiVersion: v1
 entries:
   oryx-gateway:
   - apiVersion: v2
+    appVersion: 3.1.0
+    created: "2024-05-14T12:52:09.793450543+03:00"
+    dependencies:
+    - condition: dependencies.broker.confluent,dependencies.schemaregistry.confluent
+      name: confluent-for-kubernetes
+      repository: https://packages.confluent.io/helm
+      version: 0.921.2
+    - condition: dependencies.broker.strimzi
+      name: strimzi-kafka-operator
+      repository: oci://quay.io/strimzi-helm
+      version: 0.40.0
+    - condition: dependencies.flink
+      name: flink-kubernetes-operator
+      repository: https://downloads.apache.org/flink/flink-kubernetes-operator-1.8.0/
+      version: 1.8.0
+    - condition: dependencies.schemaregistry.apicurio
+      name: apicurio-registry
+      repository: oci://ghcr.io/eshepelyuk/helm
+      version: 3.8.0
+    - condition: dependencies.broker.strimzi,dependencies.broker.confluent
+      name: kafka-ui
+      repository: https://provectus.github.io/kafka-ui-charts
+      version: 0.7.5
+    description: A Helm chart for Oryx Gateway
+    digest: 024f9d914de5a4c707478e5e5e89ea3ac012d6841e635dd2063ad8d46dbe23a0
+    kubeVersion: '>= 1.19.0-0'
+    name: oryx-gateway
+    type: application
+    urls:
+    - oryx-gateway-3.1.0.tgz
+    version: 3.1.0
+  - apiVersion: v2
     appVersion: 3.0.0
-    created: "2023-12-19T20:43:49.654674355+02:00"
+    created: "2024-05-14T12:52:09.771022696+03:00"
     dependencies:
     - condition: dependencies.broker.kafka
       name: kafka
@@ -35,8 +67,25 @@ entries:
     version: 3.0.0
   oryx-leanrepo:
   - apiVersion: v2
+    appVersion: 3.1.0
+    created: "2024-05-14T12:52:09.805931081+03:00"
+    dependencies:
+    - name: community-operator
+      repository: https://mongodb.github.io/helm-charts
+      tags:
+      - mongodb
+      version: 0.9.0
+    description: A Helm chart for Oryx Gateway
+    digest: 23e4580037ff116f13adf338fc709916cd1a88ffd7cd0415b6c546cdbc034dec
+    kubeVersion: '>= 1.19.0-0'
+    name: oryx-leanrepo
+    type: application
+    urls:
+    - oryx-leanrepo-3.1.0.tgz
+    version: 3.1.0
+  - apiVersion: v2
     appVersion: 3.0.0
-    created: "2023-12-19T20:43:49.670357248+02:00"
+    created: "2024-05-14T12:52:09.803868444+03:00"
     dependencies:
     - condition: dependencies.mongodb-sharded
       name: mongodb-sharded
@@ -54,4 +103,4 @@ entries:
     urls:
     - oryx-leanrepo-3.0.0.tgz
     version: 3.0.0
-generated: "2023-12-19T20:43:49.631086671+02:00"
+generated: "2024-05-14T12:52:09.753599202+03:00"
