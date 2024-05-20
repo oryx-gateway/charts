@@ -1,6 +1,6 @@
 {{- if .Values.oda.enabled }}
 apiVersion: oda.tmforum.org/v1beta1
-kind: component
+kind: Component
 metadata:
   name: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
   labels:

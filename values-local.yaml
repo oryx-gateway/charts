@@ -59,7 +59,7 @@ oryx:
     imagePullSecrets:
       - "gateway-registry"
   gatewayInit: 
-    image: oryxgateway/gateway-init:3.1.0-devel
+    image: oryxgateway/gateway-init:3.1.0
   gateway:
-    image: oryxgateway/gateway:3.1.0-devel
+    image: oryxgateway/gateway:3.1.0
   operator: {}

@@ -1,9 +1,9 @@
 apiVersion: v2
 name: oryx-leanrepo
-version: 3.0.0
+version: 3.1.0
 kubeVersion: ">= 1.19.0-0"
 type: application
-appVersion: "3.0.0"
+appVersion: "3.1.0"
 description: A Helm chart for Oryx Gateway
 dependencies:
   - name: community-operator
