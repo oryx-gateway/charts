@@ -21,6 +21,7 @@ spec:
 {{- range .Values.oryx.leanrepo.components }}
       - name: {{ $releaseName }}-{{ .name }}
         apitype: openapi
+        specification: ""
         implementation: {{ .name }}
         path: /{{ .path }}/tmf-api/
         port: 8080
