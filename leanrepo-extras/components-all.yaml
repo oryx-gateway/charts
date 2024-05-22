@@ -8,26 +8,31 @@ oryx:
         path: catalog
         title: Catalog
         topic: TMF620.productCatalog.notification
+        version: "v4"
         state: ""
       - name: Category
         path: category
         title: Category
         topic: TMF620.productCategory.notification
+        version: "v4"
         state: ""
       - name: Offering
         path: offering
         title: Offering
         topic: TMF620.productOffering.notification
+        version: "v4"
         state: ""
       - name: OfferingPrice
         path: offeringPrice
         title: OfferingPrice
         topic: TMF620.productOfferingPrice.notification
+        version: "v4"
         state: ""
       - name: Specification
         path: specification
         title: Specification
         topic: TMF620.productSpecification.notification
+        version: "v4"
         state: ""
     - name: TMF629.Customer
       path: customer
@@ -36,6 +41,7 @@ oryx:
         path: customer
         title: Customer
         topic: TMF629.customer.notification
+        version: "v4"
         state: ""
     - name: TMF632.Party
       path: party
@@ -44,11 +50,13 @@ oryx:
         path: individual
         title: Individual
         topic: TMF632.individual.notification
+        version: "v4"
         state: ""
       - name: Organization
         path: organization
         title: Organization
         topic: TMF632.organization.notification
+        version: "v4"
         state: ""
     - name: TMF633.ServiceCatalog
       path: serviceCatalog
@@ -57,21 +65,25 @@ oryx:
         path: serviceCandidate
         title: ServiceCandidate
         topic: TMF633.serviceCandidate.notification
+        version: "v4"
         state: ""
       - name: ServiceCatalog
         path: serviceCatalog
         title: ServiceCatalog
         topic: TMF633.serviceCatalog.notification
+        version: "v4"
         state: ""
       - name: ServiceCategory
         path: serviceCategory
         title: ServiceCategory
         topic: TMF633.serviceCategory.notification
+        version: "v4"
         state: ""
       - name: ServiceSpecification
         path: serviceSpecification
         title: ServiceSpecification
         topic: TMF633.serviceSpecification.notification
+        version: "v4"
         state: ""
     - name: TMF634.ResourceCatalog
       path: resourceCatalog
@@ -80,21 +92,25 @@ oryx:
         path: resourceCandidate
         title: ResourceCandidate
         topic: TMF634.resourceCandidate.notification
+        version: "v4"
         state: ""
       - name: ResourceCatalog
         path: resourceCatalog
         title: ResourceCatalog
         topic: TMF634.resourceCatalog.notification
+        version: "v4"
         state: ""
       - name: ResourceCategory
         path: resourceCategory
         title: ResourceCategory
         topic: TMF634.resourceCategory.notification
+        version: "v4"
         state: ""
       - name: ResourceSpecification
         path: resourceSpecification
         title: ResourceSpecification
         topic: TMF634.resourceSpecification.notification
+        version: "v4"
         state: ""
     - name: TMF637.ProductInventory
       path: productInventory
@@ -103,6 +119,7 @@ oryx:
         path: productInventory
         title: ProductInventory
         topic: TMF637.productInventory.notification
+        version: "v4"
         state: ""
     - name: TMF638.ServiceInventory
       path: serviceInventory
@@ -111,6 +128,7 @@ oryx:
         path: serviceInventory
         title: ServiceInventory
         topic: TMF638.serviceInventory.notification
+        version: "v4"
         state: ""
     - name: TMF639.ResourceInventory
       path: resourceInventory
@@ -119,6 +137,7 @@ oryx:
         path: resourceInventory
         title: ResourceInventory
         topic: TMF639.resourceInventory.notification
+        version: "v4"
         state: ""
     - name: TMF640.ServiceActivation
       path: serviceActivation
@@ -127,11 +146,13 @@ oryx:
         path: service
         title: Service
         topic: TMF640.service.notification
+        version: "v4"
         state: ""
       - name: Monitor
         path: monitor
         title: Monitor
         topic: TMF640.monitor.notification
+        version: "v4"
         state: ""
     - name: TMF652.ResourceOrder
       path: resourceOrder
@@ -140,11 +161,13 @@ oryx:
         path: resourceOrder
         title: ResourceOrder
         topic: TMF652.resourceOrder.notification
+        version: "v4"
         state: ""
       - name: CancelResourceOrder
         path: cancelResourceOrder
         title: CancelResourceOrder
         topic: TMF652.cancelResourceOrder.notification
+        version: "v4"
         state: ""
     - name: TMF669.PartyRole
       path: partyRole
@@ -153,6 +176,7 @@ oryx:
         path: partyRole
         title: PartyRole
         topic: TMF669.partyRole.notification
+        version: "v4"
         state: ""
     - name: TMF673.GeographicAddress
       path: geographicAddress
@@ -161,6 +185,7 @@ oryx:
         path: geographicAddress
         title: GeographicAddress
         topic: TMF673.geographicAddress.notification
+        version: "v4"
         state: ""
     - name: TMF674.GeographicSite
       path: geographicSite
@@ -169,6 +194,7 @@ oryx:
         path: geographicSite
         title: GeographicSite
         topic: TMF674.geographicSite.notification
+        version: "v4"
         state: ""
     - name: TMF688.EventManagement
       path: eventmanagement
@@ -177,17 +203,11 @@ oryx:
         path: topic
         title: Topic
         topic: TMF688.topic.notification
+        version: "v4"
         state: ""
       - name: Hub
         path: hub
         title: Hub
         topic: TMF688.hub.notification
-        state: ""
-    - name: CAMARA.Service
-      path: camara
-      specifications:
-      - name: Service
-        path: service
-        title: Service
-        topic: CAMARA.service.notification
+        version: "v4"
         state: ""

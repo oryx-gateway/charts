@@ -13,7 +13,7 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          - path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/
+          - path: /{{ .Release.Name }}/
             pathType: Prefix
             backend:
               service:

@@ -16,7 +16,7 @@ spec:
 {{- $releaseName := .Release.Name -}}
 {{- $instanceName := .Values.oryx.leanrepo.name -}}
 {{- range .Values.oryx.leanrepo.components }}
-          - path: /{{ .path }}/
+          - path: /{{ .Release.Name }}/
             pathType: Prefix
             backend:
               service:
