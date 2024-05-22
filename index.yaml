@@ -3,7 +3,7 @@ entries:
   oryx-gateway:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2024-05-22T18:09:24.707894434+03:00"
+    created: "2024-05-22T18:56:39.775048675+03:00"
     dependencies:
     - condition: dependencies.broker.confluent,dependencies.schemaregistry.confluent
       name: confluent-for-kubernetes
@@ -26,7 +26,7 @@ entries:
       repository: https://provectus.github.io/kafka-ui-charts
       version: 0.7.5
     description: A Helm chart for Oryx Gateway
-    digest: d603d296c7c1d05b5b3ae90d6c8cdb03eb77660495696dd81860a7d173da89b1
+    digest: 2236652114145b445362572a5873c7063d8b66a00ccac9396b7a2bd5ea243447
     kubeVersion: '>= 1.19.0-0'
     name: oryx-gateway
     type: application
@@ -35,7 +35,7 @@ entries:
     version: 3.1.0
   - apiVersion: v2
     appVersion: 3.0.0
-    created: "2024-05-22T18:09:24.686783359+03:00"
+    created: "2024-05-22T18:56:39.754481907+03:00"
     dependencies:
     - condition: dependencies.broker.kafka
       name: kafka
@@ -68,7 +68,7 @@ entries:
   oryx-leanrepo:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2024-05-22T18:09:24.720564283+03:00"
+    created: "2024-05-22T18:56:39.786415021+03:00"
     dependencies:
     - name: community-operator
       repository: https://mongodb.github.io/helm-charts
@@ -76,7 +76,7 @@ entries:
       - mongodb
       version: 0.9.0
     description: A Helm chart for Oryx Gateway
-    digest: c6f94f4b8309e910de75c53690182dff2346a16714b1d2abc169d472167b71ba
+    digest: 728380817317724dfb81841d32bea0a757a7271f6234cff0bf8cdcc9f4993ac5
     kubeVersion: '>= 1.19.0-0'
     name: oryx-leanrepo
     type: application
@@ -85,7 +85,7 @@ entries:
     version: 3.1.0
   - apiVersion: v2
     appVersion: 3.0.0
-    created: "2024-05-22T18:09:24.719286762+03:00"
+    created: "2024-05-22T18:56:39.785169348+03:00"
     dependencies:
     - condition: dependencies.mongodb-sharded
       name: mongodb-sharded
@@ -103,4 +103,4 @@ entries:
     urls:
     - oryx-leanrepo-3.0.0.tgz
     version: 3.0.0
-generated: "2024-05-22T18:09:24.668986657+03:00"
+generated: "2024-05-22T18:56:39.737485233+03:00"
