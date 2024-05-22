@@ -16,7 +16,7 @@ spec:
 {{- $releaseName := .Release.Name -}}
 {{- $instanceName := .Values.oryx.leanrepo.name -}}
 {{- range .Values.oryx.leanrepo.components }}
-          - path: /{{ .Release.Name }}/
+          - path: /{{ $.Release.Name }}/tmf-api/{{ .path }}/
             pathType: Prefix
             backend:
               service:
