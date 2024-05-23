@@ -23,7 +23,7 @@ spec:
         apitype: openapi
         specification: ""
         implementation: {{ .name }}
-        path: /{{ .path }}/tmf-api/
+        path: /{{ $.Release.Name }}/tmf-api/{{ .path }}/
         port: 8080
 {{- end }}  
     dependentAPIs: [ ]
@@ -38,9 +38,9 @@ spec:
       - name: partyrole
         apitype: openapi
         specification: https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json
-        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}/tmf-api/swagger-ui/index.html
+        developerUI: /{{ .Release.Name }}/tmf-api/swagger-ui/index.html
         implementation: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.name }}
-        path: /{{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}/tmf-api/partyRoleManagement/v4
+        path: /{{ .Release.Name }}/tmf-api/partyRoleManagement/v4
         port: 8080
     dependentAPIs: []
     controllerRole: Admin

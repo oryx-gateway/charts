@@ -19,11 +19,11 @@ spec:
     exposedAPIs:
       - name: eventmanagement
         apitype: openapi
-        implementation: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
-        path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/eventManagement/v4
+        implementation: {{ .Release.Name }}
+        path: /{{ .Release.Name }}/tmf-api/eventManagement/v4
         port: 8080
-        specification: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/api-docs
-        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/swagger-ui/index.html
+        specification: /{{ .Release.Name }}/tmf-api/api-docs
+        developerUI: /{{ .Release.Name }}/tmf-api/swagger-ui/index.html
     dependentAPIs: [ ]
   eventNotification:
     publishedEvents: [ ] 
@@ -36,9 +36,9 @@ spec:
       - name: partyrole
         apitype: openapi
         specification: https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json
-        developerUI: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/swagger-ui/index.html
-        implementation: {{ .Release.Name }}-{{ .Values.oryx.gateway.name }}
-        path: /{{ .Release.Name }}-{{ .Values.oryx.gateway.type }}/tmf-api/partyRoleManagement/v4
+        developerUI: /{{ .Release.Name }}/tmf-api/swagger-ui/index.html
+        implementation: {{ .Release.Name }}
+        path: /{{ .Release.Name }}/tmf-api/partyRoleManagement/v4
         port: 8080
     dependentAPIs: []
     controllerRole: Admin

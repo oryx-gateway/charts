@@ -79,12 +79,12 @@ spec:
             - name: RELEASE_NAME
               value: {{ .Release.Name }}
             - name: COMPONENT_NAME
-              value: {{ .Release.Name }}-{{ .Values.oryx.leanrepo.type }}
+              value: {{ .Release.Name }}
           startupProbe:
             failureThreshold: 15
             periodSeconds: 10
             httpGet:
-              path: /actuator/health
+              path: /{{ .Release.Name }}/tmf-api/actuator/health
               port: 8080
           livenessProbe:
             initialDelaySeconds: 5
@@ -93,7 +93,7 @@ spec:
             successThreshold: 1
             failureThreshold: 3
             httpGet:
-              path: /actuator/health
+              path: /{{ .Release.Name }}/tmf-api/actuator/health
               port: 8080
           volumeMounts:
             - mountPath: /opt/oryxgateway/config
