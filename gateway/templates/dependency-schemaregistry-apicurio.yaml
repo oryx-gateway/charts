@@ -1,0 +1,24 @@
+{{- if or .Values.dependencies.schemaregistry.apicurio }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-apicurio
+  labels:
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.oryx.gateway.type }}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+spec:
+  rules:
+    - host: apicurio.{{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-apicurio-registry
+                port:
+                  number: 8080
+{{- end }}
